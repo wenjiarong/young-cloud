@@ -16,15 +16,9 @@
         <module>young-gateway</module>
         <module>young-service</module>
         <module>young-service-api</module>
-        <module>young-core</module>
+        <module>young-bom</module>
+        <module>young-core-boot</module>
     </modules>
-
-    <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.1.14.RELEASE</version>
-        <relativePath/> <!-- lookup parent from repository -->
-    </parent>
 
     <properties>
         <young.project.version>2.5.1.RELEASE</young.project.version>
@@ -47,6 +41,11 @@
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>org.springyoung</groupId>
+                <artifactId>young-bom</artifactId>
+                <version>${young.project.version}</version>
+            </dependency>
             <dependency>
                 <groupId>org.springyoung</groupId>
                 <artifactId>young-common</artifactId>
