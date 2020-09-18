@@ -1,0 +1,40 @@
+server:
+  port: 8301
+spring:
+  application:
+    name: young-gateway
+
+#spring.cloud.gateway.routes定义了路由转发规则，配置含义如下：
+# id，路由ID，保持唯一即可；
+# uri，路由的目标地址，可以指定为HTTP地址，也可以通过lb://{微服务名称}来指定。
+# lb为load balance的缩写，微服务名称为注册中心中对应的微服务名称。
+# 比如将uri配置为lb://young-auth的含义是，满足转发条件后，请求将均衡的转发到young-auth微服务上；
+# predicates就是谓词工厂。值为- Path=/auth/**表示请求Path以/auth开头的都会被匹配，然后转发到young-auth服务上；
+# filters为过滤器工厂，配置为- StripPrefix=1的意思是，请求转发前，将Path的内容截去前面一位。比如/auth/hello会被截取为/hello。
+# default-filters来指定全局的过滤器
+  cloud:
+    gateway:
+      routes:
+        - id: young-auth
+          uri: lb://young-auth
+          predicates:
+            - Path=/auth/**
+        - id: young-server-system
+          uri: lb://young-server-system
+          predicates:
+            - Path=/system/**
+        - id: young-server-test
+          uri: lb://young-server-test
+          predicates:
+            - Path=/test/**
+      default-filters:
+        - StripPrefix=1
+
+management:
+  endpoint:
+    health:
+      show-details: ALWAYS
+  endpoints:
+    web:
+      exposure:
+        include: health,info,gateway
