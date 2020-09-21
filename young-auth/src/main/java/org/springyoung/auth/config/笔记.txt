@@ -1,0 +1,7 @@
+总结下YoungSecurityConfigure和YoungResourceServerConfigure的区别：
+
+YoungSecurityConfigure用于处理/oauth开头的请求，Spring Cloud OAuth内部定义的获取令牌，
+刷新令牌的请求地址都是以/oauth/开头的，也就是说YoungSecurityConfigure用于处理和令牌相关的请求；
+
+YoungResourceServerConfigure用于处理非/oauth/开头的请求，
+其主要用于资源的保护，客户端只能通过OAuth2协议发放的令牌来从资源服务器中获取受保护的资源。
