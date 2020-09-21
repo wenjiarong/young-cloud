@@ -17,16 +17,6 @@
     <dependencies>
         <dependency>
             <groupId>org.springyoung</groupId>
-            <artifactId>young-core-db</artifactId>
-            <version>${young.project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springyoung</groupId>
-            <artifactId>young-core-redis</artifactId>
-            <version>${young.project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springyoung</groupId>
             <artifactId>young-common</artifactId>
             <version>${young.project.version}</version>
         </dependency>

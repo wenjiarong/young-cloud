@@ -16,7 +16,6 @@
         <module>young-gateway</module>
         <module>young-service</module>
         <module>young-service-api</module>
-        <module>young-core-boot</module>
     </modules>
 
     <properties>

@@ -3,7 +3,6 @@ package org.springyoung.auth.config;
 import lombok.AllArgsConstructor;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
@@ -19,7 +18,10 @@ import org.springframework.security.oauth2.provider.token.DefaultUserAuthenticat
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
+import org.springyoung.auth.properties.YoungAuthProperties;
+import org.springyoung.auth.properties.YoungClientsProperties;
 import org.springyoung.auth.service.YoungUserDetailService;
+import org.springyoung.auth.translator.YoungWebResponseExceptionTranslator;
 
 import javax.sql.DataSource;
 
@@ -83,6 +85,7 @@ public class YoungAuthorizationServerConfigure extends AuthorizationServerConfig
                 .userDetailsService(userDetailService)
                 .authenticationManager(authenticationManager)
                 //.tokenServices(defaultTokenServices())
+                //让异常翻译器生效
                 .exceptionTranslator(exceptionTranslator)
                 .accessTokenConverter(jwtAccessTokenConverter());
     }

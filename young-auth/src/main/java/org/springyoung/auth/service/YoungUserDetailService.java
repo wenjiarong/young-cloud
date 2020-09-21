@@ -32,7 +32,7 @@ public class YoungUserDetailService implements UserDetailsService {
     /**
      * 通过查询数据库的方式获取用户
      * 通过用户名从数据库中获取用户信息SystemUser和用户权限集合，
-     * 然后通过transSystemUserToAuthUser方法将SystemUser里的值拷贝到WjrAuthUser中并返回
+     * 然后通过transSystemUserToAuthUser方法将SystemUser里的值拷贝到YoungAuthUser中并返回
      */
     @Autowired
     private PasswordEncoder passwordEncoder;

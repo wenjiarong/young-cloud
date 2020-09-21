@@ -1,12 +1,13 @@
 server:
-  port: 8100
+  port: 8200
 
 spring:
-  #这里数据库连接池使用的是Hikari，Spring Boot2.0后官方推荐使用该连接池，
-  #特点是响应速度快。这里只配置了一个名称为base的数据源，如果要继续添加
-  #数据源的话只需要在spring.datasource.dynamic.datasource下继续添加即可
   datasource:
     dynamic:
+      #要开启p6spy功能,p6spy用于在控制台中打印MyBatis执行的SQL。
+      #p6spy适合在开发环境用于问题分析，其会带来一定的性能耗损，
+      #所以在生产环境这个配置最好改为false，将其关闭
+      p6spy: true
       hikari:
         connection-timeout: 30000
         max-lifetime: 1800000
@@ -21,7 +22,6 @@ spring:
           password: root
           driver-class-name: com.mysql.cj.jdbc.Driver
           url: jdbc:mysql://${mysql.url}:13306/young_cloud?useUnicode=true&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=GMT%2b8
-
   redis:
     database: 0
     host: ${redis.url}
@@ -35,14 +35,28 @@ spring:
     timeout: 5000
     password: 123456
 
+
+security:
+  oauth2:
+    resource:
+      id: ${spring.application.name}
+      user-info-uri: http://${young-gateway}:8100/auth/user
+
+#user-info-uri路径为http://localhost:8301/auth/user，通过微服务网关，
+#该请求将被转发到http://localhost:8101/user。该配置的作用主要有两个：
+#1、到认证服务器里校验当前请求头中的令牌是否为合法的令牌；
+#2、通过当前令牌获取对应的用户信息。
+
 mybatis-plus:
   type-aliases-package: com.system.*
   mapper-locations: classpath:mapper/*.xml
   configuration:
+    cache-enabled: false
     jdbc-type-for-null: null
   global-config:
     banner: false
-#mybatis-plus.type-aliases-package，指定别名扫描路径，这个路径后续在young-common模块里定义，该路径下的实体类将自动配置别名，默认为类名首字母小写。配置别名后，便可以直接在MyBatis XML文件里使用了；
-#mybatis-plus.mapper-locations指定MyBatis XML文件路径；
-#mybatis-plus.configuration.jdbc-type-for-null，指定为null，否则再插入空值时会报“无效的列类型”错误；
-#mybatis-plus.configuration.global-config.banner设置为false关闭MyBatis Plus Banner打印。
+
+rocketmq:
+  name-server: ${rocketmq.url}:9876
+  producer:
+    group: test-group

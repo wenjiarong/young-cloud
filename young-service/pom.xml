@@ -12,6 +12,10 @@
     <artifactId>young-service</artifactId>
     <name>${project.artifactId}</name>
     <version>${young.project.version}</version>
+    <modules>
+        <module>young-service-system</module>
+        <module>young-service-test</module>
+    </modules>
     <packaging>pom</packaging>
     <description>YoungX 微服务集合</description>
 
