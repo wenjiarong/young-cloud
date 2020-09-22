@@ -8,6 +8,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springyoung.auth.service.YoungUserDetailService;
@@ -34,6 +35,12 @@ public class YoungSecurityConfigure extends WebSecurityConfigurerAdapter {
     private YoungUserDetailService userDetailService;
     private PasswordEncoder passwordEncoder;
     private ValidateCodeFilter validateCodeFilter;
+
+    //挪动到common模块注解注入，由于system修改密码会使用到
+    /*@Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }*/
 
     //注册了一个authenticationManagerBean，因为密码模式需要使用到这个Bean
     @Bean

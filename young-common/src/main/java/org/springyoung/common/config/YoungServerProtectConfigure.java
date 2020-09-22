@@ -16,7 +16,7 @@ import org.springyoung.common.interceptor.YoungServerProtectInterceptor;
 public class YoungServerProtectConfigure implements WebMvcConfigurer {
 
     /**
-     * 因为各个微服务系统里可以自定义自个儿的PasswordEncoder，
+     * 因为各个微服务系统里可以自定义的PasswordEncoder，
      * 所以这里使用了@ConditionalOnMissingBean(value = PasswordEncoder.class)
      * 注解标注，表示当IOC容器里没有PasswordEncoder类型的Bean的时候，
      * 则将BCryptPasswordEncoder注册到IOC容器中

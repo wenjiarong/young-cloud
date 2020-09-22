@@ -51,7 +51,6 @@ mybatis-plus:
   type-aliases-package: com.test.*
   mapper-locations: classpath:mapper/*.xml
   configuration:
-    cache-enabled: false
     jdbc-type-for-null: null
   global-config:
     banner: false
