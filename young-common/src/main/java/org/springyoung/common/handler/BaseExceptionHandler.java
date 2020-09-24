@@ -55,6 +55,7 @@ public class BaseExceptionHandler {
 
     /**
      * 统一处理请求参数校验(普通传参)
+     * 当普通类型参数校验不合法时，控制器层会抛出javax.validation.ConstraintViolationException异常
      *
      * @param e ConstraintViolationException
      */
@@ -75,6 +76,8 @@ public class BaseExceptionHandler {
 
     /**
      * 统一处理请求参数校验(实体对象传参)
+     * 使用实体对象传参的方式参数校验需要在相应的参数前加上@Valid注解。
+     * 当校验不通过时，控制器层将抛出BindException类型异常
      *
      * @param e BindException
      */

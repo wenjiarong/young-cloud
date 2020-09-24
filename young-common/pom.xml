@@ -15,9 +15,6 @@
     <packaging>jar</packaging>
 
     <properties>
-        <swagger.version>2.9.2</swagger.version>
-        <swagger.models.version>1.5.21</swagger.models.version>
-        <knife4j.version>2.0.3</knife4j.version>
         <protostuff.version>1.6.0</protostuff.version>
         <disruptor.version>3.4.2</disruptor.version>
         <logstash.version>6.2</logstash.version>
@@ -28,14 +25,17 @@
         <alibaba.cloud.version>2.1.2.RELEASE</alibaba.cloud.version>
         <alibaba.seata.version>1.2.0</alibaba.seata.version>
 
-        <mybatis.plus.version>3.3.2</mybatis.plus.version>
         <druid.version>1.1.22</druid.version>
-        <mysql.connector.version>8.0.17</mysql.connector.version>
         <oracle.connector.version>12.2.0.1</oracle.connector.version>
         <postgresql.connector.version>42.2.6</postgresql.connector.version>
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>org.springyoung</groupId>
+            <artifactId>young-core</artifactId>
+            <version>${young.project.version}</version>
+        </dependency>
         <!--Spring-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -102,18 +102,6 @@
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>
         </dependency>
-        <!-- rocketmq -->
-        <dependency>
-            <groupId>org.apache.rocketmq</groupId>
-            <artifactId>rocketmq-client</artifactId>
-            <version>4.4.0</version>
-            <scope>compile</scope>
-        </dependency>
-        <!-- lombok -->
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-        </dependency>
         <!-- commons-lang3 -->
         <dependency>
             <groupId>org.apache.commons</groupId>
@@ -128,12 +116,6 @@
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
-            <version>${alibaba.cloud.version}</version>
-        </dependency>
-        <!-- Sentinel -->
-        <dependency>
-            <groupId>com.alibaba.cloud</groupId>
-            <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
             <version>${alibaba.cloud.version}</version>
         </dependency>
         <!-- Seata-->
@@ -162,27 +144,6 @@
             <groupId>de.codecentric</groupId>
             <artifactId>spring-boot-admin-starter-client</artifactId>
             <version>${spring.boot.admin.version}</version>
-        </dependency>
-        <!--Swagger-->
-        <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger2</artifactId>
-            <version>${swagger.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>io.swagger</groupId>
-            <artifactId>swagger-models</artifactId>
-            <version>${swagger.models.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.github.xiaoymin</groupId>
-            <artifactId>knife4j-micro-spring-boot-starter</artifactId>
-            <version>${knife4j.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.github.xiaoymin</groupId>
-            <artifactId>knife4j-spring-ui</artifactId>
-            <version>${knife4j.version}</version>
         </dependency>
         <!-- protostuff -->
         <dependency>
@@ -240,12 +201,6 @@
             <artifactId>easy-captcha</artifactId>
             <version>1.6.2</version>
         </dependency>
-        <!-- fastjson -->
-        <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>fastjson</artifactId>
-            <version>1.2.70</version>
-        </dependency>
         <!-- easyexcel -->
         <dependency>
             <groupId>com.alibaba</groupId>
@@ -293,54 +248,11 @@
                 </exclusion>
             </exclusions>
         </dependency>
-        <!-- MyBatis Plus多数据源依赖 -->
-        <dependency>
-            <groupId>com.baomidou</groupId>
-            <artifactId>dynamic-datasource-spring-boot-starter</artifactId>
-            <version>2.5.4</version>
-        </dependency>
-        <!-- Mybatis -->
-        <dependency>
-            <groupId>com.baomidou</groupId>
-            <artifactId>mybatis-plus</artifactId>
-            <version>${mybatis.plus.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.baomidou</groupId>
-            <artifactId>mybatis-plus-boot-starter</artifactId>
-            <version>${mybatis.plus.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.baomidou</groupId>
-            <artifactId>mybatis-plus-generator</artifactId>
-            <version>${mybatis.plus.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.mybatis</groupId>
-            <artifactId>mybatis-spring</artifactId>
-            <version>2.0.3</version>
-        </dependency>
-        <dependency>
-            <groupId>org.mybatis</groupId>
-            <artifactId>mybatis</artifactId>
-            <version>3.5.3</version>
-        </dependency>
-        <dependency>
-            <groupId>org.mybatis</groupId>
-            <artifactId>mybatis-typehandlers-jsr310</artifactId>
-            <version>1.0.2</version>
-        </dependency>
         <!-- Druid -->
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>druid-spring-boot-starter</artifactId>
             <version>${druid.version}</version>
-        </dependency>
-        <!-- MySql -->
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>${mysql.connector.version}</version>
         </dependency>
         <!-- Oracle -->
         <dependency>
@@ -360,10 +272,11 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
         </dependency>
-        <!-- openfeign -->
+        <!-- fastjson -->
         <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-openfeign</artifactId>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.70</version>
         </dependency>
     </dependencies>
 

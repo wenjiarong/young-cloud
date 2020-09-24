@@ -16,6 +16,7 @@
         <module>young-gateway</module>
         <module>young-service</module>
         <module>young-service-api</module>
+        <module>young-core</module>
     </modules>
 
     <properties>
@@ -27,6 +28,10 @@
 
         <maven.plugin.version>3.8.1</maven.plugin.version>
 
+        <swagger.version>2.9.2</swagger.version>
+        <swagger.models.version>1.5.21</swagger.models.version>
+        <knife4j.version>2.0.3</knife4j.version>
+
         <!-- 推荐使用Harbor -->
         <docker.registry.url>192.168.10.115</docker.registry.url>
         <docker.registry.host>http://${docker.registry.url}:2375</docker.registry.host>
@@ -37,13 +42,37 @@
         <!--<docker.certpath>D:\docker-ca</docker.certpath>-->
     </properties>
 
+    <dependencies>
+        <!-- lombok -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+        <!--Swagger-->
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+            <version>${swagger.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.swagger</groupId>
+            <artifactId>swagger-models</artifactId>
+            <version>${swagger.models.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.xiaoymin</groupId>
+            <artifactId>knife4j-micro-spring-boot-starter</artifactId>
+            <version>${knife4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.xiaoymin</groupId>
+            <artifactId>knife4j-spring-ui</artifactId>
+            <version>${knife4j.version}</version>
+        </dependency>
+    </dependencies>
+
     <dependencyManagement>
         <dependencies>
-            <dependency>
-                <groupId>org.springyoung</groupId>
-                <artifactId>young-common</artifactId>
-                <version>${young.project.version}</version>
-            </dependency>
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>

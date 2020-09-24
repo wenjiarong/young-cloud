@@ -1,4 +1,4 @@
-package org.springyoung.common.entity;
+package org.springyoung.core.tenant.mp;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;

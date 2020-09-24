@@ -2,11 +2,12 @@ package org.springyoung.auth.controller;
 
 import lombok.AllArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.provider.token.ConsumerTokenServices;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springyoung.auth.service.ValidateCodeService;
+import org.springyoung.common.exception.ValidateCodeException;
 import org.springyoung.common.exception.YoungAuthException;
 import org.springyoung.common.response.R;
 

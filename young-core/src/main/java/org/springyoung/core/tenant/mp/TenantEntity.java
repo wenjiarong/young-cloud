@@ -1,4 +1,4 @@
-package org.springyoung.common.entity;
+package org.springyoung.core.tenant.mp;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;

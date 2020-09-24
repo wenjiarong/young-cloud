@@ -20,9 +20,4 @@ public interface YoungConstant {
      */
     String PNG = "png";
 
-    /**
-     * 验证码 key前缀
-     */
-    String CODE_PREFIX = "young.captcha.";
-
 }

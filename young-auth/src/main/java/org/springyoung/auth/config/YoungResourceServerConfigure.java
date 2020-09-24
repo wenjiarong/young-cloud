@@ -39,6 +39,8 @@ public class YoungResourceServerConfigure extends ResourceServerConfigurerAdapte
                 .and()
                 .authorizeRequests()
                 // 放行验证码权限，免认证资源
+                //通过.antMatchers(anonUrls).permitAll()配置了免认证资源
+                //anonUrls为免认证资源数组，是从YoungAuthProperties配置中读取出来的值经过逗号分隔后的结果
                 .antMatchers(anonUrls).permitAll()
                 .antMatchers("/**").authenticated()
                 .and().httpBasic();

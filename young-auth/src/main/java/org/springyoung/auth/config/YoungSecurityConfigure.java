@@ -8,9 +8,9 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springyoung.auth.filter.ValidateCodeFilter;
 import org.springyoung.auth.service.YoungUserDetailService;
 
 /**
@@ -51,6 +51,8 @@ public class YoungSecurityConfigure extends WebSecurityConfigurerAdapter {
     //重写了WebSecurityConfigurerAdapter类的configure(HttpSecurity http)方法
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        //添加ValidateCodeFilter过滤器 和 用户密码校验过滤器
+        //将ValidateCodeFilter过滤器添加到了UsernamePasswordAuthenticationFilter过滤器前
         http.addFilterBefore(validateCodeFilter, UsernamePasswordAuthenticationFilter.class)
                 //requestMatchers().antMatchers("/oauth/**")的含义是：YoungSecurityConfigure安全配置类只对/oauth/开头的请求有效
                 .requestMatchers()

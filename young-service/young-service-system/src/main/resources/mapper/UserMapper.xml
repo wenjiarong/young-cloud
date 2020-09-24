@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.springyoung.system.mapper.UserMapper">
+
+    <select id="findByName" parameterType="string" resultType="org.springyoung.system.entity.User">
+        SELECT
+            u.id,
+            u.user_name,
+            u.email,
+            u.mobile,
+            u.password,
+            u.status,
+            u.create_time,
+            u.sex,
+            u.dept_id deptId,
+            u.last_login_time,
+            u.update_time,
+            u.remark,
+            u.image,
+            d.dept_name,
+            GROUP_CONCAT(r.id) AS roleIds,
+            GROUP_CONCAT(r.role_name) AS roleNames
+        FROM
+            young_user u
+        LEFT JOIN young_dept d ON (u.dept_id = d.id)
+        LEFT JOIN young_user_role ur ON (u.id = ur.user_id)
+        LEFT JOIN young_role r ON r.id = ur.role_id
+        WHERE  u.user_name = #{userName}
+        group by u.user_name,u.id,u.email,u.mobile,u.password, u.status,u.create_time,u.sex,u.dept_id
+				,u.last_login_time,u.update_time,u.remark,u.image
+    </select>
+
+    <select id="findUserDetailPage" parameterType="org.springyoung.system.entity.User"
+            resultType="org.springyoung.system.entity.User">
+        SELECT
+            u.id,
+            u.user_name,
+            u.email,
+            u.mobile,
+            u.password,
+            u.status,
+            u.create_time,
+            u.sex,
+            u.dept_id,
+            u.last_login_time,
+            u.update_time,
+            u.remark,
+            u.image,
+            d.dept_name,
+            GROUP_CONCAT(r.id) AS roleIds,
+            GROUP_CONCAT(r.role_name) AS roleNames
+        FROM
+            young_user u
+        LEFT JOIN young_dept d ON (u.dept_id = d.id)
+        LEFT JOIN young_user_role ur ON (u.id = ur.user_id)
+        LEFT JOIN young_role r ON r.id = ur.role_id
+        WHERE 1 = 1
+        <if test="user.userName != null and user.userName != ''">
+            AND u.user_name = #{user.username}
+        </if>
+        <if test="user.deptId != null and user.deptId != ''">
+            AND d.dept_id = #{user.deptId}
+        </if>
+        <if test="user.sex != null and user.sex != ''">
+            AND u.sex = #{user.sex}
+        </if>
+        <if test="user.status != null and user.status != ''">
+            AND u.status = #{user.status}
+        </if>
+        <if test="user.mobile != null and user.mobile != ''">
+            AND u.mobile = #{user.mobile}
+        </if>
+        <if test="user.deptName != null and user.deptName != ''">
+            AND d.dept_name like CONCAT('%',#{user.deptName},'%')
+        </if>
+        group by u.user_name,u.id,u.email,u.mobile,u.password, u.status,u.create_time,u.sex,u.dept_id
+        ,u.last_login_time,u.update_time,u.remark,u.image
+    </select>
+
+</mapper>

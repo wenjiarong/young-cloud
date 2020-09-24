@@ -73,7 +73,7 @@ CREATE TABLE `young_menu`  (
 -- Records of young_menu
 -- ----------------------------
 INSERT INTO `young_menu` VALUES (1, 0, '系统管理', '/system', 'Layout', NULL, 'el-icon-set-up', '0', 1, '0', '2017-12-27 16:39:07', '2019-07-20 16:19:04', '菜单', 10000, 10000, 0, '000000', NULL);
-INSERT INTO `young_menu` VALUES (2, 1, '用户管理', '/system/user', 'febs/system/user/Index', 'user:view', '', '0', 1, '0', '2017-12-27 16:47:13', '2019-01-22 06:45:55', '菜单', 10000, 10000, 0, '000000', NULL);
+INSERT INTO `young_menu` VALUES (2, 1, '用户管理', '/system/user', 'young/system/user/Index', 'user:view', '', '0', 1, '0', '2017-12-27 16:47:13', '2019-01-22 06:45:55', '菜单', 10000, 10000, 0, '000000', NULL);
 INSERT INTO `young_menu` VALUES (3, 2, '新增用户', '', '', 'user:add', NULL, '1', NULL, '0', '2017-12-27 17:02:58', NULL, '按钮', 10000, 10000, 0, '000000', NULL);
 INSERT INTO `young_menu` VALUES (4, 2, '修改用户', '', '', 'user:update', NULL, '1', NULL, '0', '2017-12-27 17:04:07', NULL, '按钮', 10000, 10000, 0, '000000', NULL);
 INSERT INTO `young_menu` VALUES (5, 2, '删除用户', '', '', 'user:delete', NULL, '1', NULL, '0', '2017-12-27 17:04:58', NULL, '按钮', 10000, 10000, 0, '000000', NULL);

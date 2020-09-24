@@ -17,7 +17,7 @@
     <dependencies>
         <dependency>
             <groupId>org.springyoung</groupId>
-            <artifactId>young-common</artifactId>
+            <artifactId>young-service-system-api</artifactId>
             <version>${young.project.version}</version>
         </dependency>
     </dependencies>

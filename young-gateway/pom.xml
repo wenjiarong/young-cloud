@@ -14,6 +14,10 @@
     <version>${young.project.version}</version>
     <packaging>jar</packaging>
 
+    <properties>
+        <sentinel.version>1.6.3</sentinel.version>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.springyoung</groupId>
@@ -23,10 +27,6 @@
                 <exclusion>
                     <groupId>org.springframework.boot</groupId>
                     <artifactId>spring-boot-starter-web</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>com.baomidou</groupId>
-                    <artifactId>mybatis-plus-boot-starter</artifactId>
                 </exclusion>
                 <exclusion>
                     <groupId>org.springframework.boot</groupId>
@@ -50,6 +50,24 @@
             <groupId>net.logstash.logback</groupId>
             <artifactId>logstash-logback-encoder</artifactId>
             <version>6.1</version>
+        </dependency>
+        <!-- Spring Cloud Alibaba Sentinel控制台还不支持WebFlux编程模型，
+        所以使用的是Sentinel提供的Spring Cloud Gateway适配依赖sentinel-spring-cloud-gateway-adapter -->
+        <dependency>
+            <groupId>com.alibaba.csp</groupId>
+            <artifactId>sentinel-spring-cloud-gateway-adapter</artifactId>
+            <version>1.6.3</version>
+        </dependency>
+        <!-- 使用Sentinel版本为1.6.3代替spring-cloud-alibaba-dependencies.0.9.0.RELEASE中定义的sentinel版本1.5.2 -->
+        <dependency>
+            <groupId>com.alibaba.csp</groupId>
+            <artifactId>sentinel-core</artifactId>
+            <version>${sentinel.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba.csp</groupId>
+            <artifactId>sentinel-parameter-flow-control</artifactId>
+            <version>${sentinel.version}</version>
         </dependency>
     </dependencies>
 

@@ -48,7 +48,6 @@ hystrix:
   shareSecurityContext: true
 
 mybatis-plus:
-  type-aliases-package: com.test.*
   mapper-locations: classpath:mapper/*.xml
   configuration:
     jdbc-type-for-null: null

@@ -1,8 +1,5 @@
 server:
   port: 9000
-spring:
-  application:
-    name: young-gateway
 
 #spring.cloud.gateway.routes定义了路由转发规则，配置含义如下：
 # id，路由ID，保持唯一即可；
@@ -12,6 +9,7 @@ spring:
 # predicates就是谓词工厂。值为- Path=/auth/**表示请求Path以/auth开头的都会被匹配，然后转发到young-auth服务上；
 # filters为过滤器工厂，配置为- StripPrefix=1的意思是，请求转发前，将Path的内容截去前面一位。比如/auth/hello会被截取为/hello。
 # default-filters来指定全局的过滤器
+spring:
   cloud:
     gateway:
       routes:
@@ -19,16 +17,47 @@ spring:
           uri: lb://young-auth
           predicates:
             - Path=/auth/**
+          #在网关中加入Hystrix熔断处理,添加Hystrix过滤器工厂
+          #通过- name: Hystrix指定添加Hystrix过滤器，
+          #通过name: authfallback指定HystrixCommandKey为authfallback，fallbackUri指定了回退的重定向地址
+          filters:
+              - name: Hystrix
+                args:
+                  name: authfallback
+                  fallbackUri: forward:/fallback/young-auth
         - id: young-server-system
           uri: lb://young-server-system
           predicates:
             - Path=/system/**
+          #在网关中加入Hystrix熔断处理,添加Hystrix过滤器工厂
+          filters:
+              - name: Hystrix
+                args:
+                  name: systemfallback
+                  fallbackUri: forward:/fallback/young-server-system
         - id: young-server-test
           uri: lb://young-server-test
           predicates:
             - Path=/test/**
+          #在网关中加入Hystrix熔断处理,添加Hystrix过滤器工厂
+          filters:
+              - name: Hystrix
+                args:
+                  name: testfallback
+                  fallbackUri: forward:/fallback/young-server-test
       default-filters:
         - StripPrefix=1
+
+#配置了Hystrix过滤器后，可以添加超时时间，添加全局超时时间：
+#如果要针对不同的路由设置不同的超时时间，可以按照hystrix.command.HystrixCommandKey.execution.isolation.thread.timeoutinMilliseconds格式配置
+hystrix:
+  command:
+    default:
+      execution:FallbackController
+        isolation:
+          thread:
+            timeoutInMilliseconds: 3000
+
 
 management:
   endpoint:

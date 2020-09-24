@@ -21,9 +21,31 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-openfeign</artifactId>
+            <groupId>org.springyoung</groupId>
+            <artifactId>young-core</artifactId>
+            <version>${young.project.version}</version>
         </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <skip>true</skip>
+                    <finalName>${project.name}</finalName>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>${docker.plugin.version}</version>
+                <configuration>
+                    <skipDockerBuild>true</skipDockerBuild>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>
