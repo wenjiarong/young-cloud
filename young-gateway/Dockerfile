@@ -1,25 +1,21 @@
 FROM adoptopenjdk/openjdk8-openj9:alpine-slim
 
-MAINTAINER smallchill@163.com
-
-#验证码字体包
-RUN set -xe \
-&& apk --no-cache add ttf-dejavu fontconfig
+MAINTAINER 631041490@qq.com
 
 RUN mkdir -p /young/gateway
 
 WORKDIR /young/gateway
 
-EXPOSE 8100
+EXPOSE 9000
 
 ADD ./target/young-gateway.jar ./gateway.jar
 
 ENTRYPOINT [ \
     "java", \
-    "-XX:MetaspaceSize=256m", \
-    "-XX:MaxMetaspaceSize=256m", \
-    "-Xms512m", \
-    "-Xmx512m", \
+    "-XX:MetaspaceSize=512m", \
+    "-XX:MaxMetaspaceSize=512m", \
+    "-Xms1024m", \
+    "-Xmx1024m", \
     "-Xmn256m", \
     "-Xss512k", \
     "-XX:SurvivorRatio=8", \
@@ -29,7 +25,7 @@ ENTRYPOINT [ \
     "-Xshareclasses", \
     "-Xquickstart", \
     "-jar", \
-    "app.jar" \
+    "gateway.jar" \
 ]
 
 CMD ["--spring.profiles.active=prod"]

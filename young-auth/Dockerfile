@@ -1,6 +1,6 @@
 FROM adoptopenjdk/openjdk8-openj9:alpine-slim
 
-MAINTAINER smallchill@163.com
+MAINTAINER 631041490@qq.com
 
 #验证码字体包
 RUN set -xe \
@@ -29,7 +29,7 @@ ENTRYPOINT [ \
     "-Xshareclasses", \
     "-Xquickstart", \
     "-jar", \
-    "app.jar" \
+    "auth.jar" \
 ]
 
 CMD ["--spring.profiles.active=prod"]
