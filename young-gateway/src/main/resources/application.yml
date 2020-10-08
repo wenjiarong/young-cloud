@@ -53,7 +53,7 @@ spring:
 hystrix:
   command:
     default:
-      execution:FallbackController
+      execution:
         isolation:
           thread:
             timeoutInMilliseconds: 3000

@@ -5,14 +5,13 @@ import com.wf.captcha.SpecCaptcha;
 import com.wf.captcha.base.Captcha;
 import lombok.AllArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springyoung.auth.properties.YoungAuthProperties;
 import org.springyoung.auth.properties.YoungValidateCodeProperties;
-import org.springyoung.common.constant.CacheConstant;
-import org.springyoung.common.constant.YoungConstant;
+import org.springyoung.core.constant.CacheConstant;
+import org.springyoung.core.constant.YoungConstant;
 import org.springyoung.common.exception.ValidateCodeException;
 import org.springyoung.common.service.RedisService;
 

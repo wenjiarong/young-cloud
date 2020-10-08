@@ -10,6 +10,9 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>young-core</artifactId>
+    <name>${project.artifactId}</name>
+    <version>${young.project.version}</version>
+    <packaging>jar</packaging>
 
     <properties>
         <mybatis.plus.version>3.3.2</mybatis.plus.version>

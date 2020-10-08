@@ -42,7 +42,6 @@ security:
 feign:
   hystrix:
     enabled: true
-
 #请求拦截器能够顺利获取到令牌,这样做会把SecurityContext对象从你当前主线程传输到Hystrix线程。
 hystrix:
   shareSecurityContext: true

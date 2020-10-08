@@ -1,4 +1,4 @@
-package org.springyoung.common.constant;
+package org.springyoung.core.constant;
 
 public interface YoungConstant {
 

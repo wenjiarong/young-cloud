@@ -18,7 +18,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.util.Base64Utils;
 import org.springframework.web.server.ServerWebExchange;
-import org.springyoung.common.constant.YoungConstant;
+import org.springyoung.core.constant.YoungConstant;
 import org.springyoung.common.response.R;
 import org.springyoung.common.response.ResultCode;
 import org.springyoung.gateway.properties.YoungGatewayProperties;

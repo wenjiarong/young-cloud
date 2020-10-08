@@ -2,26 +2,6 @@ server:
   port: 8100
 
 spring:
-  #这里数据库连接池使用的是Hikari，Spring Boot2.0后官方推荐使用该连接池，
-  #特点是响应速度快。这里只配置了一个名称为base的数据源，如果要继续添加
-  #数据源的话只需要在spring.datasource.dynamic.datasource下继续添加即可
-  datasource:
-    dynamic:
-      hikari:
-        connection-timeout: 30000
-        max-lifetime: 1800000
-        max-pool-size: 15
-        min-idle: 5
-        connection-test-query: select 1
-        pool-name: youngHikariCP
-      primary: base
-      datasource:
-        base:
-          username: root
-          password: root
-          driver-class-name: com.mysql.cj.jdbc.Driver
-          url: jdbc:mysql://${mysql.url}:13306/young_cloud?useUnicode=true&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=GMT%2b8
-
   redis:
     database: 0
     host: ${redis.url}
@@ -35,13 +15,10 @@ spring:
     timeout: 5000
     password: 123456
 
-mybatis-plus:
-  mapper-locations: classpath:mapper/*.xml
-  configuration:
-    jdbc-type-for-null: null
-  global-config:
-    banner: false
-#mybatis-plus.type-aliases-package，指定别名扫描路径，这个路径后续在young-common模块里定义，该路径下的实体类将自动配置别名，默认为类名首字母小写。配置别名后，便可以直接在MyBatis XML文件里使用了；
-#mybatis-plus.mapper-locations指定MyBatis XML文件路径；
-#mybatis-plus.configuration.jdbc-type-for-null，指定为null，否则再插入空值时会报“无效的列类型”错误；
-#mybatis-plus.configuration.global-config.banner设置为false关闭MyBatis Plus Banner打印。
+#让Feign的回退生效,因为Feign的回退功能是基于Hystrix实现的，所以需要开启它。
+feign:
+  hystrix:
+    enabled: true
+#请求拦截器能够顺利获取到令牌,这样做会把SecurityContext对象从你当前主线程传输到Hystrix线程。
+hystrix:
+  shareSecurityContext: true

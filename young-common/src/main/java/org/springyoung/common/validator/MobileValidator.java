@@ -2,7 +2,7 @@ package org.springyoung.common.validator;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springyoung.common.annotation.IsMobile;
-import org.springyoung.common.constant.RegexpConstant;
+import org.springyoung.core.constant.RegexpConstant;
 import org.springyoung.common.utils.YoungUtil;
 
 import javax.validation.ConstraintValidator;

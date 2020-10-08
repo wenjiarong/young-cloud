@@ -62,3 +62,11 @@ rocketmq:
   name-server: ${rocketmq.url}:9876
   producer:
     group: test-group
+
+#让Feign的回退生效,因为Feign的回退功能是基于Hystrix实现的，所以需要开启它。
+feign:
+  hystrix:
+    enabled: true
+#请求拦截器能够顺利获取到令牌,这样做会把SecurityContext对象从你当前主线程传输到Hystrix线程。
+hystrix:
+  shareSecurityContext: true

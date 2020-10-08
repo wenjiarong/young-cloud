@@ -4,7 +4,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.MediaType;
 import org.springframework.util.Base64Utils;
 import org.springframework.web.servlet.HandlerInterceptor;
-import org.springyoung.common.constant.YoungConstant;
+import org.springyoung.core.constant.YoungConstant;
 import org.springyoung.common.response.R;
 import org.springyoung.common.utils.YoungUtil;
 
