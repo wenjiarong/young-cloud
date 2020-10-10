@@ -22,7 +22,13 @@ public class UserClientFallback implements FallbackFactory<IUserClient> {
         return new IUserClient() {
             @Override
             public User getUserByUserId(Long userId) {
-                log.error("调用young-server-system服务出错", throwable);
+                log.error("调用system服务根据用户ID获取用户信息出错", throwable);
+                return null;
+            }
+
+            @Override
+            public User getUserByUserName(String userName) {
+                log.error("调用system服务根据用户名称获取用户信息出错", throwable);
                 return null;
             }
         };

@@ -25,12 +25,12 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
     /**
      *  findUserPermissions方法的实现逻辑为：通过用户名查询出用户权限集合。
      *
-     * @param username 用户名
+     * @param userName 用户名
      * @return
      */
     @Override
-    public Set<String> findUserPermissions(String username) {
-        List<Menu> userPermissions = this.baseMapper.findUserPermissions(username);
+    public Set<String> findUserPermissions(String userName) {
+        List<Menu> userPermissions = this.baseMapper.findUserPermissions(userName);
         return userPermissions.stream().map(Menu::getPerms).collect(Collectors.toSet());
     }
 
@@ -41,13 +41,13 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
      *  我们可以通过TreeUtil的buildVueRouter方法，
      *  将路由集合转换为包含层级结构的路由信息
      *
-     * @param username 用户名
+     * @param userName 用户名
      * @return
      */
     @Override
-    public List<VueRouter<Menu>> getUserRouters(String username) {
+    public List<VueRouter<Menu>> getUserRouters(String userName) {
         List<VueRouter<Menu>> routes = new ArrayList<>();
-        List<Menu> menus = this.baseMapper.findUserMenus(username);
+        List<Menu> menus = this.baseMapper.findUserMenus(userName);
         menus.forEach(menu -> {
             VueRouter<Menu> route = new VueRouter<>();
             route.setId(menu.getId().toString());

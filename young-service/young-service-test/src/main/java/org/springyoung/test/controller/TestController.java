@@ -1,7 +1,6 @@
 package org.springyoung.test.controller;
 
-import com.test.fegin.IHelloFegin;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -9,10 +8,8 @@ import org.springframework.web.bind.annotation.RestController;
 import java.security.Principal;
 
 @RestController
+@AllArgsConstructor
 public class TestController {
-
-    @Autowired
-    private IHelloFegin helloFegin;
 
     @GetMapping("/test1")
     @PreAuthorize("hasAnyAuthority('user:add')")
@@ -29,11 +26,6 @@ public class TestController {
     @GetMapping("/user")
     public Principal currentUser(Principal principal) {
         return principal;
-    }
-
-    @GetMapping("/hello")
-    public String hello(String name){
-        return this.helloFegin.hello(name);
     }
 
 }

@@ -3,8 +3,6 @@ package org.springyoung.system.config;
 import com.baomidou.mybatisplus.core.parser.ISqlParser;
 import com.baomidou.mybatisplus.extension.parsers.BlockAttackSqlParser;
 import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
-import com.system.properties.YoungServerSystemProperties;
-import com.system.properties.YoungSwaggerProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -30,7 +28,7 @@ import java.util.List;
 @EnableSwagger2 //表示开启Swagger功能
 public class YoungWebConfigure {
 
-    @Autowired
+    /*@Autowired
     private YoungServerSystemProperties properties;
 
     @Bean
@@ -54,7 +52,7 @@ public class YoungWebConfigure {
                 null,
                 new Contact(swagger.getAuthor(), swagger.getUrl(), swagger.getEmail()),
                 swagger.getLicense(), swagger.getLicenseUrl(), Collections.emptyList());
-    }
+    }*/
 
 
     /**
@@ -87,7 +85,7 @@ public class YoungWebConfigure {
      * 在securityContext方法中，我们通过young_oauth_swagger名称关联了上面定义的安全策略，
      * 并且通过forPaths(PathSelectors.any())设置所有API接口都用这个安全上下文。
      */
-    private SecurityScheme securityScheme(YoungSwaggerProperties swagger) {
+    /*private SecurityScheme securityScheme(YoungSwaggerProperties swagger) {
         GrantType grantType = new ResourceOwnerPasswordCredentialsGrant(swagger.getGrantUrl());
 
         return new OAuthBuilder()
@@ -108,5 +106,6 @@ public class YoungWebConfigure {
         return new AuthorizationScope[]{
                 new AuthorizationScope(swagger.getScope(), "")
         };
-    }
+    }*/
+
 }

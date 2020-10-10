@@ -31,7 +31,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 
     @Override
     public IPage<User> findUserDetail(User user, Query query) {
-        return this.baseMapper.findUserDetailPage(Condition.getPage(query), user);
+        return baseMapper.findUserDetailPage(Condition.getPage(query), user);
     }
 
     @Override
@@ -68,7 +68,12 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         List<String> list = Arrays.asList(userIds);
         removeByIds(list);
         // 删除用户角色
-        this.userRoleService.deleteUserRolesByUserId(userIds);
+        userRoleService.deleteUserRolesByUserId(userIds);
+    }
+
+    @Override
+    public User findByName(String userName) {
+        return baseMapper.findByName(userName);
     }
 
     private void setUserRoles(User user, String[] roles) {

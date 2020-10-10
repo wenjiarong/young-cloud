@@ -13,8 +13,8 @@ public interface IUserService extends IService<User> {
     /**
      * 查找用户详细信息
      *
-     * @param query   分页
-     * @param user    用户对象，用于传递查询条件
+     * @param query 分页
+     * @param user  用户对象，用于传递查询条件
      * @return IPage
      */
     IPage<User> findUserDetail(User user, Query query);
@@ -39,5 +39,13 @@ public interface IUserService extends IService<User> {
      * @param userIds 用户 id数组
      */
     void deleteUsers(String[] userIds);
+
+    /**
+     * 通过用户名查找用户信息
+     *
+     * @param userName
+     * @return
+     */
+    User findByName(String userName);
 
 }

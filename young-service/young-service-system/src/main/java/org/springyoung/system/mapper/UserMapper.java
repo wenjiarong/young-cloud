@@ -7,7 +7,13 @@ import org.springyoung.system.entity.User;
 
 public interface UserMapper extends BaseMapper<User> {
 
-    User findByName(String username);
+    /**
+     * 通过用户名查找用户信息
+     *
+     * @param userName
+     * @return
+     */
+    User findByName(String userName);
 
     /**
      * 查找用户详细信息

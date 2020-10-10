@@ -57,7 +57,7 @@ public class BaseEntity implements Serializable {
     @ApiModelProperty("更新时间")
     private LocalDateTime updateTime;
     @ApiModelProperty("业务状态")
-    private Integer status;
+    private String status;
     @TableLogic
     @ApiModelProperty("是否已删除")
     private Integer isDeleted;
