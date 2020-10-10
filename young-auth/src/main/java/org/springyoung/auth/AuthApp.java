@@ -2,6 +2,7 @@ package org.springyoung.auth;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springyoung.common.annotation.EnableYoungLettuceRedis;
 import org.springyoung.common.annotation.YoungCloudApplication;
 
@@ -15,6 +16,7 @@ import org.springyoung.common.annotation.YoungCloudApplication;
 @EnableYoungLettuceRedis
 @SpringBootApplication
 @YoungCloudApplication
+@EnableFeignClients
 public class AuthApp {
 
     public static void main(String[] args) {
