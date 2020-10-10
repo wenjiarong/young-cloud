@@ -5,7 +5,7 @@
     <parent>
         <artifactId>young-service-api</artifactId>
         <groupId>org.springyoung</groupId>
-        <version>2.5.1.RELEASE</version>
+        <version>1.0.0.RELEASE</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
