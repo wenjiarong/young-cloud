@@ -15,7 +15,7 @@ import org.springyoung.common.annotation.YoungCloudApplication;
  * @Date 2020/9/21 16:24
  * @Version 1.0
  */
-@EnableFeignClients
+@EnableFeignClients({"org.springyoung"})
 @SpringBootApplication
 @YoungCloudApplication
 @EnableGlobalMethodSecurity(prePostEnabled = true)

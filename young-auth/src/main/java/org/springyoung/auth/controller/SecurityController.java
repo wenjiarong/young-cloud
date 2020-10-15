@@ -20,8 +20,8 @@ import java.security.Principal;
 @AllArgsConstructor
 public class SecurityController {
 
-    private ConsumerTokenServices consumerTokenServices;
-    private ValidateCodeService validateCodeService;
+    private final ConsumerTokenServices consumerTokenServices;
+    private final ValidateCodeService validateCodeService;
 
     /**
      * 用于客户端调用生成验证码

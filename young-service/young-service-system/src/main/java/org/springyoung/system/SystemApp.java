@@ -19,7 +19,7 @@ import org.springyoung.common.annotation.YoungCloudApplication;
 @EnableYoungLettuceRedis
 @SpringBootApplication
 @YoungCloudApplication
-@EnableFeignClients
+@EnableFeignClients({"org.springyoung"})
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 @MapperScan("org.springyoung.system.mapper")
 @EnableTransactionManagement  //开启事务管理

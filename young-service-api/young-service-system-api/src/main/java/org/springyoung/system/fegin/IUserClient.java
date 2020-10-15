@@ -5,10 +5,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springyoung.core.constant.YoungServerConstant;
 import org.springyoung.system.entity.User;
-import org.springyoung.system.fegin.fallback.UserClientFallback;
 
-@FeignClient(value = YoungServerConstant.YOUNG_SERVER_SYSTEM, contextId = "userClient",
-        fallbackFactory = UserClientFallback.class)
+@FeignClient(value = YoungServerConstant.YOUNG_SERVER_SYSTEM, contextId = "userClient")
 public interface IUserClient {
 
     String API_PREFIX = "/client";
