@@ -1,6 +1,6 @@
 spring:
   application:
-    name: young-system
+    name: young-server-system
   cloud:
     nacos:
       discovery:
@@ -10,6 +10,6 @@ spring:
         # 指定配置分组名称
         group: DEFAULT_GROUP
         # 指定在nacos配置中心对应微服务配置的前缀
-        prefix: young-system
+        prefix: young-server-system
         # 指定微服务配置文件的类型
         file-extension: yaml

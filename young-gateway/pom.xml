@@ -60,7 +60,7 @@
         <dependency>
             <groupId>com.alibaba.csp</groupId>
             <artifactId>sentinel-spring-cloud-gateway-adapter</artifactId>
-            <version>1.6.3</version>
+            <version>${sentinel.version}</version>
         </dependency>
         <!-- 使用Sentinel版本为1.6.3代替spring-cloud-alibaba-dependencies.0.9.0.RELEASE中定义的sentinel版本1.5.2 -->
         <dependency>
@@ -82,7 +82,7 @@
                 <artifactId>docker-maven-plugin</artifactId>
                 <version>${docker.plugin.version}</version>
                 <configuration>
-                    <imageName>${docker.registry.url}/blade/${project.artifactId}:${project.version}</imageName>
+                    <imageName>${docker.registry.url}/young/${project.artifactId}:${project.version}</imageName>
                     <dockerDirectory>${project.basedir}</dockerDirectory>
                     <dockerHost>${docker.registry.host}</dockerHost>
                     <resources>

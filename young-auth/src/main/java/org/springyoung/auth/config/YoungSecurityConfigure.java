@@ -32,9 +32,9 @@ import org.springyoung.auth.service.YoungUserDetailService;
 @AllArgsConstructor
 public class YoungSecurityConfigure extends WebSecurityConfigurerAdapter {
 
-    private YoungUserDetailService userDetailService;
-    private PasswordEncoder passwordEncoder;
-    private ValidateCodeFilter validateCodeFilter;
+    private final YoungUserDetailService userDetailService;
+    private final PasswordEncoder passwordEncoder;
+    private final ValidateCodeFilter validateCodeFilter;
 
     //挪动到common模块注解注入，由于system修改密码会使用到
     /*@Bean

@@ -1,56 +1,48 @@
-package org.springyoung.auth.config;
+package org.springyoung.system.config;
 
 import lombok.AllArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
-import org.springyoung.auth.properties.YoungAuthProperties;
 import org.springyoung.common.handler.YoungAccessDeniedHandler;
 import org.springyoung.common.handler.YoungAuthExceptionEntryPoint;
+import org.springyoung.system.properties.YoungServerSystemProperties;
 
 /**
- * @ClassName 认证服务器本身也可以对外提供REST服务
- * @Description TODO
- * @Author 小温
- * @Date 2020/9/21 10:32
- * @Version 1.0
+ * 资源服务器配置类
+ * 表示所有访问young-server-system的请求都需要认证，只有通过认证服务器发放的令牌才能进行访问。
+ * 然后在young-server-system的入口类YoungServerSystemApplication上
+ * 添加@EnableGlobalMethodSecurity(prePostEnabled = true)注解，表示开启Spring Cloud Security权限注解
  */
-//YoungResourceServerConfigure继承了ResourceServerConfigurerAdapter，并重写了configure(HttpSecurity http)方法
-//@EnableResourceServer用于开启资源服务器相关配置。
 @Configuration
 @EnableResourceServer
 @AllArgsConstructor
-public class YoungResourceServerConfigure extends ResourceServerConfigurerAdapter {
+public class YoungServerSystemResourceServerConfigure extends ResourceServerConfigurerAdapter {
 
     private final YoungAccessDeniedHandler accessDeniedHandler;
     private final YoungAuthExceptionEntryPoint exceptionEntryPoint;
-    private final YoungAuthProperties properties;
+    private final YoungServerSystemProperties properties;
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
-        //anonUrls为免认证资源数组，是从YoungAuthProperties配置中读取出来的值经过逗号分隔后的结果
         String[] anonUrls = StringUtils.splitByWholeSeparatorPreserveAllTokens(properties.getAnonUrl(), ",");
+
         http.csrf().disable()
-                //通过requestMatchers().antMatchers("/**")的配置表明该安全配置对所有请求都生效
                 .requestMatchers().antMatchers("/**")
                 .and()
                 .authorizeRequests()
-                // 放行验证码权限，免认证资源
-                //通过.antMatchers(anonUrls).permitAll()配置了免认证资源
-                //anonUrls为免认证资源数组，是从YoungAuthProperties配置中读取出来的值经过逗号分隔后的结果
+                //在资源服务器配置类里添加swagger免认证路径配置
                 .antMatchers(anonUrls).permitAll()
-                .antMatchers("/**").authenticated()
-                .and().httpBasic();
+                .antMatchers("/**").authenticated();
     }
 
     @Override
     public void configure(ResourceServerSecurityConfigurer resources) {
-        //注入异常处理
         resources.authenticationEntryPoint(exceptionEntryPoint)
                 .accessDeniedHandler(accessDeniedHandler);
     }
-
 }

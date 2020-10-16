@@ -40,14 +40,14 @@ import javax.sql.DataSource;
 public class YoungAuthorizationServerConfigure extends AuthorizationServerConfigurerAdapter {
 
     //注入了在YoungSecurityConfigure配置类中注册的BeanAuthenticationManager和PasswordEncoder
-    private AuthenticationManager authenticationManager;
-    private PasswordEncoder passwordEncoder;
+    private final AuthenticationManager authenticationManager;
+    private final PasswordEncoder passwordEncoder;
 
-    private RedisConnectionFactory redisConnectionFactory;
-    private YoungUserDetailService userDetailService;
-    private YoungAuthProperties authProperties;
-    private YoungWebResponseExceptionTranslator exceptionTranslator;
-    private DataSource dataSource;
+    private final RedisConnectionFactory redisConnectionFactory;
+    private final YoungUserDetailService userDetailService;
+    private final YoungAuthProperties authProperties;
+    private final YoungWebResponseExceptionTranslator exceptionTranslator;
+    private final DataSource dataSource;
 
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {

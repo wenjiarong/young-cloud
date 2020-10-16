@@ -10,10 +10,10 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springyoung.auth.properties.YoungAuthProperties;
 import org.springyoung.auth.properties.YoungValidateCodeProperties;
-import org.springyoung.core.constant.CacheConstant;
-import org.springyoung.core.constant.YoungConstant;
 import org.springyoung.common.exception.ValidateCodeException;
 import org.springyoung.common.service.RedisService;
+import org.springyoung.core.constant.CacheConstant;
+import org.springyoung.core.constant.YoungConstant;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -56,7 +56,7 @@ public class ValidateCodeService {
         setHeader(response, code.getType());
 
         Captcha captcha = createCaptcha(code);
-        redisService.setEx(CacheConstant.CODE_PREFIX + key, StringUtils.lowerCase(captcha.text()), code.getTime());
+        redisService.set(CacheConstant.CACHE_CODE_PREFIX + key, StringUtils.lowerCase(captcha.text()), code.getTime());
         captcha.out(response.getOutputStream());
     }
 
@@ -67,7 +67,7 @@ public class ValidateCodeService {
      * @param value 前端上送待校验值
      */
     public void check(String key, String value) throws ValidateCodeException {
-        Object codeInRedis = redisService.get(CacheConstant.CODE_PREFIX + key);
+        Object codeInRedis = redisService.get(CacheConstant.CACHE_CODE_PREFIX + key);
         if (StringUtils.isBlank(value)) {
             throw new ValidateCodeException("请输入验证码");
         }

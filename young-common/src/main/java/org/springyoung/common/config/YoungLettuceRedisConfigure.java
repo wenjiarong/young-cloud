@@ -57,7 +57,7 @@ public class YoungLettuceRedisConfigure {
     @Bean
     @ConditionalOnBean(name = "redisTemplate")
     public RedisService redisService() {
-        return new RedisService(new RedisTemplate<>());
+        return new RedisService();
     }
 
 }
