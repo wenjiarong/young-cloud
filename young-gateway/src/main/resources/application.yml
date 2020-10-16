@@ -25,8 +25,8 @@ spring:
                 args:
                   name: authfallback
                   fallbackUri: forward:/fallback/young-auth
-        - id: young-server-system
-          uri: lb://young-server-system
+        - id: young-system
+          uri: lb://young-system
           predicates:
             - Path=/system/**
           #在网关中加入Hystrix熔断处理,添加Hystrix过滤器工厂
@@ -34,9 +34,9 @@ spring:
               - name: Hystrix
                 args:
                   name: systemfallback
-                  fallbackUri: forward:/fallback/young-server-system
-        - id: young-server-test
-          uri: lb://young-server-test
+                  fallbackUri: forward:/fallback/young-system
+        - id: young-test
+          uri: lb://young-test
           predicates:
             - Path=/test/**
           #在网关中加入Hystrix熔断处理,添加Hystrix过滤器工厂
@@ -44,7 +44,7 @@ spring:
               - name: Hystrix
                 args:
                   name: testfallback
-                  fallbackUri: forward:/fallback/young-server-test
+                  fallbackUri: forward:/fallback/young-test
       default-filters:
         - StripPrefix=1
 

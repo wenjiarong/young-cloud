@@ -1,6 +1,7 @@
 package org.springyoung.system.fegin;
 
 import lombok.AllArgsConstructor;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springyoung.system.service.IMenuService;
 
@@ -21,6 +22,7 @@ public class MenuClient implements IMenuClient {
     private final IMenuService menuService;
 
     @Override
+    @GetMapping(FIND_USER_PERMISSIONS)
     public String findUserPermissions(String userName) {
         Set<String> userPermissions = menuService.findUserPermissions(userName);
         return userPermissions.stream().collect(Collectors.joining(","));

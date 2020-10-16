@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springyoung.core.constant.YoungServerConstant;
 import org.springyoung.system.entity.User;
 
-@FeignClient(value = YoungServerConstant.YOUNG_SERVER_SYSTEM, contextId = "userClient")
+@FeignClient(value = YoungServerConstant.YOUNG_SYSTEM, contextId = "userClient")
 public interface IUserClient {
 
     String API_PREFIX = "/client";

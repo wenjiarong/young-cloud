@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springyoung.core.constant.YoungServerConstant;
 
-@FeignClient(value = YoungServerConstant.YOUNG_SERVER_SYSTEM, contextId = "menuClient")
+@FeignClient(value = YoungServerConstant.YOUNG_SYSTEM, contextId = "menuClient")
 public interface IMenuClient {
 
     String API_PREFIX = "/client";
