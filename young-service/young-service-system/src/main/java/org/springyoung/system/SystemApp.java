@@ -22,7 +22,7 @@ import org.springyoung.common.annotation.YoungCloudApplication;
 @EnableFeignClients({"org.springyoung"})
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 @MapperScan("org.springyoung.system.mapper")
-@EnableTransactionManagement  //开启事务管理
+@EnableTransactionManagement
 public class SystemApp {
 
     public static void main(String[] args) {

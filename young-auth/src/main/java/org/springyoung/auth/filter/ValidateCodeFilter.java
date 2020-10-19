@@ -60,6 +60,7 @@ public class ValidateCodeFilter extends OncePerRequestFilter {
         RequestMatcher matcher = new AntPathRequestMatcher("/oauth/token", HttpMethod.POST.toString());
         if (matcher.matches(httpServletRequest)
                 && StringUtils.equalsIgnoreCase(httpServletRequest.getParameter("grant_type"), "password")
+                //获取了ClientId后，我们判断ClientId是否为swagger，是的话无需进行图形验证码校验
                 && !StringUtils.equalsAnyIgnoreCase(clientId, "swagger")) {
             try {
                 //校验验证码

@@ -45,4 +45,5 @@ public class YoungServerSystemResourceServerConfigure extends ResourceServerConf
         resources.authenticationEntryPoint(exceptionEntryPoint)
                 .accessDeniedHandler(accessDeniedHandler);
     }
+
 }

@@ -20,7 +20,7 @@ import org.springyoung.common.annotation.YoungCloudApplication;
 @YoungCloudApplication
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 @MapperScan("org.springyoung.test.mapper")
-@EnableTransactionManagement  //开启事务管理
+@EnableTransactionManagement
 public class TestApp {
 
     public static void main(String[] args) {

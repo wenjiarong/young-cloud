@@ -16,4 +16,6 @@ public class YoungServerSystemProperties {
      */
     private String anonUrl;
 
+    private YoungSwaggerProperties swagger = new YoungSwaggerProperties();
+
 }

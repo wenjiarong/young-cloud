@@ -6,6 +6,8 @@ import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springyoung.system.properties.YoungServerSystemProperties;
+import org.springyoung.system.properties.YoungSwaggerProperties;
 import springfox.documentation.builders.OAuthBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -28,19 +30,30 @@ import java.util.List;
 @EnableSwagger2 //表示开启Swagger功能
 public class YoungWebConfigure {
 
-    /*@Autowired
+    @Autowired
     private YoungServerSystemProperties properties;
 
+    /**
+     * 添加Swagger OAuth2认证相关代码:
+     * 通过Docket的securitySchemes和securityContexts方法设置了安全策略和安全上下文
+     *
+     * @return
+     */
     @Bean
     public Docket swaggerApi() {
         YoungSwaggerProperties swagger = properties.getSwagger();
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
+                //表示将该路径下的所有Controller都添加进去
                 .apis(RequestHandlerSelectors.basePackage(swagger.getBasePackage()))
+                //表示Controller里的所有方法都纳入
                 .paths(PathSelectors.any())
                 .build()
+                //apiInfo用于定义一些API页面信息，比如作者名称，邮箱，网站链接，开源协议等等
                 .apiInfo(apiInfo(swagger))
+                //用于配置安全策略，比如配置认证模型，scope等内容
                 .securitySchemes(Collections.singletonList(securityScheme(swagger)))
+                //用于配置安全上下文，只有配置了安全上下文的接口才能使用令牌获取资源
                 .securityContexts(Collections.singletonList(securityContext(swagger)));
     }
 
@@ -52,11 +65,11 @@ public class YoungWebConfigure {
                 null,
                 new Contact(swagger.getAuthor(), swagger.getUrl(), swagger.getEmail()),
                 swagger.getLicense(), swagger.getLicenseUrl(), Collections.emptyList());
-    }*/
-
+    }
 
     /**
      * 分页拦截
+     *
      * @return
      */
     @Bean
@@ -68,36 +81,31 @@ public class YoungWebConfigure {
         return paginationInterceptor;
     }
 
-
     /**
-     *通过Docket的securitySchemes和securityContexts方法设置了安全策略和安全上下文
+     * 在securityScheme方法中，我们通过OAuthBuilder对象构建了安全策略
      *
-     * Swagger的Docket对象可以配置securitySchemes和securityContexts：
-     * 1、securitySchemes：用于配置安全策略，比如配置认证模型，scope等内容；
-     * 2、securityContexts：用于配置安全上下文，只有配置了安全上下文的接口才能使用令牌获取资源。
-     *
-     *
-     * 在securityScheme方法中，我们通过OAuthBuilder对象构建了安全策略，
-     * 主要配置了认证类型为ResourceOwnerPasswordCredentialsGrant（即密码模式），
-     * 认证地址为http://localhost:8200/auth/oauth/token（即通过网关转发到认证服务器），
-     * scope为test，和young-auth模块里定义的一致。这个安全策略我们将其命名为young_oauth_swagger。
-     *
-     * 在securityContext方法中，我们通过young_oauth_swagger名称关联了上面定义的安全策略，
-     * 并且通过forPaths(PathSelectors.any())设置所有API接口都用这个安全上下文。
+     * @param swagger
+     * @return
      */
-    /*private SecurityScheme securityScheme(YoungSwaggerProperties swagger) {
+    private SecurityScheme securityScheme(YoungSwaggerProperties swagger) {
+        //主要配置了认证类型为ResourceOwnerPasswordCredentialsGrant（即密码模式），
+        //认证地址为http://localhost:8200/auth/oauth/token（即通过网关转发到认证服务器）
         GrantType grantType = new ResourceOwnerPasswordCredentialsGrant(swagger.getGrantUrl());
 
         return new OAuthBuilder()
+                //安全策略我们将其命名为young_oauth_swagger
                 .name(swagger.getName())
                 .grantTypes(Collections.singletonList(grantType))
+                //scope为test
                 .scopes(Arrays.asList(scopes(swagger)))
                 .build();
     }
 
     private SecurityContext securityContext(YoungSwaggerProperties swagger) {
         return SecurityContext.builder()
+                //在securityContext方法中，我们通过young_oauth_swagger名称关联了上面定义的安全策略
                 .securityReferences(Collections.singletonList(new SecurityReference(swagger.getName(), scopes(swagger))))
+                //并且通过forPaths(PathSelectors.any())设置所有API接口都用这个安全上下文
                 .forPaths(PathSelectors.any())
                 .build();
     }
@@ -106,6 +114,6 @@ public class YoungWebConfigure {
         return new AuthorizationScope[]{
                 new AuthorizationScope(swagger.getScope(), "")
         };
-    }*/
+    }
 
 }
