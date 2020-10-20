@@ -1,0 +1,26 @@
+canal:
+  client:
+    instances:
+      example:
+        acquireInterval: 1000
+        batchSize: 1000
+        clusterEnabled: false
+        host: 47.112.179.5
+        port: 11111
+        retryCount: 20
+
+spring:
+  redis:
+    database: 0
+    host: ${redis.url}
+    port: 6379
+    lettuce:
+      pool:
+        min-idle: 8
+        max-idle: 500
+        max-active: 2000
+        max-wait: 10000
+    timeout: 5000
+    password: 123456
+  main:
+    allow-bean-definition-overriding: true

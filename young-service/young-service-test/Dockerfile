@@ -25,7 +25,7 @@ ENTRYPOINT [ \
     "-Xshareclasses", \
     "-Xquickstart", \
     "-jar", \
-    "system.jar" \
+    "test.jar" \
 ]
 
 CMD ["--spring.profiles.active=prod"]

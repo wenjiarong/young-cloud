@@ -17,6 +17,7 @@
         <module>young-service</module>
         <module>young-service-api</module>
         <module>young-core</module>
+        <module>young-ops</module>
     </modules>
 
     <parent>

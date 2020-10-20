@@ -62,7 +62,7 @@
                             <tasks>
                                 <!--suppress UnresolvedMavenProperty -->
                                 <copy overwrite="true"
-                                      tofile="${session.executionRootDirectory}/target/${project.artifactId}.jar"
+                                      tofile="./target/${project.artifactId}.jar"
                                       file="${project.build.directory}/${project.artifactId}.jar"/>
                             </tasks>
                         </configuration>
