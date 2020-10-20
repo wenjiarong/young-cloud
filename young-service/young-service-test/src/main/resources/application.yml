@@ -36,7 +36,7 @@ security:
   oauth2:
     resource:
       id: ${spring.application.name}
-      user-info-uri: http://${young-gateway}:8100/auth/user
+      user-info-uri: http://${young-gateway}:9000/auth/user
 
 #让Feign的回退生效,因为Feign的回退功能是基于Hystrix实现的，所以需要开启它。
 feign:

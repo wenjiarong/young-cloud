@@ -40,7 +40,7 @@ security:
   oauth2:
     resource:
       id: ${spring.application.name}
-      user-info-uri: http://${young-gateway}:8100/auth/user
+      user-info-uri: http://${young-gateway}:9000/auth/user
 
 #user-info-uri路径为http://localhost:8100/auth/user，通过微服务网关，
 #该请求将被转发到http://localhost:8200/user。该配置的作用主要有两个：
