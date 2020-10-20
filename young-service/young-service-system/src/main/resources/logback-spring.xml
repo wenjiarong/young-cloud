@@ -89,6 +89,14 @@ debug：当此属性设置为true时，将打印出logback内部日志信息，�
         </filter>
     </appender>
 
+    <!--输出到 logstash的 appender
+    192.168.10.115:4560为Logstash地址
+    -->
+    <!--<appender name="logstash" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
+        <destination>192.168.10.115:4560</destination>
+        <encoder charset="UTF-8" class="net.logstash.logback.encoder.LogstashEncoder"/>
+    </appender>-->
+
     <!--
     root节点是必选节点，用来指定最基础的日志输出级别，只有一个level属性，用来设置打印级别。
     如果在appender里制定了日志打印的级别，那么root指定的级别将会被覆盖。
@@ -100,5 +108,6 @@ debug：当此属性设置为true时，将打印出logback内部日志信息，�
     <root level="info">
         <appender-ref ref="file_info"/>
         <appender-ref ref="file_error"/>
+        <!--<appender-ref ref="logstash"/>-->
     </root>
 </configuration>

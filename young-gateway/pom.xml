@@ -50,11 +50,6 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-gateway</artifactId>
         </dependency>
-        <dependency>
-            <groupId>net.logstash.logback</groupId>
-            <artifactId>logstash-logback-encoder</artifactId>
-            <version>6.1</version>
-        </dependency>
         <!-- Spring Cloud Alibaba Sentinel控制台还不支持WebFlux编程模型，
         所以使用的是Sentinel提供的Spring Cloud Gateway适配依赖sentinel-spring-cloud-gateway-adapter -->
         <dependency>
