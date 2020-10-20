@@ -2,13 +2,15 @@ package org.springyoung.system.entity;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springyoung.core.tenant.mp.TenantEntity;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 
 @Data
 @TableName("young_user")
@@ -39,14 +41,19 @@ public class User extends TenantEntity {
     private String mobile;
     @ApiModelProperty(value = "性别 0男 1女 2 保密")
     private String sex;
-    @ApiModelProperty(value = "最近访问时间")
-    private LocalDateTime lastLoginTime;
     @ApiModelProperty(value = "头像")
     private String image;
+    @DateTimeFormat(
+            pattern = "yyyy-MM-dd HH:mm:ss"
+    )
+    @JsonFormat(
+            pattern = "yyyy-MM-dd HH:mm:ss"
+    )
+    @ApiModelProperty(value = "最近访问时间")
+    private Date lastLoginTime;
     @ApiModelProperty(value = "部门id")
     @JsonSerialize(using = ToStringSerializer.class)
     private Long deptId;
-
     @ApiModelProperty(value = "部门名称")
     @TableField(exist = false)
     private String deptName;

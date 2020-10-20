@@ -17,8 +17,8 @@ import org.springyoung.system.mapper.UserMapper;
 import org.springyoung.system.service.IUserRoleService;
 import org.springyoung.system.service.IUserService;
 
-import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -38,7 +38,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     @Transactional
     public void createUser(User user) {
         // 创建用户
-        user.setCreateTime(LocalDateTime.now());
+        user.setCreateTime(new Date());
         user.setImage(User.DEFAULT_AVATAR);
         user.setPassword(passwordEncoder.encode(User.DEFAULT_PASSWORD));
         save(user);
@@ -54,7 +54,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         user.setPassword(null);
         user.setUserName(null);
         user.setCreateTime(null);
-        user.setUpdateTime(LocalDateTime.now());
+        user.setUpdateTime(new Date());
         updateById(user);
 
         userRoleService.remove(new LambdaQueryWrapper<UserRole>().eq(UserRole::getUserId, user.getId()));

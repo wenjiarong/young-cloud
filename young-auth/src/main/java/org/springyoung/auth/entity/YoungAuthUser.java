@@ -20,7 +20,9 @@ public class YoungAuthUser extends User {
 
     private Long userId;
 
-    private String avatar;
+    private String image;
+
+    private String tenantId;
 
     private String email;
 
@@ -32,13 +34,13 @@ public class YoungAuthUser extends User {
 
     private String deptName;
 
-    private String roleId;
+    private String roleIds;
 
-    private String roleName;
+    private String roleNames;
 
     private Date lastLoginTime;
 
-    private String description;
+    private String remark;
 
     private String status;
 
