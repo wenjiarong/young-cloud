@@ -16,14 +16,13 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Aut
 import org.springframework.security.oauth2.provider.token.DefaultAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.DefaultUserAuthenticationConverter;
 import org.springframework.security.oauth2.provider.token.TokenStore;
+import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 import org.springyoung.auth.properties.YoungAuthProperties;
 import org.springyoung.auth.properties.YoungClientsProperties;
 import org.springyoung.auth.service.YoungUserDetailService;
 import org.springyoung.auth.translator.YoungWebResponseExceptionTranslator;
-
-import javax.sql.DataSource;
 
 /**
  * @ClassName 认证服务器相关的安全配置类
@@ -43,11 +42,13 @@ public class YoungAuthorizationServerConfigure extends AuthorizationServerConfig
     private final AuthenticationManager authenticationManager;
     private final PasswordEncoder passwordEncoder;
 
-    private final RedisConnectionFactory redisConnectionFactory;
+    //private final RedisConnectionFactory redisConnectionFactory;
     private final YoungUserDetailService userDetailService;
     private final YoungAuthProperties authProperties;
     private final YoungWebResponseExceptionTranslator exceptionTranslator;
-    private final DataSource dataSource;
+    //private final DataSource dataSource;
+    //MyBatis Plus配置了多数据源
+    //private final DynamicRoutingDataSource dynamicRoutingDataSource;
 
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
@@ -87,6 +88,7 @@ public class YoungAuthorizationServerConfigure extends AuthorizationServerConfig
                 //.tokenServices(defaultTokenServices())
                 //让异常翻译器生效
                 .exceptionTranslator(exceptionTranslator)
+                //指定该JwtAccessTokenConverter，用于后续JWT校验
                 .accessTokenConverter(jwtAccessTokenConverter());
     }
 
@@ -107,6 +109,14 @@ public class YoungAuthorizationServerConfigure extends AuthorizationServerConfig
     /*@Bean
     public TokenStore tokenStore() {
         return new JdbcTokenStore(dataSource);
+    }*/
+    /**
+     * 证服务器生成的令牌将被存储到数据库中(使用MyBatis Plus配置了多数据源，需要获取指定名称数据源)
+     */
+    /*@Bean
+    public TokenStore tokenStore() {
+        DataSource febsCloudBase = dynamicRoutingDataSource.getDataSource("febs_cloud_base");
+        return new JdbcTokenStore(febsCloudBase);
     }*/
 
     /**
