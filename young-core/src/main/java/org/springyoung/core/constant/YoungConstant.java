@@ -12,6 +12,11 @@ public interface YoungConstant {
     String GATEWAY_TOKEN_VALUE = "young:gateway:123456";
 
     /**
+     * JWT的密钥
+     */
+    String JWT_KEY = "young";
+
+    /**
      * gif类型
      */
     String GIF = "gif";

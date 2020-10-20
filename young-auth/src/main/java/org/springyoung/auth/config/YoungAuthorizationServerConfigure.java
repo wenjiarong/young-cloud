@@ -21,6 +21,7 @@ import org.springyoung.auth.properties.YoungAuthProperties;
 import org.springyoung.auth.properties.YoungClientsProperties;
 import org.springyoung.auth.service.YoungUserDetailService;
 import org.springyoung.auth.translator.YoungWebResponseExceptionTranslator;
+import org.springyoung.core.constant.YoungConstant;
 
 /**
  * @ClassName 认证服务器相关的安全配置类
@@ -136,7 +137,7 @@ public class YoungAuthorizationServerConfigure extends AuthorizationServerConfig
         userAuthenticationConverter.setUserDetailsService(userDetailService);
         defaultAccessTokenConverter.setUserTokenConverter(userAuthenticationConverter);
         //指定了JWT的密钥，防止我们的令牌在传输途中被篡改
-        accessTokenConverter.setSigningKey("young");
+        accessTokenConverter.setSigningKey(YoungConstant.JWT_KEY);
         return accessTokenConverter;
     }
 
