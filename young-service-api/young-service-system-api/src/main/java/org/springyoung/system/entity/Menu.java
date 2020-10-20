@@ -5,11 +5,11 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import org.springyoung.core.tenant.mp.TenantEntity;
+import org.springyoung.core.tenant.mp.BaseEntity;
 
 @Data
 @TableName("young_menu")
-public class Menu extends TenantEntity {
+public class Menu extends BaseEntity {
 
     // 菜单
     public static final String TYPE_MENU = "0";
