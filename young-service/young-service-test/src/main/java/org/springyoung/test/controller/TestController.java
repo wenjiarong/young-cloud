@@ -35,8 +35,8 @@ public class TestController {
     }
 
     @GetMapping("/user")
-    public Principal currentUser(Principal principal) {
-        return principal;
+    public R currentUser(Principal principal) {
+        return R.data(principal);
     }
 
 }

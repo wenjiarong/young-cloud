@@ -1,3 +1,6 @@
+server:
+  port: 8400
+
 canal:
   client:
     instances:
@@ -5,7 +8,7 @@ canal:
         acquireInterval: 1000
         batchSize: 1000
         clusterEnabled: false
-        host: 47.112.179.5
+        host: 192.168.10.115
         port: 11111
         retryCount: 20
 

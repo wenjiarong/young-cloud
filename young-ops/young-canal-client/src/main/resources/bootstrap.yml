@@ -13,6 +13,3 @@ spring:
         prefix: young-canal
         # 指定微服务配置文件的类型
         file-extension: yaml
-
-server:
-  port: 8400

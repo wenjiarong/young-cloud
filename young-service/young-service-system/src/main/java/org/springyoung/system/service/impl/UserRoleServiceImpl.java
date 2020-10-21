@@ -25,4 +25,5 @@ public class UserRoleServiceImpl extends ServiceImpl<UserRoleMapper, UserRole> i
 	public void deleteUserRolesByUserId(String[] userIds) {
 		Arrays.stream(userIds).forEach(id -> baseMapper.deleteByUserId(Long.valueOf(id)));
 	}
+
 }

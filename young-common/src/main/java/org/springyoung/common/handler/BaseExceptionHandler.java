@@ -30,27 +30,27 @@ public class BaseExceptionHandler {
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public R handleException(Exception e) {
         log.error("系统内部异常，异常信息", e);
-        return R.fail(ResultCode.INTERNAL_SERVER_ERROR.getCode(), ResultCode.INTERNAL_SERVER_ERROR.getMessage());
+        return R.fail(ResultCode.INTERNAL_SERVER_ERROR);
     }
 
     @ExceptionHandler(value = YoungAuthException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public R handleYoungAuthException(YoungAuthException e) {
         log.error("系统错误", e);
-        return R.fail(ResultCode.INTERNAL_SERVER_ERROR.getCode(), ResultCode.INTERNAL_SERVER_ERROR.getMessage());
+        return R.fail(ResultCode.INTERNAL_SERVER_ERROR);
     }
 
     @ExceptionHandler(value = AccessDeniedException.class)
     @ResponseStatus(HttpStatus.FORBIDDEN)
     public R handleAccessDeniedException() {
-        return R.fail(ResultCode.REQ_REJECT.getCode(), ResultCode.REQ_REJECT.getMessage());
+        return R.fail(ResultCode.REQ_REJECT);
     }
 
     @ExceptionHandler(value = YoungException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public R handleYoungException(YoungException e) {
         log.error("系统错误", e);
-        return R.fail(ResultCode.INTERNAL_SERVER_ERROR.getCode(), ResultCode.INTERNAL_SERVER_ERROR.getMessage());
+        return R.fail(ResultCode.INTERNAL_SERVER_ERROR);
     }
 
     /**
@@ -70,7 +70,7 @@ public class BaseExceptionHandler {
             message.append(pathArr[1]).append(violation.getMessage()).append(",");
         }
         message = new StringBuilder(message.substring(0, message.length() - 1));
-        return R.fail(ResultCode.MSG_NOT_READABLE.getCode(), ResultCode.MSG_NOT_READABLE.getMessage());
+        return R.fail(ResultCode.MSG_NOT_READABLE);
     }
 
 
@@ -90,7 +90,7 @@ public class BaseExceptionHandler {
             message.append(error.getField()).append(error.getDefaultMessage()).append(",");
         }
         message = new StringBuilder(message.substring(0, message.length() - 1));
-        return R.fail(ResultCode.MSG_NOT_READABLE.getCode(), ResultCode.MSG_NOT_READABLE.getMessage());
+        return R.fail(ResultCode.MSG_NOT_READABLE);
     }
 
 }

@@ -1,6 +1,5 @@
 package org.springyoung.system.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -11,6 +10,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springyoung.core.mp.support.Condition;
 import org.springyoung.core.mp.support.Query;
+import org.springyoung.core.tool.utils.Func;
 import org.springyoung.system.entity.User;
 import org.springyoung.system.entity.UserRole;
 import org.springyoung.system.mapper.UserMapper;
@@ -57,8 +57,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         user.setUpdateTime(new Date());
         updateById(user);
 
-        userRoleService.remove(new LambdaQueryWrapper<UserRole>().eq(UserRole::getUserId, user.getId()));
-        String[] roles = user.getRoleIds().split(StringPool.COMMA);
+        // 删除用户角色关系
+        userRoleService.deleteUserRolesByUserId(Func.toStrArray(user.getId().toString()));
+        String[] roles = Func.toStrArray(user.getRoleIds());
         setUserRoles(user, roles);
     }
 

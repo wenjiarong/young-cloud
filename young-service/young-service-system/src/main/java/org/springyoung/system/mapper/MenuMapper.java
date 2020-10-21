@@ -13,17 +13,17 @@ public interface MenuMapper extends BaseMapper<Menu> {
     /**
      * 通过用户名查找用户权限集合
      *
-     * @param username 用户名称
+     * @param userName 用户名称
      * @return 权限信息
      */
-    List<Menu> findUserPermissions(String username);
+    List<Menu> findUserPermissions(String userName);
 
     /**
      * 通过用户名查询菜单信息
      *
-     * @param username 用户名
+     * @param userName 用户名
      * @return 菜单信息
      */
-    List<Menu> findUserMenus(String username);
+    List<Menu> findUserMenus(String userName);
 
 }
