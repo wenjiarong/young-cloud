@@ -1,5 +1,5 @@
 server:
-  port: 9000
+  port: 80
 
 #spring.cloud.gateway.routes定义了路由转发规则，配置含义如下：
 # id，路由ID，保持唯一即可；
@@ -10,6 +10,13 @@ server:
 # filters为过滤器工厂，配置为- StripPrefix=1的意思是，请求转发前，将Path的内容截去前面一位。比如/auth/hello会被截取为/hello。
 # default-filters来指定全局的过滤器
 spring:
+  boot:
+    admin:
+      client:
+        url: http://${young-admin}:8500
+        username: young
+        password: 123456
+
   cloud:
     gateway:
       routes:
@@ -58,12 +65,17 @@ hystrix:
           thread:
             timeoutInMilliseconds: 3000
 
+info:
+  app:
+    name: ${spring.application.name}
+    description: "@project.description@"
+    version: "@project.version@"
 
 management:
-  endpoint:
-    health:
-      show-details: ALWAYS
   endpoints:
     web:
       exposure:
-        include: health,info,gateway
+        include: '*'
+  endpoint:
+    health:
+      show-details: ALWAYS

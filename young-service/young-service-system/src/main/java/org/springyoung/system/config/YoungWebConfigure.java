@@ -6,7 +6,7 @@ import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springyoung.system.properties.YoungServerSystemProperties;
+import org.springyoung.system.properties.YoungSystemProperties;
 import org.springyoung.system.properties.YoungSwaggerProperties;
 import springfox.documentation.builders.OAuthBuilder;
 import springfox.documentation.builders.PathSelectors;
@@ -31,7 +31,7 @@ import java.util.List;
 public class YoungWebConfigure {
 
     @Autowired
-    private YoungServerSystemProperties properties;
+    private YoungSystemProperties properties;
 
     /**
      * 添加Swagger OAuth2认证相关代码:

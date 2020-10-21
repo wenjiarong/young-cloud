@@ -56,9 +56,10 @@ public class YoungSecurityConfigure extends WebSecurityConfigurerAdapter {
         http.addFilterBefore(validateCodeFilter, UsernamePasswordAuthenticationFilter.class)
                 //requestMatchers().antMatchers("/oauth/**")的含义是：YoungSecurityConfigure安全配置类只对/oauth/开头的请求有效
                 .requestMatchers()
-                .antMatchers("/oauth/**")
+                .antMatchers("/oauth/**", "/actuator/**")
                 .and()
                 .authorizeRequests()
+                .antMatchers("/actuator/**").permitAll()
                 .antMatchers("/oauth/**").authenticated()
                 .and()
                 .csrf().disable();

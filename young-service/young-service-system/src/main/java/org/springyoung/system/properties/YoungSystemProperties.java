@@ -7,9 +7,9 @@ import org.springframework.context.annotation.PropertySource;
 
 @Data
 @SpringBootConfiguration
-@PropertySource(value = {"classpath:young-server-system.properties"})
-@ConfigurationProperties(prefix = "young.server.system")
-public class YoungServerSystemProperties {
+@PropertySource(value = {"classpath:young-system.properties"})
+@ConfigurationProperties(prefix = "young.system")
+public class YoungSystemProperties {
 
     /**
      * 免认证 URI，多个值的话以逗号分隔

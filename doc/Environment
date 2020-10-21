@@ -1,2 +1,2 @@
 idea--Environment variables:
-mysql.url=127.0.0.1;redis.url=127.0.0.1;rocketmq.url=47.112.179.5;young-gateway=127.0.0.1;nacos.url=127.0.0.1
+mysql.url=127.0.0.1;redis.url=127.0.0.1;rocketmq.url=47.112.179.5;young-gateway=127.0.0.1;nacos.url=127.0.0.1;young-admin=127.0.0.1

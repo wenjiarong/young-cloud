@@ -1,0 +1,14 @@
+server:
+  port: 8500
+
+spring:
+  application:
+    name: young-admin
+  boot:
+    admin:
+      ui:
+        title: ${spring.application.name}
+  security:
+    user:
+      name: young
+      password: 123456

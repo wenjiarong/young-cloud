@@ -11,9 +11,10 @@
 
     <artifactId>young-ops</artifactId>
     <name>${project.artifactId}</name>
+    <packaging>pom</packaging>
     <modules>
         <module>young-canal-client</module>
+        <module>young-admin</module>
     </modules>
-    <packaging>pom</packaging>
 
 </project>

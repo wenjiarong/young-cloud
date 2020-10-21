@@ -2,6 +2,13 @@ server:
   port: 8200
 
 spring:
+  boot:
+    admin:
+      client:
+        url: http://${young-admin}:8500
+        username: young
+        password: 123456
+
   datasource:
     dynamic:
       #要开启p6spy功能,p6spy用于在控制台中打印MyBatis执行的SQL。
@@ -70,3 +77,18 @@ feign:
 #请求拦截器能够顺利获取到令牌,这样做会把SecurityContext对象从你当前主线程传输到Hystrix线程。
 hystrix:
   shareSecurityContext: true
+
+info:
+  app:
+    name: ${spring.application.name}
+    description: "@project.description@"
+    version: "@project.version@"
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: ALWAYS
