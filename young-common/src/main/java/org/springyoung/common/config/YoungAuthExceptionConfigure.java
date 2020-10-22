@@ -34,4 +34,5 @@ public class YoungAuthExceptionConfigure {
     public YoungAuthExceptionEntryPoint authenticationEntryPoint() {
         return new YoungAuthExceptionEntryPoint();
     }
+
 }
