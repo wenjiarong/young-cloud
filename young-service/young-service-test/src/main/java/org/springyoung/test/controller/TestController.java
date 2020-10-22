@@ -1,6 +1,7 @@
 package org.springyoung.test.controller;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -13,6 +14,7 @@ import java.security.Principal;
 
 @RestController
 @AllArgsConstructor
+@Slf4j
 public class TestController {
 
     private final IUserClient userClient;
@@ -31,6 +33,7 @@ public class TestController {
 
     @GetMapping("/test3")
     public R getUserByUserId(@RequestParam String userId) {
+        log.info("远程调用system服务测试");
         return R.data(userClient.getUserByUserId(Long.valueOf(userId)));
     }
 

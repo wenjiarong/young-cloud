@@ -1,2 +1,6 @@
 idea--Environment variables:
-mysql.url=127.0.0.1;redis.url=127.0.0.1;rocketmq.url=47.112.179.5;young-gateway=127.0.0.1;nacos.url=127.0.0.1;young-admin=127.0.0.1
+mysql.url=127.0.0.1;redis.url=127.0.0.1;rocketmq.url=47.112.179.5;young-gateway=127.0.0.1;nacos.url=127.0.0.1;young-admin=127.0.0.1;young-canal=127.0.0.1;rabbitmq.url=127.0.0.1
+
+
+官方搭建好的Zipkin Server，地址为：https://github.com/openzipkin/zipkin
+java -jar zipkin.jar --server.port=8600 --zipkin.storage.type=mysql --zipkin.storage.mysql.db=young_cloud --zipkin.storage.mysql.username=root --zipkin.storage.mysql.password=root --zipkin.storage.mysql.host=localhost --zipkin.storage.mysql.port=13306 --zipkin.collector.rabbitmq.addresses=localhost:5672 --zipkin.collector.rabbitmq.username=guest --zipkin.collector.rabbitmq.password=guest
