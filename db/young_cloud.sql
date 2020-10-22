@@ -11,7 +11,7 @@
  Target Server Version : 80011
  File Encoding         : 65001
 
- Date: 20/10/2020 17:48:54
+ Date: 22/10/2020 18:07:00
 */
 
 SET NAMES utf8mb4;
@@ -171,7 +171,7 @@ CREATE TABLE `young_user`  (
   `is_deleted` smallint(2) NULL DEFAULT NULL COMMENT '软删除 0未删除 1删除',
   `create_dept` bigint(64) NULL DEFAULT NULL COMMENT '创建部门',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 10001 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '用户表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1318470775754153987 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '用户表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of young_user
@@ -193,5 +193,76 @@ CREATE TABLE `young_user_role`  (
 -- ----------------------------
 INSERT INTO `young_user_role` VALUES (10000, 1);
 INSERT INTO `young_user_role` VALUES (1318470775754153986, 1);
+
+-- ----------------------------
+-- Table structure for zipkin_annotations
+-- ----------------------------
+DROP TABLE IF EXISTS `zipkin_annotations`;
+CREATE TABLE `zipkin_annotations`  (
+  `trace_id_high` bigint(20) NOT NULL DEFAULT 0 COMMENT 'If non zero, this means the trace uses 128 bit traceIds instead of 64 bit',
+  `trace_id` bigint(20) NOT NULL COMMENT 'coincides with zipkin_spans.trace_id',
+  `span_id` bigint(20) NOT NULL COMMENT 'coincides with zipkin_spans.id',
+  `a_key` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'BinaryAnnotation.key or Annotation.value if type == -1',
+  `a_value` blob NULL COMMENT 'BinaryAnnotation.value(), which must be smaller than 64KB',
+  `a_type` int(11) NOT NULL COMMENT 'BinaryAnnotation.type() or -1 if Annotation',
+  `a_timestamp` bigint(20) NULL DEFAULT NULL COMMENT 'Used to implement TTL; Annotation.timestamp or zipkin_spans.timestamp',
+  `endpoint_ipv4` int(11) NULL DEFAULT NULL COMMENT 'Null when Binary/Annotation.endpoint is null',
+  `endpoint_ipv6` binary(16) NULL DEFAULT NULL COMMENT 'Null when Binary/Annotation.endpoint is null, or no IPv6 address',
+  `endpoint_port` smallint(6) NULL DEFAULT NULL COMMENT 'Null when Binary/Annotation.endpoint is null',
+  `endpoint_service_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT 'Null when Binary/Annotation.endpoint is null',
+  UNIQUE INDEX `trace_id_high`(`trace_id_high`, `trace_id`, `span_id`, `a_key`, `a_timestamp`) USING BTREE COMMENT 'Ignore insert on duplicate',
+  INDEX `trace_id_high_2`(`trace_id_high`, `trace_id`, `span_id`) USING BTREE COMMENT 'for joining with zipkin_spans',
+  INDEX `trace_id_high_3`(`trace_id_high`, `trace_id`) USING BTREE COMMENT 'for getTraces/ByIds',
+  INDEX `endpoint_service_name`(`endpoint_service_name`) USING BTREE COMMENT 'for getTraces and getServiceNames',
+  INDEX `a_type`(`a_type`) USING BTREE COMMENT 'for getTraces and autocomplete values',
+  INDEX `a_key`(`a_key`) USING BTREE COMMENT 'for getTraces and autocomplete values',
+  INDEX `trace_id`(`trace_id`, `span_id`, `a_key`) USING BTREE COMMENT 'for dependencies job'
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compressed;
+
+-- ----------------------------
+-- Records of zipkin_annotations
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for zipkin_dependencies
+-- ----------------------------
+DROP TABLE IF EXISTS `zipkin_dependencies`;
+CREATE TABLE `zipkin_dependencies`  (
+  `day` date NOT NULL,
+  `parent` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `child` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `call_count` bigint(20) NULL DEFAULT NULL,
+  `error_count` bigint(20) NULL DEFAULT NULL,
+  PRIMARY KEY (`day`, `parent`, `child`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compressed;
+
+-- ----------------------------
+-- Records of zipkin_dependencies
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for zipkin_spans
+-- ----------------------------
+DROP TABLE IF EXISTS `zipkin_spans`;
+CREATE TABLE `zipkin_spans`  (
+  `trace_id_high` bigint(20) NOT NULL DEFAULT 0 COMMENT 'If non zero, this means the trace uses 128 bit traceIds instead of 64 bit',
+  `trace_id` bigint(20) NOT NULL,
+  `id` bigint(20) NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `remote_service_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `parent_id` bigint(20) NULL DEFAULT NULL,
+  `debug` bit(1) NULL DEFAULT NULL,
+  `start_ts` bigint(20) NULL DEFAULT NULL COMMENT 'Span.timestamp(): epoch micros used for endTs query and to implement TTL',
+  `duration` bigint(20) NULL DEFAULT NULL COMMENT 'Span.duration(): micros used for minDuration and maxDuration query',
+  PRIMARY KEY (`trace_id_high`, `trace_id`, `id`) USING BTREE,
+  INDEX `trace_id_high`(`trace_id_high`, `trace_id`) USING BTREE COMMENT 'for getTracesByIds',
+  INDEX `name`(`name`) USING BTREE COMMENT 'for getTraces and getSpanNames',
+  INDEX `remote_service_name`(`remote_service_name`) USING BTREE COMMENT 'for getTraces and getRemoteServiceNames',
+  INDEX `start_ts`(`start_ts`) USING BTREE COMMENT 'for getTraces ordering and range'
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compressed;
+
+-- ----------------------------
+-- Records of zipkin_spans
+-- ----------------------------
 
 SET FOREIGN_KEY_CHECKS = 1;
