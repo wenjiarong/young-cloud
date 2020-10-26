@@ -21,7 +21,7 @@ public class YoungAuthExceptionEntryPoint implements AuthenticationEntryPoint {
     public void commence(HttpServletRequest request, HttpServletResponse response,
                          AuthenticationException authException) throws IOException {
         YoungUtil.makeResponse(
-                response, MediaType.APPLICATION_JSON_UTF8_VALUE,
+                response, MediaType.APPLICATION_JSON_VALUE,
                 HttpServletResponse.SC_UNAUTHORIZED, R.fail(ResultCode.INTERNAL_SERVER_ERROR.getCode(), "token无效")
         );
     }

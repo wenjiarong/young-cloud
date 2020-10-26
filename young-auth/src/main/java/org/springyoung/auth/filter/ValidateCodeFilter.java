@@ -67,7 +67,7 @@ public class ValidateCodeFilter extends OncePerRequestFilter {
                 validateCode(httpServletRequest);
                 filterChain.doFilter(httpServletRequest, httpServletResponse);
             } catch (ValidateCodeException e) {
-                YoungUtil.makeResponse(httpServletResponse, MediaType.APPLICATION_JSON_UTF8_VALUE,
+                YoungUtil.makeResponse(httpServletResponse, MediaType.APPLICATION_JSON_VALUE,
                         HttpServletResponse.SC_INTERNAL_SERVER_ERROR, R.fail(ResultCode.INTERNAL_SERVER_ERROR.getCode(), e.getMessage()));
                 log.error(e.getMessage(), e);
             }

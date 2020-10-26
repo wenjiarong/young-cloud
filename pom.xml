@@ -23,16 +23,20 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.1.6.RELEASE</version>
-        <relativePath/> <!-- lookup parent from repository -->
+        <!--升级 -->
+        <version>2.2.0.RELEASE</version>
+        <relativePath/>
     </parent>
 
     <properties>
         <young.project.version>1.0.0.RELEASE</young.project.version>
 
-        <spring.boot.version>2.1.6.RELEASE</spring.boot.version>
-        <spring.cloud.version>Greenwich.SR1</spring.cloud.version>
-        <spring.cloud.alibaba.version>0.9.0.RELEASE</spring.cloud.alibaba.version>
+        <!--升级 -->
+        <spring.boot.version>2.2.0.RELEASE</spring.boot.version>
+        <spring.cloud.version>Hoxton.RELEASE</spring.cloud.version>
+        <spring.cloud.alibaba.version>2.1.1.RELEASE</spring.cloud.alibaba.version>
+
+        <admin.server.version>2.2.0</admin.server.version>
 
         <maven.plugin.version>3.8.1</maven.plugin.version>
 
@@ -64,8 +68,9 @@
                 <scope>import</scope>
             </dependency>
             <!-- 添加Spring Cloud Alibaba依赖管理 -->
+            <!-- 升级，替换为 com.alibaba.cloud -->
             <dependency>
-                <groupId>org.springframework.cloud</groupId>
+                <groupId>com.alibaba.cloud</groupId>
                 <artifactId>spring-cloud-alibaba-dependencies</artifactId>
                 <version>${spring.cloud.alibaba.version}</version>
                 <type>pom</type>

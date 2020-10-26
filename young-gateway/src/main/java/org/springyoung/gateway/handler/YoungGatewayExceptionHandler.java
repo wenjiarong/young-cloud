@@ -18,11 +18,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- *  创建自定义异常类覆盖默认异常DefaultErrorWebExceptionHandler
- *
- *  YoungGatewayExceptionHandler代码参考DefaultErrorWebExceptionHandler类的源码实现。
- *  在getHttpStatus方法中，定义了状态码为500（可以通过不同的异常类型来返回不同的状态码）；
- *  在getErrorAttributes方法中，我们根据异常的类型或者异常的错误信息来归类，构建了响应的异常信息对象。
+ * 创建自定义异常类覆盖默认异常DefaultErrorWebExceptionHandler
+ * <p>
+ * YoungGatewayExceptionHandler代码参考DefaultErrorWebExceptionHandler类的源码实现。
+ * 在getHttpStatus方法中，定义了状态码为500（可以通过不同的异常类型来返回不同的状态码）；
+ * 在getErrorAttributes方法中，我们根据异常的类型或者异常的错误信息来归类，构建了响应的异常信息对象。
  */
 @Slf4j
 public class YoungGatewayExceptionHandler extends DefaultErrorWebExceptionHandler {
@@ -54,7 +54,7 @@ public class YoungGatewayExceptionHandler extends DefaultErrorWebExceptionHandle
         } else if (error instanceof ResponseStatusException
                 && StringUtils.containsIgnoreCase(error.getMessage(), HttpStatus.NOT_FOUND.toString())) {
             errorMessage = "未找到该资源";
-        } else if (error instanceof ParamFlowException){
+        } else if (error instanceof ParamFlowException) {
             errorMessage = "访问频率超限";
         } else {
             errorMessage = "网关转发异常";
@@ -71,8 +71,8 @@ public class YoungGatewayExceptionHandler extends DefaultErrorWebExceptionHandle
     }
 
     @Override
-    protected HttpStatus getHttpStatus(Map<String, Object> errorAttributes) {
-        return HttpStatus.INTERNAL_SERVER_ERROR;
+    protected int getHttpStatus(Map<String, Object> errorAttributes) {
+        return HttpStatus.INTERNAL_SERVER_ERROR.value();
     }
 
 }

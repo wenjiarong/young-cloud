@@ -101,7 +101,7 @@ public class YoungGatewayRequestFilter implements GlobalFilter {
 
     private Mono<Void> makeResponse(ServerHttpResponse response) {
         response.setStatusCode(HttpStatus.FORBIDDEN);
-        response.getHeaders().add(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_UTF8_VALUE);
+        response.getHeaders().add(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
         DataBuffer dataBuffer = response.bufferFactory().wrap(JSONObject.toJSONString(R.fail(ResultCode.INTERNAL_SERVER_ERROR.getCode(), "该URI不允许外部访问")).getBytes());
         return response.writeWith(Mono.just(dataBuffer));
     }

@@ -14,10 +14,6 @@
     <version>${young.project.version}</version>
     <packaging>jar</packaging>
 
-    <properties>
-        <sentinel.version>1.6.3</sentinel.version>
-    </properties>
-
     <dependencies>
         <dependency>
             <groupId>org.springyoung</groupId>
@@ -55,18 +51,6 @@
         <dependency>
             <groupId>com.alibaba.csp</groupId>
             <artifactId>sentinel-spring-cloud-gateway-adapter</artifactId>
-            <version>${sentinel.version}</version>
-        </dependency>
-        <!-- 使用Sentinel版本为1.6.3代替spring-cloud-alibaba-dependencies.0.9.0.RELEASE中定义的sentinel版本1.5.2 -->
-        <dependency>
-            <groupId>com.alibaba.csp</groupId>
-            <artifactId>sentinel-core</artifactId>
-            <version>${sentinel.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.alibaba.csp</groupId>
-            <artifactId>sentinel-parameter-flow-control</artifactId>
-            <version>${sentinel.version}</version>
         </dependency>
     </dependencies>
 

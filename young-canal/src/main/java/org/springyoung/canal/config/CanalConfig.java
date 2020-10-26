@@ -1,6 +1,7 @@
 package org.springyoung.canal.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Primary;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 
@@ -15,6 +16,7 @@ import java.util.Set;
  */
 @Order(Ordered.HIGHEST_PRECEDENCE)
 @ConfigurationProperties(prefix = "canal.client")
+@Primary
 public class CanalConfig {
 
     /**

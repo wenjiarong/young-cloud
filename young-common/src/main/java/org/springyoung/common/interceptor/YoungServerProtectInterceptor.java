@@ -29,7 +29,7 @@ public class YoungServerProtectInterceptor implements HandlerInterceptor {
         if (StringUtils.equals(gatewayToken, token)) {
             return true;
         } else {
-            YoungUtil.makeResponse(response, MediaType.APPLICATION_JSON_UTF8_VALUE, HttpServletResponse.SC_FORBIDDEN, R.fail("请通过网关获取资源"));
+            YoungUtil.makeResponse(response, MediaType.APPLICATION_JSON_VALUE, HttpServletResponse.SC_FORBIDDEN, R.fail("请通过网关获取资源"));
             return false;
         }
     }
