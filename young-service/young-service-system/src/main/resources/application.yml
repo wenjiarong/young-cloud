@@ -77,11 +77,6 @@ mybatis-plus:
 #mybatis-plus.configuration.jdbc-type-for-null，指定为null，否则再插入空值时会报“无效的列类型”错误；
 #mybatis-plus.configuration.global-config.banner设置为false关闭MyBatis Plus Banner打印。
 
-rocketmq:
-  name-server: ${rocketmq.url}:9876
-  producer:
-    group: test-group
-
 #让Feign的回退生效,因为Feign的回退功能是基于Hystrix实现的，所以需要开启它。
 feign:
   hystrix:

@@ -16,4 +16,6 @@ public class YoungTestProperties {
      */
     private String anonUrl;
 
+    private YoungSwaggerProperties swagger = new YoungSwaggerProperties();
+
 }

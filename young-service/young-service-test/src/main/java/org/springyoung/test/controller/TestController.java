@@ -7,8 +7,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springyoung.common.response.R;
-import org.springyoung.system.entity.User;
 import org.springyoung.system.fegin.IUserClient;
+import org.springyoung.test.entity.TradeLog;
+import org.springyoung.test.service.ITradeLogService;
 
 import java.security.Principal;
 
@@ -18,6 +19,7 @@ import java.security.Principal;
 public class TestController {
 
     private final IUserClient userClient;
+    private final ITradeLogService tradeLogService;
 
     @GetMapping("/test1")
     @PreAuthorize("hasAnyAuthority('user:add')")
@@ -40,6 +42,11 @@ public class TestController {
     @GetMapping("/user")
     public R currentUser(Principal principal) {
         return R.data(principal);
+    }
+
+    @GetMapping("/pay")
+    public R orderAndPay(TradeLog tradeLog) {
+        return R.data(this.tradeLogService.orderAndPay(tradeLog));
     }
 
 }
