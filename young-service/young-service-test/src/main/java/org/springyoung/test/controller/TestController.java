@@ -44,9 +44,4 @@ public class TestController {
         return R.data(principal);
     }
 
-    @GetMapping("/pay")
-    public R orderAndPay(TradeLog tradeLog) {
-        return R.data(this.tradeLogService.orderAndPay(tradeLog));
-    }
-
 }

@@ -16,6 +16,7 @@
     <modules>
         <module>young-service-system</module>
         <module>young-service-test</module>
+        <module>young-service-demo</module>
     </modules>
 
     <dependencies>

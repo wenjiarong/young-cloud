@@ -1,4 +1,4 @@
-package org.springyoung.test.listener;
+package org.springyoung.demo.listener;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import lombok.extern.slf4j.Slf4j;
@@ -10,11 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageHeaders;
 import org.springframework.stereotype.Component;
-import org.springyoung.test.constant.RocketMqConstant;
+import org.springyoung.demo.constant.RocketMqConstant;
+import org.springyoung.demo.entity.TransactionLog;
+import org.springyoung.demo.mapper.TransactionLogMapper;
+import org.springyoung.demo.service.ITradeLogService;
 import org.springyoung.test.entity.TradeLog;
-import org.springyoung.test.entity.TransactionLog;
-import org.springyoung.test.mapper.TransactionLogMapper;
-import org.springyoung.test.service.ITradeLogService;
 
 @Slf4j
 @Component

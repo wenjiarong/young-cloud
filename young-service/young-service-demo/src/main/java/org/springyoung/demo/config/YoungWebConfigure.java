@@ -1,4 +1,4 @@
-package org.springyoung.test.config;
+package org.springyoung.demo.config;
 
 import com.baomidou.mybatisplus.core.parser.ISqlParser;
 import com.baomidou.mybatisplus.extension.parsers.BlockAttackSqlParser;
@@ -6,8 +6,8 @@ import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springyoung.test.properties.YoungSwaggerProperties;
-import org.springyoung.test.properties.YoungTestProperties;
+import org.springyoung.demo.properties.YoungDemoProperties;
+import org.springyoung.demo.properties.YoungSwaggerProperties;
 import springfox.documentation.builders.OAuthBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -30,7 +30,7 @@ import java.util.List;
 @EnableSwagger2 //表示开启Swagger功能
 public class YoungWebConfigure {
 
-    private final YoungTestProperties properties;
+    private final YoungDemoProperties properties;
 
     /**
      * 添加Swagger OAuth2认证相关代码:

@@ -52,6 +52,16 @@ spring:
                 args:
                   name: testfallback
                   fallbackUri: forward:/fallback/young-test
+        - id: young-demo
+          uri: lb://young-demo
+          predicates:
+            - Path=/demo/**
+          #在网关中加入Hystrix熔断处理,添加Hystrix过滤器工厂
+          filters:
+            - name: Hystrix
+              args:
+                name: demofallback
+                fallbackUri: forward:/fallback/young-demo
       default-filters:
         - StripPrefix=1
 

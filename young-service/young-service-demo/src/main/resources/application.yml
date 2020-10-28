@@ -1,5 +1,5 @@
 server:
-  port: 8300
+  port: 8700
 
 spring:
   #spring.boot.admin.client.url指定了SBA服务端地址；
@@ -78,6 +78,8 @@ mybatis-plus:
 
 rocketmq:
   name-server: ${rocketmq.url}:9876
+  producer:
+    group: test-group
 
 #info.**配置了SBA客户端的名称，描述和版本信息；
 info:

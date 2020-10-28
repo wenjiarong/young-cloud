@@ -1,4 +1,4 @@
-package org.springyoung.test.entity;
+package org.springyoung.demo.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
