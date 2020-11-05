@@ -7,4 +7,9 @@ public interface CacheConstant {
      */
     String CACHE_CODE_PREFIX = "young:captcha:";
 
+    /**
+     * 极光推送缓存
+     */
+    String CACHE_JPUSH_REGID = "oceanlink:jpush:regid";
+
 }

@@ -4,8 +4,6 @@ server:
 canal:
   client:
     instances:
-      # 只监听某个表
-      filter: bladex.blade_user
       example:
         acquireInterval: 1000
         batchSize: 1000
@@ -13,6 +11,8 @@ canal:
         host: ${young-canal}
         port: 11111
         retryCount: 20
+        # 只监听某个表
+        filter: bladex.blade_user
 
 spring:
   boot:

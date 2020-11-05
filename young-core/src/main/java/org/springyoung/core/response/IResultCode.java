@@ -1,4 +1,4 @@
-package org.springyoung.common.response;
+package org.springyoung.core.response;
 
 import java.io.Serializable;
 

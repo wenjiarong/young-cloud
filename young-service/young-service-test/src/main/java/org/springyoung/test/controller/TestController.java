@@ -6,9 +6,8 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springyoung.common.response.R;
+import org.springyoung.core.response.R;
 import org.springyoung.system.fegin.IUserClient;
-import org.springyoung.test.entity.TradeLog;
 import org.springyoung.test.service.ITradeLogService;
 
 import java.security.Principal;

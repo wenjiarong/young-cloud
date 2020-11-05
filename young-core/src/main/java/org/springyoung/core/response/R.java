@@ -1,8 +1,8 @@
-package org.springyoung.common.response;
+package org.springyoung.core.response;
 
-import com.sun.istack.Nullable;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import org.springframework.lang.Nullable;
 import org.springframework.util.ObjectUtils;
 
 import java.io.Serializable;

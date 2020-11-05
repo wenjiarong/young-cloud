@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springyoung.common.response.R;
+import org.springyoung.core.response.R;
 import org.springyoung.system.entity.Menu;
 import org.springyoung.system.entity.router.VueRouter;
 import org.springyoung.system.service.IMenuService;

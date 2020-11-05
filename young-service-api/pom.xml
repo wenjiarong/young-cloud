@@ -11,13 +11,13 @@
 
     <artifactId>young-service-api</artifactId>
     <name>${project.artifactId}</name>
+    <packaging>pom</packaging>
+    <description>YoungX 微服务API集合</description>
     <modules>
         <module>young-service-system-api</module>
         <module>young-service-test-api</module>
         <module>young-service-demo-api</module>
     </modules>
-    <packaging>pom</packaging>
-    <description>YoungX 微服务API集合</description>
 
     <dependencies>
         <dependency>

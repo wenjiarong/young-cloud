@@ -8,8 +8,8 @@ import org.springframework.security.oauth2.common.exceptions.InvalidGrantExcepti
 import org.springframework.security.oauth2.common.exceptions.UnsupportedGrantTypeException;
 import org.springframework.security.oauth2.provider.error.WebResponseExceptionTranslator;
 import org.springframework.stereotype.Component;
-import org.springyoung.common.response.R;
-import org.springyoung.common.response.ResultCode;
+import org.springyoung.core.response.R;
+import org.springyoung.core.response.ResultCode;
 
 /**
  * YoungWebResponseExceptionTranslator实现了WebResponseExceptionTranslator接口，用于覆盖默认的认证异常响应

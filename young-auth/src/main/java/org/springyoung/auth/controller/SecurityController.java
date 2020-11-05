@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springyoung.auth.service.ValidateCodeService;
 import org.springyoung.common.exception.ValidateCodeException;
 import org.springyoung.common.exception.YoungAuthException;
-import org.springyoung.common.response.R;
+import org.springyoung.core.response.R;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

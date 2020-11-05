@@ -3,8 +3,8 @@ package org.springyoung.common.handler;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
-import org.springyoung.common.response.R;
-import org.springyoung.common.response.ResultCode;
+import org.springyoung.core.response.R;
+import org.springyoung.core.response.ResultCode;
 import org.springyoung.common.utils.YoungUtil;
 
 import javax.servlet.http.HttpServletRequest;

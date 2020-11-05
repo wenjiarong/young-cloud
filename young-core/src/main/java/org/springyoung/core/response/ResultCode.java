@@ -1,4 +1,4 @@
-package org.springyoung.common.response;
+package org.springyoung.core.response;
 
 public enum ResultCode implements IResultCode {
     SUCCESS(200, "操作成功"),

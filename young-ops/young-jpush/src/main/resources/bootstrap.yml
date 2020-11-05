@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: young-jpusg
+  cloud:
+    nacos:
+      discovery:
+        server-addr: ${nacos.url}:8848
+      config:
+        server-addr: ${nacos.url}:8848
+        # 指定配置分组名称
+        group: DEFAULT_GROUP
+        # 指定在nacos配置中心对应微服务配置的前缀
+        prefix: young-jpusg
+        # 指定微服务配置文件的类型
+        file-extension: yaml
