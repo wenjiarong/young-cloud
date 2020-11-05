@@ -42,6 +42,16 @@ spring:
                 args:
                   name: systemfallback
                   fallbackUri: forward:/fallback/young-system
+        - id: young-jpush
+          uri: lb://young-jpush
+          predicates:
+            - Path=/jpush/**
+          #在网关中加入Hystrix熔断处理,添加Hystrix过滤器工厂
+          filters:
+            - name: Hystrix
+              args:
+                name: jpushfallback
+                fallbackUri: forward:/fallback/young-jpush
         - id: young-test
           uri: lb://young-test
           predicates:
