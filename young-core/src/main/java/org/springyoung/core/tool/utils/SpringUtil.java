@@ -1,4 +1,4 @@
-package org.springyoung.canal.util;
+package org.springyoung.core.tool.utils;
 
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
@@ -15,7 +15,7 @@ import java.util.Map;
  *
  */
 @Component
-public class BeanUtil implements ApplicationContextAware {
+public class SpringUtil implements ApplicationContextAware {
 
 	/**
 	 * 上下文
@@ -28,7 +28,7 @@ public class BeanUtil implements ApplicationContextAware {
 	 */
 	@Override
 	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-		BeanUtil.applicationContext=applicationContext;
+		SpringUtil.applicationContext=applicationContext;
 	}
 	
 	/**

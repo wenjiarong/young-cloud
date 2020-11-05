@@ -71,7 +71,7 @@ public class JpushClient implements IJpushClient {
      */
     @PostMapping(CONNECT)
     public R connect(@RequestParam String regId, @RequestParam String type) {
-       /* BladeUser user = AuthUtil.getUser();
+       /* YoungUser user = AuthUtil.getUser();
         if (user == null) {
             R.fail("非法连接");
         }

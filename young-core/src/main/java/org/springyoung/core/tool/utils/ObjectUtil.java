@@ -1,20 +1,20 @@
-//
-// Source code recreated from a .class file by IntelliJ IDEA
-// (powered by Fernflower decompiler)
-//
-
 package org.springyoung.core.tool.utils;
 
 import org.springframework.lang.Nullable;
-import org.springframework.util.ObjectUtils;
 
-public class ObjectUtil extends ObjectUtils {
+/**
+ * 对象工具类
+ *
+ */
+public class ObjectUtil extends org.springframework.util.ObjectUtils {
 
-    public ObjectUtil() {
-    }
-
+    /**
+     * 判断元素不为空
+     * @param obj object
+     * @return boolean
+     */
     public static boolean isNotEmpty(@Nullable Object obj) {
-        return !isEmpty(obj);
+        return !ObjectUtil.isEmpty(obj);
     }
 
 }

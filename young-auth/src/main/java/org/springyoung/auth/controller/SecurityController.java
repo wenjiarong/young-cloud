@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springyoung.auth.service.ValidateCodeService;
 import org.springyoung.common.exception.ValidateCodeException;
 import org.springyoung.common.exception.YoungAuthException;
+import org.springyoung.core.constant.TokenConstant;
 import org.springyoung.core.response.R;
 
 import javax.servlet.http.HttpServletRequest;
@@ -56,8 +57,8 @@ public class SecurityController {
      */
     @DeleteMapping("/signout")
     public R signout(HttpServletRequest request) throws YoungAuthException {
-        String authorization = request.getHeader("Authorization");
-        String token = StringUtils.replace(authorization, "bearer ", "");
+        String authorization = request.getHeader(TokenConstant.HEADER);
+        String token = StringUtils.replace(authorization, TokenConstant.BEARER + " ", "");
         if (!consumerTokenServices.revokeToken(token)) {
             throw new YoungAuthException("退出登录失败");
         }

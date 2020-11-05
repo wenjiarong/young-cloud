@@ -7,7 +7,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springyoung.core.boot.ctrl.YoungController;
 import org.springyoung.core.response.R;
+import org.springyoung.core.secure.YoungUser;
 import org.springyoung.system.entity.Menu;
 import org.springyoung.system.entity.router.VueRouter;
 import org.springyoung.system.service.IMenuService;
@@ -23,12 +25,13 @@ import java.util.Set;
 @RestController
 @RequestMapping("/menu")
 @AllArgsConstructor
-public class MenuController {
+public class MenuController extends YoungController {
 
     private final IMenuService menuService;
 
     @GetMapping("/{userName}")
     public R<Map<String, Object>> getUserRouters(@NotBlank(message = "{required}") @PathVariable String userName) {
+        YoungUser user = getUser();
         Map<String, Object> result = new HashMap<>();
         // 构建用户路由对象
         List<VueRouter<Menu>> userRouters = this.menuService.getUserRouters(userName);

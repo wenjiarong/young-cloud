@@ -6,6 +6,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.provider.authentication.OAuth2AuthenticationDetails;
 import org.springframework.util.Base64Utils;
+import org.springyoung.core.constant.TokenConstant;
 import org.springyoung.core.constant.YoungConstant;
 import org.springyoung.core.tool.utils.ObjectUtil;
 
@@ -29,7 +30,7 @@ public class YoungOAuth2FeignConfigure {
                     //并通过该对象获取到了请求令牌
                     String authorizationToken = ((OAuth2AuthenticationDetails) details).getTokenValue();
                     //然后在请求模板对象requestTemplate的头部手动将令牌添加上去
-                    requestTemplate.header(HttpHeaders.AUTHORIZATION, "bearer " + authorizationToken);
+                    requestTemplate.header(HttpHeaders.AUTHORIZATION, TokenConstant.BEARER + " " + authorizationToken);
                 }
             }
         };

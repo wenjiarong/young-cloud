@@ -8,7 +8,7 @@ import org.springyoung.canal.annotation.ListenPoint;
 import org.springyoung.canal.client.abstracts.AbstractCanalClient;
 import org.springyoung.canal.client.interfaces.CanalEventListener;
 import org.springyoung.canal.config.CanalConfig;
-import org.springyoung.canal.util.BeanUtil;
+import org.springyoung.core.tool.utils.SpringUtil;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -80,7 +80,7 @@ public class SimpleCanalClient extends AbstractCanalClient {
     private void initListeners() {
         logger.info("{}: 监听器正在初始化....", Thread.currentThread().getName());
         //获取监听器
-        List<CanalEventListener> list = BeanUtil.getBeansOfType(CanalEventListener.class);
+        List<CanalEventListener> list = SpringUtil.getBeansOfType(CanalEventListener.class);
         //若没有任何监听的，我也不知道引入这个 jar 干什么，直接返回吧
         if (list != null) {
             //若存在目标监听，放入 listenerMap
@@ -88,7 +88,7 @@ public class SimpleCanalClient extends AbstractCanalClient {
         }
 
         //若是你喜欢通过注解的方式去监听的话。。
-        Map<String, Object> listenerMap = BeanUtil.getBeansWithAnnotation(org.springyoung.canal.annotation.CanalEventListener.class);
+        Map<String, Object> listenerMap = SpringUtil.getBeansWithAnnotation(org.springyoung.canal.annotation.CanalEventListener.class);
         //也放入 map
         if (listenerMap != null) {
             for (Object target : listenerMap.values()) {

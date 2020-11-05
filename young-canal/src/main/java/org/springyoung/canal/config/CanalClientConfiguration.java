@@ -9,7 +9,7 @@ import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springyoung.canal.client.core.SimpleCanalClient;
 import org.springyoung.canal.client.interfaces.CanalClient;
-import org.springyoung.canal.util.BeanUtil;
+import org.springyoung.core.tool.utils.SpringUtil;
 
 
 public class CanalClientConfiguration {
@@ -30,8 +30,8 @@ public class CanalClientConfiguration {
      */
     @Bean
     @Order(Ordered.HIGHEST_PRECEDENCE)
-    public BeanUtil beanUtil() {
-        return new BeanUtil();
+    public SpringUtil beanUtil() {
+        return new SpringUtil();
     }
     
     /**
