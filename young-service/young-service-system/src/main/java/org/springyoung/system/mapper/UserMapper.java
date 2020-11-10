@@ -8,12 +8,12 @@ import org.springyoung.system.entity.User;
 public interface UserMapper extends BaseMapper<User> {
 
     /**
-     * 通过用户名查找用户信息
+     * 通过账号查找用户信息
      *
-     * @param userName
+     * @param account
      * @return
      */
-    User findByName(String userName);
+    User findByAccount(String account);
 
     /**
      * 查找用户详细信息

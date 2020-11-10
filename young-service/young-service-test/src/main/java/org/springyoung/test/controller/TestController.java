@@ -6,7 +6,9 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springyoung.core.boot.ctrl.YoungController;
 import org.springyoung.core.response.R;
+import org.springyoung.core.secure.YoungUser;
 import org.springyoung.system.fegin.IUserClient;
 import org.springyoung.test.service.ITradeLogService;
 
@@ -15,10 +17,9 @@ import java.security.Principal;
 @RestController
 @AllArgsConstructor
 @Slf4j
-public class TestController {
+public class TestController extends YoungController {
 
     private final IUserClient userClient;
-    private final ITradeLogService tradeLogService;
 
     @GetMapping("/test1")
     @PreAuthorize("hasAnyAuthority('user:add')")
@@ -33,14 +34,10 @@ public class TestController {
     }
 
     @GetMapping("/test3")
-    public R getUserByUserId(@RequestParam String userId) {
+    public R getUserByUserId() {
+        YoungUser user = getUser();
         log.info("远程调用system服务测试");
-        return R.data(userClient.getUserByUserId(Long.valueOf(userId)));
-    }
-
-    @GetMapping("/user")
-    public R currentUser(Principal principal) {
-        return R.data(principal);
+        return R.data(userClient.getUserByUserId(user.getUserId()));
     }
 
 }

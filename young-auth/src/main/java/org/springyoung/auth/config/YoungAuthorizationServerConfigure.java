@@ -3,7 +3,6 @@ package org.springyoung.auth.config;
 import lombok.AllArgsConstructor;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -12,16 +11,17 @@ import org.springframework.security.oauth2.config.annotation.configurers.ClientD
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
-import org.springframework.security.oauth2.provider.token.DefaultAccessTokenConverter;
-import org.springframework.security.oauth2.provider.token.DefaultUserAuthenticationConverter;
+import org.springframework.security.oauth2.provider.token.TokenEnhancer;
+import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
-import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 import org.springyoung.auth.properties.YoungAuthProperties;
 import org.springyoung.auth.properties.YoungClientsProperties;
 import org.springyoung.auth.service.YoungUserDetailService;
 import org.springyoung.auth.translator.YoungWebResponseExceptionTranslator;
-import org.springyoung.core.constant.YoungConstant;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @ClassName 认证服务器相关的安全配置类
@@ -45,6 +45,9 @@ public class YoungAuthorizationServerConfigure extends AuthorizationServerConfig
     private final YoungUserDetailService userDetailService;
     private final YoungAuthProperties authProperties;
     private final YoungWebResponseExceptionTranslator exceptionTranslator;
+    private final TokenStore tokenStore;
+    private final TokenEnhancer jwtTokenEnhancer;
+    private final JwtAccessTokenConverter jwtAccessTokenConverter;
     //private final DataSource dataSource;
     //MyBatis Plus配置了多数据源
     //private final DynamicRoutingDataSource dynamicRoutingDataSource;
@@ -81,14 +84,23 @@ public class YoungAuthorizationServerConfigure extends AuthorizationServerConfig
     @Override
     @SuppressWarnings("all")
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) {
-        endpoints.tokenStore(tokenStore())
+        endpoints.tokenStore(tokenStore)
                 .userDetailsService(userDetailService)
                 .authenticationManager(authenticationManager)
                 //.tokenServices(defaultTokenServices())
                 //让异常翻译器生效
-                .exceptionTranslator(exceptionTranslator)
-                //指定该JwtAccessTokenConverter，用于后续JWT校验
-                .accessTokenConverter(jwtAccessTokenConverter());
+                .exceptionTranslator(exceptionTranslator);
+
+        //扩展token返回结果
+        if (jwtAccessTokenConverter != null && jwtTokenEnhancer != null) {
+            TokenEnhancerChain tokenEnhancerChain = new TokenEnhancerChain();
+            List<TokenEnhancer> enhancerList = new ArrayList<>();
+            enhancerList.add(jwtTokenEnhancer);
+            enhancerList.add(jwtAccessTokenConverter);
+            tokenEnhancerChain.setTokenEnhancers(enhancerList);
+            //jwt增强,指定该JwtAccessTokenConverter，用于后续JWT校验
+            endpoints.tokenEnhancer(tokenEnhancerChain).accessTokenConverter(jwtAccessTokenConverter);
+        }
     }
 
     /**
@@ -117,29 +129,6 @@ public class YoungAuthorizationServerConfigure extends AuthorizationServerConfig
         DataSource febsCloudBase = dynamicRoutingDataSource.getDataSource("febs_cloud_base");
         return new JdbcTokenStore(febsCloudBase);
     }*/
-
-    /**
-     * 使用JWT格式令牌
-     *
-     * @return
-     */
-    @Bean
-    public TokenStore tokenStore() {
-        return new JwtTokenStore(jwtAccessTokenConverter());
-    }
-
-
-    @Bean
-    public JwtAccessTokenConverter jwtAccessTokenConverter() {
-        JwtAccessTokenConverter accessTokenConverter = new JwtAccessTokenConverter();
-        DefaultAccessTokenConverter defaultAccessTokenConverter = (DefaultAccessTokenConverter) accessTokenConverter.getAccessTokenConverter();
-        DefaultUserAuthenticationConverter userAuthenticationConverter = new DefaultUserAuthenticationConverter();
-        userAuthenticationConverter.setUserDetailsService(userDetailService);
-        defaultAccessTokenConverter.setUserTokenConverter(userAuthenticationConverter);
-        //指定了JWT的密钥，防止我们的令牌在传输途中被篡改
-        accessTokenConverter.setSigningKey(YoungConstant.JWT_KEY);
-        return accessTokenConverter;
-    }
 
     /**
      * defaultTokenServices指定了令牌的基本配置，比如令牌有效时间为60 * 60 * 24秒，

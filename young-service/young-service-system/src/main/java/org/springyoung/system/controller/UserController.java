@@ -7,6 +7,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springyoung.common.exception.YoungException;
+import org.springyoung.core.boot.ctrl.YoungController;
 import org.springyoung.core.response.R;
 import org.springyoung.core.mp.support.Query;
 import org.springyoung.system.entity.User;
@@ -27,7 +28,7 @@ import javax.validation.constraints.NotBlank;
 @RestController
 @RequestMapping("/user")
 @AllArgsConstructor
-public class UserController {
+public class UserController extends YoungController {
 
     private final IUserService userService;
 

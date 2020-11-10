@@ -23,14 +23,14 @@ import java.util.stream.Collectors;
 public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IMenuService {
 
     /**
-     *  findUserPermissions方法的实现逻辑为：通过用户名查询出用户权限集合。
+     *  findUserPermissions方法的实现逻辑为：通过用户id查询出用户权限集合。
      *
-     * @param userName 用户名
+     * @param userId 用户id
      * @return
      */
     @Override
-    public Set<String> findUserPermissions(String userName) {
-        List<Menu> userPermissions = this.baseMapper.findUserPermissions(userName);
+    public Set<String> findUserPermissions(Long userId) {
+        List<Menu> userPermissions = this.baseMapper.findUserPermissions(userId);
         return userPermissions.stream().map(Menu::getPerms).collect(Collectors.toSet());
     }
 
@@ -38,16 +38,16 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
      *  getUserRouters方法的实现逻辑为：
      *  通过用户名查询出用户菜单集合，然后遍历集合，将菜单对象一一转换为路由对象，
      *  然后添加到路由集合中。这时候的路由集合是没有层级结构的，
-     *  我们可以通过TreeUtil的buildVueRouter方法，
+     *  可以通过TreeUtil的buildVueRouter方法，
      *  将路由集合转换为包含层级结构的路由信息
      *
-     * @param userName 用户名
+     * @param userId 用户id
      * @return
      */
     @Override
-    public List<VueRouter<Menu>> getUserRouters(String userName) {
+    public List<VueRouter<Menu>> getUserRouters(Long userId) {
         List<VueRouter<Menu>> routes = new ArrayList<>();
-        List<Menu> menus = this.baseMapper.findUserMenus(userName);
+        List<Menu> menus = this.baseMapper.findUserMenus(userId);
         menus.forEach(menu -> {
             VueRouter<Menu> route = new VueRouter<>();
             route.setId(menu.getId().toString());
@@ -60,4 +60,5 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
         });
         return TreeUtil.buildVueRouter(routes);
     }
+
 }

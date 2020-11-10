@@ -23,8 +23,8 @@ public class MenuClient implements IMenuClient {
 
     @Override
     @GetMapping(FIND_USER_PERMISSIONS)
-    public String findUserPermissions(String userName) {
-        Set<String> userPermissions = menuService.findUserPermissions(userName);
+    public String findUserPermissions(Long userId) {
+        Set<String> userPermissions = menuService.findUserPermissions(userId);
         return userPermissions.stream().collect(Collectors.joining(","));
     }
 

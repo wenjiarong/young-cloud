@@ -73,8 +73,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     }
 
     @Override
-    public User findByName(String userName) {
-        return baseMapper.findByName(userName);
+    public User findByAccount(String account) {
+        return baseMapper.findByAccount(account);
     }
 
     private void setUserRoles(User user, String[] roles) {

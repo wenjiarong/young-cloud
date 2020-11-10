@@ -1,6 +1,7 @@
 package org.springyoung.jpush.fegin;
 
 import lombok.AllArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -8,6 +9,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springyoung.common.service.RedisService;
 import org.springyoung.core.constant.CacheConstant;
 import org.springyoung.core.response.R;
+import org.springyoung.core.secure.YoungUser;
+import org.springyoung.core.secure.utils.AuthUtil;
 import org.springyoung.core.tool.utils.ObjectUtil;
 import org.springyoung.jpush.constant.AppType;
 import org.springyoung.jpush.entity.PushBean;
@@ -71,7 +74,7 @@ public class JpushClient implements IJpushClient {
      */
     @PostMapping(CONNECT)
     public R connect(@RequestParam String regId, @RequestParam String type) {
-       /* YoungUser user = AuthUtil.getUser();
+        YoungUser user = AuthUtil.getUser();
         if (user == null) {
             R.fail("非法连接");
         }
@@ -85,7 +88,7 @@ public class JpushClient implements IJpushClient {
             }
         } else {
             redisService.hset(CacheConstant.CACHE_JPUSH_REGID, userId, sign);
-        }*/
+        }
         return R.data(true);
     }
 

@@ -34,11 +34,6 @@ public class YoungUser implements Serializable {
 	@ApiModelProperty(hidden = true)
 	private String userName;
 	/**
-	 * 昵称
-	 */
-	@ApiModelProperty(hidden = true)
-	private String nickName;
-	/**
 	 * 租户ID
 	 */
 	@ApiModelProperty(hidden = true)
@@ -52,7 +47,7 @@ public class YoungUser implements Serializable {
 	 * 部门id
 	 */
 	@ApiModelProperty(hidden = true)
-	private String deptId;
+	private Long deptId;
 	/**
 	 * 岗位id
 	 */
@@ -62,11 +57,11 @@ public class YoungUser implements Serializable {
 	 * 角色id
 	 */
 	@ApiModelProperty(hidden = true)
-	private String roleId;
+	private String roleIds;
 	/**
 	 * 角色名
 	 */
 	@ApiModelProperty(hidden = true)
-	private String roleName;
+	private String roleNames;
 
 }

@@ -11,19 +11,19 @@ import java.util.List;
 public interface MenuMapper extends BaseMapper<Menu> {
 
     /**
-     * 通过用户名查找用户权限集合
+     * 通过用户id查找用户权限集合
      *
-     * @param userName 用户名称
+     * @param userId 用户id
      * @return 权限信息
      */
-    List<Menu> findUserPermissions(String userName);
+    List<Menu> findUserPermissions(Long userId);
 
     /**
-     * 通过用户名查询菜单信息
+     * 通过用户id查询菜单信息
      *
-     * @param userName 用户名
+     * @param userId 用户id
      * @return 菜单信息
      */
-    List<Menu> findUserMenus(String userName);
+    List<Menu> findUserMenus(Long userId);
 
 }

@@ -20,6 +20,10 @@ public class YoungAuthUser extends User {
 
     private Long userId;
 
+    private String account;
+
+    private String userName;
+
     private String image;
 
     private String tenantId;

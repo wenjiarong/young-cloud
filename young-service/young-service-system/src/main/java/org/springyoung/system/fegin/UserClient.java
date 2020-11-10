@@ -26,9 +26,9 @@ public class UserClient implements IUserClient {
     }
 
     @Override
-    @GetMapping(GET_USER_BY_USERNAME)
-    public User getUserByUserName(String userName) {
-        return userService.findByName(userName);
+    @GetMapping(GET_USER_BY_ACCOUNT)
+    public User getUserByAccount(String account) {
+        return userService.findByAccount(account);
     }
 
 }

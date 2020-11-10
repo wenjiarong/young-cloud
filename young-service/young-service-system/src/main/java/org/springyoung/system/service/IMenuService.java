@@ -10,19 +10,19 @@ import java.util.Set;
 public interface IMenuService extends IService<Menu> {
 
     /**
-     * 通过用户名查询用户权限信息
+     * 通过用户id查询用户权限信息
      *
-     * @param userName 用户名
+     * @param userId 用户id
      * @return 权限信息
      */
-    Set<String> findUserPermissions(String userName);
+    Set<String> findUserPermissions(Long userId);
 
     /**
-     * 通过用户名创建对应的 Vue路由信息
+     * 通过用户id创建对应的 Vue路由信息
      *
-     * @param userName 用户名
+     * @param userId 用户id
      * @return 路由信息
      */
-    List<VueRouter<Menu>> getUserRouters(String userName);
+    List<VueRouter<Menu>> getUserRouters(Long userId);
 
 }

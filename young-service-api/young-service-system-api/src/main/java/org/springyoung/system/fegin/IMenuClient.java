@@ -12,6 +12,6 @@ public interface IMenuClient {
     String FIND_USER_PERMISSIONS = API_PREFIX + "/find-user-permissions";
 
     @GetMapping(FIND_USER_PERMISSIONS)
-    String findUserPermissions(@RequestParam String userName);
+    String findUserPermissions(@RequestParam Long userId);
 
 }

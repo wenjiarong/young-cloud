@@ -41,11 +41,11 @@ public interface IUserService extends IService<User> {
     void deleteUsers(String[] userIds);
 
     /**
-     * 通过用户名查找用户信息
+     * 通过账号查找用户信息
      *
-     * @param userName
+     * @param account
      * @return
      */
-    User findByName(String userName);
+    User findByAccount(String account);
 
 }

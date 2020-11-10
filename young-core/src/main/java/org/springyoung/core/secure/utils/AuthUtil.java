@@ -6,7 +6,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springyoung.core.constant.RoleConstant;
 import org.springyoung.core.constant.StringPool;
 import org.springyoung.core.constant.TokenConstant;
-import org.springyoung.core.jwt.props.JwtProperties;
+import org.springyoung.core.constant.YoungConstant;
 import org.springyoung.core.secure.YoungUser;
 import org.springyoung.core.tool.utils.Func;
 import org.springyoung.core.tool.utils.WebUtil;
@@ -25,24 +25,11 @@ public class AuthUtil {
     private final static String HEADER = TokenConstant.HEADER;
     private final static String ACCOUNT = TokenConstant.ACCOUNT;
     private final static String USER_NAME = TokenConstant.USER_NAME;
-    private final static String NICK_NAME = TokenConstant.NICK_NAME;
     private final static String USER_ID = TokenConstant.USER_ID;
     private final static String DEPT_ID = TokenConstant.DEPT_ID;
-    private final static String POST_ID = TokenConstant.POST_ID;
-    private final static String ROLE_ID = TokenConstant.ROLE_ID;
-    private final static String ROLE_NAME = TokenConstant.ROLE_NAME;
+    private final static String ROLE_IDS = TokenConstant.ROLE_IDS;
+    private final static String ROLE_NAMES = TokenConstant.ROLE_NAMES;
     private final static String TENANT_ID = TokenConstant.TENANT_ID;
-    private final static String OAUTH_ID = TokenConstant.OAUTH_ID;
-    private final static String CLIENT_ID = TokenConstant.CLIENT_ID;
-
-    /**
-     * jwt配置
-     */
-    private static JwtProperties jwtProperties;
-
-    public static JwtProperties getJwtProperties() {
-        return jwtProperties;
-    }
 
     /**
      * 获取用户信息
@@ -77,29 +64,21 @@ public class AuthUtil {
         if (claims == null) {
             return null;
         }
-        String clientId = Func.toStr(claims.get(AuthUtil.CLIENT_ID));
         Long userId = Func.toLong(claims.get(AuthUtil.USER_ID));
         String tenantId = Func.toStr(claims.get(AuthUtil.TENANT_ID));
-        String oauthId = Func.toStr(claims.get(AuthUtil.OAUTH_ID));
-        String deptId = Func.toStrWithEmpty(claims.get(AuthUtil.DEPT_ID), StringPool.MINUS_ONE);
-        String postId = Func.toStrWithEmpty(claims.get(AuthUtil.POST_ID), StringPool.MINUS_ONE);
-        String roleId = Func.toStrWithEmpty(claims.get(AuthUtil.ROLE_ID), StringPool.MINUS_ONE);
+        Long deptId = Func.toLong(claims.get(AuthUtil.DEPT_ID));
+        String roleIds = Func.toStrWithEmpty(claims.get(AuthUtil.ROLE_IDS), StringPool.MINUS_ONE);
+        String roleNames = Func.toStrWithEmpty(claims.get(AuthUtil.ROLE_NAMES), StringPool.MINUS_ONE);
         String account = Func.toStr(claims.get(AuthUtil.ACCOUNT));
-        String roleName = Func.toStr(claims.get(AuthUtil.ROLE_NAME));
         String userName = Func.toStr(claims.get(AuthUtil.USER_NAME));
-        String nickName = Func.toStr(claims.get(AuthUtil.NICK_NAME));
         YoungUser youngUser = new YoungUser();
-        youngUser.setClientId(clientId);
         youngUser.setUserId(userId);
         youngUser.setTenantId(tenantId);
-        youngUser.setOauthId(oauthId);
         youngUser.setAccount(account);
         youngUser.setDeptId(deptId);
-        youngUser.setPostId(postId);
-        youngUser.setRoleId(roleId);
-        youngUser.setRoleName(roleName);
+        youngUser.setRoleIds(roleIds);
+        youngUser.setRoleNames(roleNames);
         youngUser.setUserName(userName);
-        youngUser.setNickName(nickName);
         return youngUser;
     }
 
@@ -113,214 +92,15 @@ public class AuthUtil {
     }
 
     /**
-     * 获取用户id
-     *
-     * @return userId
-     */
-    public static Long getUserId() {
-        YoungUser user = getUser();
-        return (null == user) ? -1 : user.getUserId();
-    }
-
-    /**
-     * 获取用户id
-     *
-     * @param request request
-     * @return userId
-     */
-    public static Long getUserId(HttpServletRequest request) {
-        YoungUser user = getUser(request);
-        return (null == user) ? -1 : user.getUserId();
-    }
-
-    /**
-     * 获取用户账号
-     *
-     * @return userAccount
-     */
-    public static String getUserAccount() {
-        YoungUser user = getUser();
-        return (null == user) ? StringPool.EMPTY : user.getAccount();
-    }
-
-    /**
-     * 获取用户账号
-     *
-     * @param request request
-     * @return userAccount
-     */
-    public static String getUserAccount(HttpServletRequest request) {
-        YoungUser user = getUser(request);
-        return (null == user) ? StringPool.EMPTY : user.getAccount();
-    }
-
-    /**
-     * 获取用户名
-     *
-     * @return userName
-     */
-    public static String getUserName() {
-        YoungUser user = getUser();
-        return (null == user) ? StringPool.EMPTY : user.getUserName();
-    }
-
-    /**
-     * 获取用户名
-     *
-     * @param request request
-     * @return userName
-     */
-    public static String getUserName(HttpServletRequest request) {
-        YoungUser user = getUser(request);
-        return (null == user) ? StringPool.EMPTY : user.getUserName();
-    }
-
-    /**
-     * 获取昵称
-     *
-     * @return userName
-     */
-    public static String getNickName() {
-        YoungUser user = getUser();
-        return (null == user) ? StringPool.EMPTY : user.getNickName();
-    }
-
-    /**
-     * 获取昵称
-     *
-     * @param request request
-     * @return userName
-     */
-    public static String getNickName(HttpServletRequest request) {
-        YoungUser user = getUser(request);
-        return (null == user) ? StringPool.EMPTY : user.getNickName();
-    }
-
-    /**
-     * 获取用户部门
-     *
-     * @return userName
-     */
-    public static String getDeptId() {
-        YoungUser user = getUser();
-        return (null == user) ? StringPool.EMPTY : user.getDeptId();
-    }
-
-    /**
-     * 获取用户部门
-     *
-     * @param request request
-     * @return userName
-     */
-    public static String getDeptId(HttpServletRequest request) {
-        YoungUser user = getUser(request);
-        return (null == user) ? StringPool.EMPTY : user.getDeptId();
-    }
-
-    /**
-     * 获取用户岗位
-     *
-     * @return userName
-     */
-    public static String getPostId() {
-        YoungUser user = getUser();
-        return (null == user) ? StringPool.EMPTY : user.getPostId();
-    }
-
-    /**
-     * 获取用户岗位
-     *
-     * @param request request
-     * @return userName
-     */
-    public static String getPostId(HttpServletRequest request) {
-        YoungUser user = getUser(request);
-        return (null == user) ? StringPool.EMPTY : user.getPostId();
-    }
-
-    /**
      * 获取用户角色
      *
      * @return userName
      */
     public static String getUserRole() {
         YoungUser user = getUser();
-        return (null == user) ? StringPool.EMPTY : user.getRoleName();
+        return (null == user) ? StringPool.EMPTY : user.getRoleNames();
     }
 
-    /**
-     * 获取用角色
-     *
-     * @param request request
-     * @return userName
-     */
-    public static String getUserRole(HttpServletRequest request) {
-        YoungUser user = getUser(request);
-        return (null == user) ? StringPool.EMPTY : user.getRoleName();
-    }
-
-    /**
-     * 获取租户ID
-     *
-     * @return tenantId
-     */
-    public static String getTenantId() {
-        YoungUser user = getUser();
-        return (null == user) ? StringPool.EMPTY : user.getTenantId();
-    }
-
-    /**
-     * 获取租户ID
-     *
-     * @param request request
-     * @return tenantId
-     */
-    public static String getTenantId(HttpServletRequest request) {
-        YoungUser user = getUser(request);
-        return (null == user) ? StringPool.EMPTY : user.getTenantId();
-    }
-
-    /**
-     * 获取第三方认证ID
-     *
-     * @return tenantId
-     */
-    public static String getOauthId() {
-        YoungUser user = getUser();
-        return (null == user) ? StringPool.EMPTY : user.getOauthId();
-    }
-
-    /**
-     * 获取第三方认证ID
-     *
-     * @param request request
-     * @return tenantId
-     */
-    public static String getOauthId(HttpServletRequest request) {
-        YoungUser user = getUser(request);
-        return (null == user) ? StringPool.EMPTY : user.getOauthId();
-    }
-
-    /**
-     * 获取客户端id
-     *
-     * @return clientId
-     */
-    public static String getClientId() {
-        YoungUser user = getUser();
-        return (null == user) ? StringPool.EMPTY : user.getClientId();
-    }
-
-    /**
-     * 获取客户端id
-     *
-     * @param request request
-     * @return clientId
-     */
-    public static String getClientId(HttpServletRequest request) {
-        YoungUser user = getUser(request);
-        return (null == user) ? StringPool.EMPTY : user.getClientId();
-    }
 
     /**
      * 获取Claims
@@ -402,7 +182,7 @@ public class AuthUtil {
      * 签名加密
      */
     public static String getBase64Security() {
-        return Base64.getEncoder().encodeToString(getJwtProperties().getSignKey().getBytes(StandardCharsets.UTF_8));
+        return Base64.getEncoder().encodeToString(YoungConstant.JWT_KEY.getBytes(StandardCharsets.UTF_8));
     }
 
 }

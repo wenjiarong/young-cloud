@@ -45,18 +45,19 @@ public class YoungUserDetailService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userClient.getUserByUserName(username);
+        User user = userClient.getUserByAccount(username);
         if (ObjectUtil.isNotEmpty(user)) {
-            String permissions = menuClient.findUserPermissions(user.getUserName());
+            String permissions = menuClient.findUserPermissions(user.getId());
             boolean notLocked = false;
             if (StringUtils.equals(user.STATUS_VALID, user.getStatus())) {
                 notLocked = true;
             }
-            YoungAuthUser authUser = new YoungAuthUser(user.getUserName(), user.getPassword(), true, true, true, notLocked,
+            YoungAuthUser authUser = new YoungAuthUser(user.getAccount(), user.getPassword(), true, true, true, notLocked,
                     AuthorityUtils.commaSeparatedStringToAuthorityList(permissions));
 
             //两个实体类值的拷贝Spring给我们提供了相应的工具类
             BeanUtils.copyProperties(user, authUser);
+            authUser.setUserId(user.getId());
             return authUser;
         } else {
             throw new UsernameNotFoundException("");

@@ -14,7 +14,7 @@ public interface YoungConstant {
     /**
      * JWT的密钥
      */
-    String JWT_KEY = "young";
+    String JWT_KEY = "jwt_youngx";
 
     /**
      * gif类型
