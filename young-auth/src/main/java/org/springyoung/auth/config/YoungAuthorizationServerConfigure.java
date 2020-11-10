@@ -126,8 +126,8 @@ public class YoungAuthorizationServerConfigure extends AuthorizationServerConfig
      */
     /*@Bean
     public TokenStore tokenStore() {
-        DataSource febsCloudBase = dynamicRoutingDataSource.getDataSource("febs_cloud_base");
-        return new JdbcTokenStore(febsCloudBase);
+        DataSource cloudBase = dynamicRoutingDataSource.getDataSource("cloud_base");
+        return new JdbcTokenStore(cloudBase);
     }*/
 
     /**
