@@ -3,9 +3,6 @@ package org.springyoung.tftp;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springyoung.common.annotation.EnableYoungLettuceRedis;
-import org.springyoung.tftp.server.TftpServer;
-
-import java.io.File;
 
 /**
  * @ClassName TftpApp
