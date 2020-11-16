@@ -5,8 +5,7 @@ import io.netty.channel.*;
 import io.netty.channel.nio.AbstractNioMessageChannel;
 import io.netty.util.internal.PlatformDependent;
 import io.netty.util.internal.SocketUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springyoung.tftp.packet.BaseTftpPacket;
 import org.springyoung.tftp.packet.TftpErrorPacket;
 import org.springyoung.tftp.packet.enums.TftpError;
@@ -34,9 +33,8 @@ import static org.springyoung.tftp.packet.enums.TftpOpcode.WRQ;
  * @Date 2020/11/12 9:41
  * @Version 1.0
  */
+@Slf4j
 public class TftpServerChannel extends AbstractNioMessageChannel implements ServerChannel {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(TftpServerChannel.class);
 
     private static final ChannelMetadata METADATA = new ChannelMetadata(false);
 
@@ -194,7 +192,7 @@ public class TftpServerChannel extends AbstractNioMessageChannel implements Serv
         InetSocketAddress remoteAddress = packet.getRemoteAddress();
         TftpServerChildChannel childChannel = childChannelMap.get(remoteAddress);
         if (childChannel == null) {
-            LOGGER.debug("收到创建子channel请求， remoteAddress={}", remoteAddress);
+            log.info("收到创建子channel请求， remoteAddress={}", remoteAddress);
             // 仅当 WRQ和RRQ时，才新建channel
             if (packet.getOpcode() == RRQ || packet.getOpcode() == WRQ) {
                 childChannel = new TftpServerChildChannel(this, remoteAddress);
@@ -253,7 +251,7 @@ public class TftpServerChannel extends AbstractNioMessageChannel implements Serv
                 tftpPacket = TftpPacketUtils.create(data);
             } catch (Exception exp) {
                 sendError(TftpError.ILLEGAL_OPERATION, remoteAddress);
-                LOGGER.error("未识别的操作码", exp);
+                log.info("未识别的操作码", exp);
                 return 0;
             }
             //
@@ -320,9 +318,9 @@ public class TftpServerChannel extends AbstractNioMessageChannel implements Serv
                 for (Object aReadBufList : readBufList) {
                     BaseTftpPacket tftpPacket = (BaseTftpPacket) aReadBufList;
                     // 创建新的子channel或者获取现有的子channel
-					TftpServerChildChannel childChannel = getOrCreateChildChannel(tftpPacket);
-					// 将数据传送至pipeline
-					ChannelPipeline childPipeline = childChannel.pipeline();
+                    TftpServerChildChannel childChannel = getOrCreateChildChannel(tftpPacket);
+                    // 将数据传送至pipeline
+                    ChannelPipeline childPipeline = childChannel.pipeline();
                     childPipeline.fireChannelRead(tftpPacket);
                     childPipeline.fireChannelReadComplete();
                 }
@@ -340,10 +338,9 @@ public class TftpServerChannel extends AbstractNioMessageChannel implements Serv
                     }
                 }
             } catch (Exception exp) {
-                LOGGER.error("unsafe read error", exp);
+                log.info("unsafe read error", exp);
             }
         }
-
     }
 
 
@@ -358,9 +355,9 @@ public class TftpServerChannel extends AbstractNioMessageChannel implements Serv
             ByteBuffer nioData = byteBuf.internalNioBuffer(byteBuf.readerIndex(), byteBuf.readableBytes());
             javaChannel().send(nioData, remoteAddress);
         } catch (Exception exp) {
-            LOGGER.error("发送错误报文失败", exp);
+            log.info("发送错误报文失败", exp);
         }
-
     }
+
 }
 

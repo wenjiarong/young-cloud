@@ -55,9 +55,9 @@ debug：当此属性设置为true时，将打印出logback内部日志信息，�
 
     <!--输出到文件
     这两段配置用于指定日志输出到日志文件。其中，名称为file_info的appender
-    指定了INFO级别的日志输出到log/young-system/info目录下，文件名称为info.日期.log，
+    指定了INFO级别的日志输出到log/young-auth/info目录下，文件名称为info.日期.log，
     并且日志格式为普通格式，因为文件一般不支持彩色显示；
-    名称为file_error的appender指定了ERROR级别的日志输出到log/young-system/error目录下，
+    名称为file_error的appender指定了ERROR级别的日志输出到log/young-auth/error目录下，
     文件名称为error.日期.log，日志格式也为普通格式
     -->
     <appender name="file_info" class="ch.qos.logback.core.rolling.RollingFileAppender">

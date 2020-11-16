@@ -32,10 +32,10 @@ public class TftpReadRequestPacketTest {
     public void t2() {
         TftpWriteRequestPacket packet1 = new TftpWriteRequestPacket("123.txt", null, null, null);
         ByteBuf byteBuf = packet1.toByteBuf();
-        System.out.println("packet1 = " + packet1);
+        log.info("packet1 = " + packet1);
         // 用byteBuf构建，看能否还原
         TftpWriteRequestPacket packet2 = new TftpWriteRequestPacket(byteBuf);
-        System.out.println("packet2 = " + packet2);
+        log.info("packet2 = " + packet2);
         Assert.assertEquals(packet1.getOpcode(), packet2.getOpcode());
         Assert.assertEquals(packet1.getFilename(), packet2.getFilename());
         Assert.assertEquals(packet1.getMode(), packet2.getMode());

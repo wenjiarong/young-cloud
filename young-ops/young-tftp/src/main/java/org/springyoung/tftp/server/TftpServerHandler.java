@@ -3,10 +3,9 @@ package org.springyoung.tftp.server;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springyoung.tftp.packet.enums.TftpError;
+import lombok.extern.slf4j.Slf4j;
 import org.springyoung.tftp.packet.*;
+import org.springyoung.tftp.packet.enums.TftpError;
 import org.springyoung.tftp.util.ThreadPoolUtils;
 
 import java.io.File;
@@ -26,9 +25,8 @@ import static org.springyoung.tftp.packet.enums.TftpError.*;
  * @Date 2020/11/12 9:41
  * @Version 1.0
  */
+@Slf4j
 public class TftpServerHandler extends SimpleChannelInboundHandler<BaseTftpPacket> {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(TftpServerHandler.class);
 
     private static final int DEFAULT_BLOCK_SIZE = 512;
 
@@ -66,13 +64,13 @@ public class TftpServerHandler extends SimpleChannelInboundHandler<BaseTftpPacke
 
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
-        LOGGER.info("连接建立, remoteAdress = {}", ctx.channel().remoteAddress());
+        log.info("连接建立, remoteAdress = {}", ctx.channel().remoteAddress());
     }
 
 
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, BaseTftpPacket tftpPacket) throws Exception {
-        LOGGER.debug("收到报文{}", tftpPacket);
+        log.info("收到报文{}", tftpPacket);
         //
         switch (tftpPacket.getOpcode()) {
             case RRQ:
@@ -99,13 +97,13 @@ public class TftpServerHandler extends SimpleChannelInboundHandler<BaseTftpPacke
 
     @Override
     public void channelInactive(ChannelHandlerContext ctx) throws Exception {
-        LOGGER.info("连接关闭, remoteAdress = {}\n", ctx.channel().remoteAddress());
+        log.info("连接关闭, remoteAdress = {}\n", ctx.channel().remoteAddress());
     }
 
 
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
-        LOGGER.error("未处理异常", cause);
+        log.info("未处理异常", cause);
     }
 
 
@@ -117,13 +115,13 @@ public class TftpServerHandler extends SimpleChannelInboundHandler<BaseTftpPacke
         // 模式处理，仅支持octet模式
         String mode = readPacket.getMode();
         if (!Objects.equals(mode, TftpRequestPacket.MODE_OCTET)) {
-            LOGGER.error("不支持此模式, mode:{}", mode);
+            log.info("不支持此模式, mode:{}", mode);
             sendErrorPacket(ctx, MODE_NOT_SUPPORTED);
             return;
         }
         // 若不允许读，则发送错误报文
         if (!tftpServer.allowRead) {
-            LOGGER.error("没有设置读权限");
+            log.info("没有设置读权限");
             sendErrorPacket(ctx, NO_READ_PERMISSION);
             return;
         }
@@ -137,11 +135,11 @@ public class TftpServerHandler extends SimpleChannelInboundHandler<BaseTftpPacke
             raf = new RandomAccessFile(file, "r");
 
         } catch (FileNotFoundException exp) {
-            LOGGER.error("文件不存在", exp);
+            log.info("文件不存在", exp);
             sendErrorPacket(ctx, FILE_NOT_FOUND);
             return;
         }
-        LOGGER.info("读请求, 文件：{} , 大小：{}B, 块大小：{}B, 分{}次传输.",
+        log.info("读请求, 文件：{} , 大小：{}B, 块大小：{}B, 分{}次传输.",
                 file, fileLength, blockSize, (fileLength / blockSize) + 1);
 
         //  若带协商，则发送协商应答报文
@@ -153,7 +151,7 @@ public class TftpServerHandler extends SimpleChannelInboundHandler<BaseTftpPacke
             // 发送 OACK 报文
             TftpOptionAckPacket optionAckPacket = new TftpOptionAckPacket(readPacket.getBlockSize(),
                     readPacket.getTimeout(), transferSize);
-            LOGGER.debug("发送报文：" + optionAckPacket);
+            log.info("发送报文：" + optionAckPacket);
             ctx.writeAndFlush(optionAckPacket);
             //
             blockNumber = 0;
@@ -164,11 +162,11 @@ public class TftpServerHandler extends SimpleChannelInboundHandler<BaseTftpPacke
                 try {
                     TftpDataPacket dataPacket = createDataPacket(1);
                     if (dataPacket != null) {
-                        LOGGER.debug("发送报文：" + dataPacket);
+                        log.info("发送报文：" + dataPacket);
                         ctx.writeAndFlush(dataPacket);
                     }
                 } catch (IOException exp) {
-                    LOGGER.error("读取文件失败", exp);
+                    log.info("读取文件失败", exp);
                     sendErrorPacket(ctx, ACCESS_VIOLATION);
                 }
             });
@@ -184,13 +182,13 @@ public class TftpServerHandler extends SimpleChannelInboundHandler<BaseTftpPacke
         // 模式处理，仅支持octet模式
         String mode = writePacket.getMode();
         if (!Objects.equals(mode, TftpRequestPacket.MODE_OCTET)) {
-            LOGGER.error("不支持此模式, mode:{}", mode);
+            log.info("不支持此模式, mode:{}", mode);
             sendErrorPacket(ctx, UNDEFINED);
             return;
         }
         // 若不允许写，则发送错误报文
         if (!tftpServer.allowWrite) {
-            LOGGER.error("没有设置写权限");
+            log.info("没有设置写权限");
             sendErrorPacket(ctx, NO_READ_PERMISSION);
             return;
         }
@@ -199,7 +197,7 @@ public class TftpServerHandler extends SimpleChannelInboundHandler<BaseTftpPacke
         if (file.exists()) {
             // 若不允许覆盖，则发送错误报文
             if (!tftpServer.allowOverwrite) {
-                LOGGER.error("没有设置覆盖权限");
+                log.info("没有设置覆盖权限");
                 sendErrorPacket(ctx, NO_OVERWRITE_PERMISSION);
                 return;
             }
@@ -207,7 +205,7 @@ public class TftpServerHandler extends SimpleChannelInboundHandler<BaseTftpPacke
             try {
                 file.createNewFile();
             } catch (IOException exp) {
-                LOGGER.error("创建文件失败", exp);
+                log.info("创建文件失败", exp);
                 sendErrorPacket(ctx, ACCESS_VIOLATION);
                 return;
             }
@@ -216,7 +214,7 @@ public class TftpServerHandler extends SimpleChannelInboundHandler<BaseTftpPacke
         try {
             raf = new RandomAccessFile(file, "rw");
         } catch (FileNotFoundException exp) {
-            LOGGER.error("文件不存在", exp);
+            log.info("文件不存在", exp);
             sendErrorPacket(ctx, FILE_NOT_FOUND);
             return;
         }
@@ -228,10 +226,10 @@ public class TftpServerHandler extends SimpleChannelInboundHandler<BaseTftpPacke
         //
         if (writePacket.getTransferSize() != null) {
             fileLength = writePacket.getTransferSize();
-            LOGGER.info("写请求, 文件：{} , 大小：{}B, 块大小：{}B, 分{}次传输.",
+            log.info("写请求, 文件：{} , 大小：{}B, 块大小：{}B, 分{}次传输.",
                     file, fileLength, blockSize, (fileLength / blockSize) + 1);
         } else {
-            LOGGER.info("写请求, 文件：{} , 块大小：{}B", file, blockSize);
+            log.info("写请求, 文件：{} , 块大小：{}B", file, blockSize);
         }
 
         // 若带协商，则发送协商应答报文
@@ -244,13 +242,13 @@ public class TftpServerHandler extends SimpleChannelInboundHandler<BaseTftpPacke
             }
             TftpOptionAckPacket optionAckPacket = new TftpOptionAckPacket(writePacket.getBlockSize(),
                     writePacket.getTimeout(), writePacket.getTransferSize());
-            LOGGER.debug("发送报文：" + optionAckPacket);
+            log.info("发送报文：" + optionAckPacket);
 
             ctx.writeAndFlush(optionAckPacket);
         } else {
             // 应答 0
             TftpAckPacket ackPacket = new TftpAckPacket(0);
-            LOGGER.debug("发送Ack报文：" + ackPacket);
+            log.info("发送Ack报文：" + ackPacket);
             ctx.writeAndFlush(ackPacket);
         }
         // 下一个报文的编号为1
@@ -267,7 +265,7 @@ public class TftpServerHandler extends SimpleChannelInboundHandler<BaseTftpPacke
         if (ackPacket.getBlockNumber() == blockNumber) {
             // 若读取完毕，则
             if (readFinished) {
-                LOGGER.info("读取完毕");
+                log.info("读取完毕");
                 // 延迟关闭连接
                 ctx.channel().eventLoop().schedule(() -> {
                     ctx.close();
@@ -281,17 +279,17 @@ public class TftpServerHandler extends SimpleChannelInboundHandler<BaseTftpPacke
                 if (blockNumber == MAX_BLOCK_NUMBER) {
                     // 变成1，还是变成0？ 应当是从0开始，这个从windows的tftp客户端可以看出来
                     blockNumber = 0;
-                    LOGGER.info("blockNumber重新开始");
+                    log.info("blockNumber重新开始");
                 }
                 try {
                     //
                     TftpDataPacket dataPacket = createDataPacket(blockNumber);
                     if (dataPacket != null) {
-                        LOGGER.debug("发送报文：" + dataPacket);
+                        log.info("发送报文：" + dataPacket);
                         ctx.writeAndFlush(dataPacket);
                     }
                 } catch (Exception exp) {
-                    LOGGER.error("写入文件失败", exp);
+                    log.info("写入文件失败", exp);
                     sendErrorPacket(ctx, ACCESS_VIOLATION);
                 }
                 retries = 0;
@@ -302,16 +300,16 @@ public class TftpServerHandler extends SimpleChannelInboundHandler<BaseTftpPacke
             retries++;
             // 达到最大重试次数时退出
             if (retries > tftpServer.maxRetries) {
-                LOGGER.error("达到最大重试次数");
+                log.info("达到最大重试次数");
                 sendErrorPacket(ctx, UNDEFINED);
                 return;
             }
-            LOGGER.warn("ack包不正常，{}秒后重传上一个data包", timeout);
+            log.info("ack包不正常，{}秒后重传上一个data包", timeout);
             // 服务端实际的超时等待时间要比客户端的小一些
             int delayTime = timeout - 1;
             ctx.channel().eventLoop().schedule(() -> {
                 TftpDataPacket dataPacket = new TftpDataPacket(blockNumber, blockBuffer);
-                LOGGER.debug("发送报文：" + dataPacket);
+                log.info("发送报文：" + dataPacket);
                 ctx.writeAndFlush(dataPacket);
             }, delayTime, TimeUnit.SECONDS);
         }
@@ -332,26 +330,26 @@ public class TftpServerHandler extends SimpleChannelInboundHandler<BaseTftpPacke
                     raf.write(bytes);
                     if (bytes.length < blockSize) {
                         raf.close();
-                        LOGGER.info("写入完毕");
+                        log.info("写入完毕");
                         // 延迟关闭连接
                         ctx.channel().eventLoop().schedule(() -> {
                             ctx.close();
                         }, LINGER_TIME, TimeUnit.SECONDS);
                     }
                 } catch (Exception exp) {
-                    LOGGER.error("写入文件失败", exp);
+                    log.info("写入文件失败", exp);
                     sendErrorPacket(ctx, ACCESS_VIOLATION);
                     return;
                 }
                 TftpAckPacket ackPacket = new TftpAckPacket(dataPacket.getBlockNumber());
-                LOGGER.debug("发送Ack报文：" + ackPacket);
+                log.info("发送Ack报文：" + ackPacket);
                 ctx.writeAndFlush(ackPacket);
                 // 块号加1
                 blockNumber++;
                 if (blockNumber == MAX_BLOCK_NUMBER) {
                     // 变成1，还是变成0？ 应当是从0开始，这个从windows的tftp客户端可以看出来
                     blockNumber = 0;
-                    LOGGER.info("blockNumber重新开始");
+                    log.info("blockNumber重新开始");
                 }
             });
         }
@@ -360,16 +358,16 @@ public class TftpServerHandler extends SimpleChannelInboundHandler<BaseTftpPacke
             retries++;
             // 达到最大重试次数时退出
             if (retries > tftpServer.maxRetries) {
-                LOGGER.error("达到最大重试次数");
+                log.info("达到最大重试次数");
                 sendErrorPacket(ctx, UNDEFINED);
                 return;
             }
-            LOGGER.warn("data不正常，{}秒后重传上一个ack包", timeout);
+            log.info("data不正常，{}秒后重传上一个ack包", timeout);
             // 服务端实际的超时等待时间要比客户端的小一些
             int delayTime = timeout - 1;
             ThreadPoolUtils.getInstance().schedule(() -> {
                 TftpAckPacket ackPacket = new TftpAckPacket(dataPacket.getBlockNumber());
-                LOGGER.debug("发送Ack报文：" + ackPacket);
+                log.info("发送Ack报文：" + ackPacket);
                 ctx.writeAndFlush(ackPacket);
             }, delayTime, TimeUnit.SECONDS);
         }
@@ -394,7 +392,7 @@ public class TftpServerHandler extends SimpleChannelInboundHandler<BaseTftpPacke
      */
     private void sendErrorPacket(ChannelHandlerContext ctx, TftpError errorType) {
         TftpErrorPacket errorPacket = new TftpErrorPacket(errorType);
-        LOGGER.error("发送错误报文：" + errorPacket);
+        log.info("发送错误报文：" + errorPacket);
         ctx.writeAndFlush(errorPacket);
         //
         ctx.close();
