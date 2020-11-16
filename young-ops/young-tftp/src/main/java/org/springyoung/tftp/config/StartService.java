@@ -7,7 +7,6 @@ import org.springframework.stereotype.Component;
 import org.springyoung.tftp.server.TftpServer;
 
 import java.io.File;
-import java.util.Date;
 
 /**
  * 继承Application接口后项目启动时会按照执行顺序执行run方法
