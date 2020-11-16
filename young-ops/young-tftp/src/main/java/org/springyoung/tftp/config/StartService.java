@@ -19,7 +19,7 @@ public class StartService implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        File rootDir = new File("C:\\Users\\63104\\Desktop\\");
+        File rootDir = new File("young-ops/young-tftp/src/main/resources/files");
         TftpServer server = new TftpServer(rootDir);
         // 高级的配置
         // 允许读取
