@@ -192,7 +192,11 @@ public class TftpServerHandler extends SimpleChannelInboundHandler<BaseTftpPacke
             sendErrorPacket(ctx, NO_READ_PERMISSION);
             return;
         }
-        //
+        // 创建文件
+        File f = new File(tftpServer.rootDir.toString());
+        if (!f.exists()) {
+            f.mkdirs();
+        }
         File file = new File(tftpServer.rootDir, writePacket.getFilename());
         if (file.exists()) {
             // 若不允许覆盖，则发送错误报文
@@ -394,7 +398,6 @@ public class TftpServerHandler extends SimpleChannelInboundHandler<BaseTftpPacke
         TftpErrorPacket errorPacket = new TftpErrorPacket(errorType);
         log.info("发送错误报文：" + errorPacket);
         ctx.writeAndFlush(errorPacket);
-        //
         ctx.close();
     }
 
