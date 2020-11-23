@@ -94,18 +94,15 @@ public class TftpServerHandler extends SimpleChannelInboundHandler<BaseTftpPacke
         }
     }
 
-
     @Override
     public void channelInactive(ChannelHandlerContext ctx) throws Exception {
         log.info("连接关闭, remoteAdress = {}\n", ctx.channel().remoteAddress());
     }
 
-
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
         log.info("未处理异常", cause);
     }
-
 
     /**
      * @param ctx
@@ -264,7 +261,7 @@ public class TftpServerHandler extends SimpleChannelInboundHandler<BaseTftpPacke
      * @param ctx
      * @param ackPacket
      */
-    private void handleAckPacket(ChannelHandlerContext ctx, TftpAckPacket ackPacket) {
+    private void handleAckPacket(ChannelHandlerContext ctx, TftpAckPacket ackPacket) throws IOException {
         // 当ack的blockNumber和上一个blockNumber一样时，则认为应答正常。
         if (ackPacket.getBlockNumber() == blockNumber) {
             // 若读取完毕，则
@@ -304,9 +301,19 @@ public class TftpServerHandler extends SimpleChannelInboundHandler<BaseTftpPacke
             retries++;
             // 达到最大重试次数时退出
             if (retries > tftpServer.maxRetries) {
-                log.info("达到最大重试次数");
-                sendErrorPacket(ctx, UNDEFINED);
-                return;
+                int jumpBlock = ackPacket.getBlockNumber() - blockNumber;
+                if (jumpBlock > 0) {
+                    blockNumber = ackPacket.getBlockNumber();
+                    TftpDataPacket dataPacket = jumpBlock(jumpBlock);
+                    log.info("发送报文：" + dataPacket);
+                    ctx.writeAndFlush(dataPacket);
+                    return;
+                }
+                if (retries > tftpServer.maxError) {
+                    log.info("达到最大重试次数");
+                    sendErrorPacket(ctx, UNDEFINED);
+                    return;
+                }
             }
             log.info("ack包不正常，{}秒后重传上一个data包", timeout);
             // 服务端实际的超时等待时间要比客户端的小一些
@@ -361,7 +368,7 @@ public class TftpServerHandler extends SimpleChannelInboundHandler<BaseTftpPacke
         else {
             retries++;
             // 达到最大重试次数时退出
-            if (retries > tftpServer.maxRetries) {
+            if (retries > tftpServer.maxError) {
                 log.info("达到最大重试次数");
                 sendErrorPacket(ctx, UNDEFINED);
                 return;
@@ -375,8 +382,6 @@ public class TftpServerHandler extends SimpleChannelInboundHandler<BaseTftpPacke
                 ctx.writeAndFlush(ackPacket);
             }, delayTime, TimeUnit.SECONDS);
         }
-
-
     }
 
 
@@ -431,6 +436,30 @@ public class TftpServerHandler extends SimpleChannelInboundHandler<BaseTftpPacke
                 //
                 byte[] lastBlockData = Arrays.copyOf(blockBuffer, readCount);
                 packet = new TftpDataPacket(blockNumber, lastBlockData);
+            } else {
+                packet = new TftpDataPacket(blockNumber, blockBuffer);
+            }
+        }
+        return packet;
+    }
+
+    /**
+     * 断点续传
+     *
+     * @param jumpBlock
+     * @return
+     * @throws IOException
+     */
+    private TftpDataPacket jumpBlock(int jumpBlock) throws IOException {
+        TftpDataPacket packet = null;
+        for (int i = 0; i < jumpBlock; i++) {
+            int readCount = raf.read(blockBuffer);
+            if (readCount < blockSize) {
+                raf.close();
+                readFinished = true;
+                byte[] lastBlockData = Arrays.copyOf(blockBuffer, readCount);
+                packet = new TftpDataPacket(blockNumber, lastBlockData);
+                break;
             } else {
                 packet = new TftpDataPacket(blockNumber, blockBuffer);
             }

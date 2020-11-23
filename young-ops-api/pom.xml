@@ -16,6 +16,14 @@
         <module>young-jpush-api</module>
     </modules>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.springyoung</groupId>
+            <artifactId>young-core</artifactId>
+            <version>${young.project.version}</version>
+        </dependency>
+    </dependencies>
+
     <build>
         <plugins>
             <plugin>

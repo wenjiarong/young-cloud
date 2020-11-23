@@ -44,6 +44,11 @@ public class TftpServer {
      */
     protected int maxRetries;
 
+    /**
+     * 传输data报文失败次数
+     */
+    protected int maxError;
+
 
     /**
      * 端口
@@ -71,7 +76,8 @@ public class TftpServer {
         this.allowRead = true;
         this.allowWrite = true;
         this.allowOverwrite = true;
-        this.maxRetries = 3;
+        this.maxRetries = 2;
+        this.maxError = 5;
         //
         group = new NioEventLoopGroup(5);
         bootstrap = new ServerBootstrap();

@@ -14,12 +14,4 @@
     <version>${young.project.version}</version>
     <packaging>jar</packaging>
 
-    <dependencies>
-        <dependency>
-            <groupId>org.springyoung</groupId>
-            <artifactId>young-core</artifactId>
-            <version>${young.project.version}</version>
-        </dependency>
-    </dependencies>
-
 </project>

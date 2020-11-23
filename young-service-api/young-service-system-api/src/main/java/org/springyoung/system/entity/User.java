@@ -45,12 +45,8 @@ public class User extends TenantEntity {
     private String sex;
     @ApiModelProperty(value = "头像")
     private String image;
-    @DateTimeFormat(
-            pattern = "yyyy-MM-dd HH:mm:ss"
-    )
-    @JsonFormat(
-            pattern = "yyyy-MM-dd HH:mm:ss"
-    )
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @ApiModelProperty(value = "最近访问时间")
     private Date lastLoginTime;
     @ApiModelProperty(value = "部门id")
