@@ -2,6 +2,9 @@
 idea--Environment variables:
 mysql.url=127.0.0.1;redis.url=127.0.0.1;rocketmq.url=192.168.10.168;young-gateway=127.0.0.1;nacos.url=127.0.0.1;young-admin=127.0.0.1;young-canal=127.0.0.1;rabbitmq.url=127.0.0.1
 
+Command line:
+clean package docker:build
+
 （2）
 在安装RabbitMQ之前，需要先安装Erlang/OTP，下载地址为：http://www.erlang.org/downloads/，下载exe文件安装即可。
 安装完毕后，下载RabbitMQ，下载地址为 http://www.rabbitmq.com/install-windows.html，下载exe文件安装即可。
