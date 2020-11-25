@@ -6,14 +6,14 @@ RUN mkdir -p /young/tftp
 
 WORKDIR /young/tftp
 
-EXPOSE 8106
+EXPOSE 8900
 
-ADD ./target/young-service-tftp.jar ./tftp.jar
+ADD ./target/young-tftp.jar ./tftp.jar
 
 ENTRYPOINT [ \
     "java", \
     "-XX:MetaspaceSize=256m", \
-    "-XX:MaxMetaspaceSize=512m", \
+    "-XX:MaxMetaspaceSize=256m", \
     "-Xms512m", \
     "-Xmx512m", \
     "-Xmn256m", \
@@ -27,5 +27,3 @@ ENTRYPOINT [ \
     "-jar", \
     "tftp.jar" \
 ]
-
-CMD ["--spring.profiles.active=prod"]

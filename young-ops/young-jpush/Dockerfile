@@ -1,19 +1,19 @@
 FROM adoptopenjdk/openjdk8-openj9:alpine-slim
 
-MAINTAINER 631041490@qq.com
+MAINTAINER 15602400262@163.com
 
 RUN mkdir -p /young/jpush
 
 WORKDIR /young/jpush
 
-EXPOSE 8106
+EXPOSE 8800
 
-ADD ./target/young-service-jpush.jar ./jpush.jar
+ADD ./target/young-jpush.jar ./jpush.jar
 
 ENTRYPOINT [ \
     "java", \
-    "-XX:MetaspaceSize=256m", \
-    "-XX:MaxMetaspaceSize=512m", \
+    "-XX:MetaspaceSize=128m", \
+    "-XX:MaxMetaspaceSize=256m", \
     "-Xms512m", \
     "-Xmx512m", \
     "-Xmn256m", \
@@ -27,5 +27,3 @@ ENTRYPOINT [ \
     "-jar", \
     "jpush.jar" \
 ]
-
-CMD ["--spring.profiles.active=prod"]

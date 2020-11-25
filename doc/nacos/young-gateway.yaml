@@ -1,6 +1,3 @@
-server:
-  port: 80
-
 #spring.cloud.gateway.routes定义了路由转发规则，配置含义如下：
 # id，路由ID，保持唯一即可；
 # uri，路由的目标地址，可以指定为HTTP地址，也可以通过lb://{微服务名称}来指定。
@@ -10,13 +7,6 @@ server:
 # filters为过滤器工厂，配置为- StripPrefix=1的意思是，请求转发前，将Path的内容截去前面一位。比如/auth/hello会被截取为/hello。
 # default-filters来指定全局的过滤器
 spring:
-  boot:
-    admin:
-      client:
-        url: http://${young-admin}:8500
-        username: young
-        password: 123456
-
   cloud:
     gateway:
       routes:
@@ -28,20 +18,20 @@ spring:
           #通过- name: Hystrix指定添加Hystrix过滤器，
           #通过name: authfallback指定HystrixCommandKey为authfallback，fallbackUri指定了回退的重定向地址
           filters:
-              - name: Hystrix
-                args:
-                  name: authfallback
-                  fallbackUri: forward:/fallback/young-auth
+            - name: Hystrix
+              args:
+                name: authfallback
+                fallbackUri: forward:/fallback/young-auth
         - id: young-system
           uri: lb://young-system
           predicates:
             - Path=/system/**
           #在网关中加入Hystrix熔断处理,添加Hystrix过滤器工厂
           filters:
-              - name: Hystrix
-                args:
-                  name: systemfallback
-                  fallbackUri: forward:/fallback/young-system
+            - name: Hystrix
+              args:
+                name: systemfallback
+                fallbackUri: forward:/fallback/young-system
         - id: young-jpush
           uri: lb://young-jpush
           predicates:
@@ -58,10 +48,10 @@ spring:
             - Path=/test/**
           #在网关中加入Hystrix熔断处理,添加Hystrix过滤器工厂
           filters:
-              - name: Hystrix
-                args:
-                  name: testfallback
-                  fallbackUri: forward:/fallback/young-test
+            - name: Hystrix
+              args:
+                name: testfallback
+                fallbackUri: forward:/fallback/young-test
         - id: young-demo
           uri: lb://young-demo
           predicates:
@@ -84,18 +74,3 @@ hystrix:
         isolation:
           thread:
             timeoutInMilliseconds: 3000
-
-info:
-  app:
-    name: ${spring.application.name}
-    description: "@project.description@"
-    version: "@project.version@"
-
-management:
-  endpoints:
-    web:
-      exposure:
-        include: '*'
-  endpoint:
-    health:
-      show-details: ALWAYS

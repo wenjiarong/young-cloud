@@ -1,0 +1,54 @@
+spring:
+  #spring.boot.admin.client.url指定了SBA服务端地址；
+  #spring.boot.admin.client.username对应SBA服务端的用户名；
+  #spring.boot.admin.client.password对应SBA服务端的密码；
+  boot:
+    admin:
+      client:
+        url: http://127.0.0.1:8500
+        username: young
+        password: 123456
+
+  zipkin:
+    sender:
+      type: rabbit
+  sleuth:
+    sampler:
+      probability: 1  #默认值为0.1，即采样率才1/10，发送10笔请求只有一笔会被采集。为了测试方便，我们可以将它设置为1，即100%采样；
+
+security:
+  oauth2:
+    resource:
+      id: ${spring.application.name}
+      user-info-uri: http://127.0.0.1/auth/user
+
+#user-info-uri路径为http://localhost/auth/user，通过微服务网关，
+#该请求将被转发到http://localhost:8100/user。该配置的作用主要有两个：
+#1、到认证服务器里校验当前请求头中的令牌是否为合法的令牌；
+#2、通过当前令牌获取对应的用户信息。
+
+#让Feign的回退生效,因为Feign的回退功能是基于Hystrix实现的，所以需要开启它。
+feign:
+  hystrix:
+    enabled: true
+#请求拦截器能够顺利获取到令牌,这样做会把SecurityContext对象从你当前主线程传输到Hystrix线程。
+hystrix:
+  shareSecurityContext: true
+
+#info.**配置了SBA客户端的名称，描述和版本信息；
+info:
+  app:
+    name: ${spring.application.name}
+    description: "@project.description@"
+    version: "@project.version@"
+
+#management.endpoints.web.exposure.include='*'表示将SBA客户端的所有监控端点都暴露给SBA服务端；
+#management.endpoint.health.show-details表示总是展示详细的健康信息。
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: ALWAYS

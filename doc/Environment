@@ -1,18 +1,14 @@
-（1）
-idea--Environment variables:
-mysql.url=127.0.0.1;redis.url=127.0.0.1;rocketmq.url=192.168.10.168;young-gateway=127.0.0.1;nacos.url=127.0.0.1;young-admin=127.0.0.1;young-canal=127.0.0.1;rabbitmq.url=127.0.0.1
-
 Command line:
 clean package docker:build
 
-（2）
+
 在安装RabbitMQ之前，需要先安装Erlang/OTP，下载地址为：http://www.erlang.org/downloads/，下载exe文件安装即可。
 安装完毕后，下载RabbitMQ，下载地址为 http://www.rabbitmq.com/install-windows.html，下载exe文件安装即可。
 安装完RabbitMQ之后，到RabbitMQ安装目录的sbin下执行如下命令：
 rabbitmq-plugins enable rabbitmq_management
 然后在浏览器中输入http://localhost:15672，用户名和密码都是guest
 
-（3）
+
 官方搭建好的Zipkin Server，地址为：https://github.com/openzipkin/zipkin
 执行doc文件里的jar包启动zipkin服务
 java -jar zipkin.jar --server.port=8600 --zipkin.storage.type=mysql --zipkin.storage.mysql.db=young_cloud --zipkin.storage.mysql.username=root --zipkin.storage.mysql.password=root --zipkin.storage.mysql.host=localhost --zipkin.storage.mysql.port=13306 --zipkin.collector.rabbitmq.addresses=localhost:5672 --zipkin.collector.rabbitmq.username=guest --zipkin.collector.rabbitmq.password=guest

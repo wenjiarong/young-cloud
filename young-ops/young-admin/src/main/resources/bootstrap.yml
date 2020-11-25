@@ -1,15 +1,32 @@
+server:
+  port: 8500
+
 spring:
+  boot:
+    admin:
+      ui:
+        title: ${spring.application.name}
+  security:
+    user:
+      name: young
+      password: 123456
+
   application:
     name: young-admin
   cloud:
     nacos:
       discovery:
-        server-addr: ${nacos.url}:8848
+        server-addr: 127.0.0.1:8848
       config:
-        server-addr: ${nacos.url}:8848
-        # 指定配置分组名称
-        group: DEFAULT_GROUP
-        # 指定在nacos配置中心对应微服务配置的前缀
-        prefix: young-admin
-        # 指定微服务配置文件的类型
-        file-extension: yaml
+        server-addr: 127.0.0.1:8848
+        shared-dataids: young-dev.yaml
+        refreshable-dataids: young-dev.yaml
+
+logging:
+  level:
+    com:
+      alibaba:
+        cloud:
+          nacos:
+            client:
+              NacosPropertySourceBuilder: error

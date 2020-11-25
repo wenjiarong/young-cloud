@@ -6,16 +6,16 @@ RUN mkdir -p /young/gateway
 
 WORKDIR /young/gateway
 
-EXPOSE 9000
+EXPOSE 80
 
 ADD ./target/young-gateway.jar ./gateway.jar
 
 ENTRYPOINT [ \
     "java", \
-    "-XX:MetaspaceSize=512m", \
-    "-XX:MaxMetaspaceSize=512m", \
-    "-Xms1024m", \
-    "-Xmx1024m", \
+    "-XX:MetaspaceSize=256m", \
+    "-XX:MaxMetaspaceSize=256m", \
+    "-Xms512m", \
+    "-Xmx512m", \
     "-Xmn256m", \
     "-Xss512k", \
     "-XX:SurvivorRatio=8", \
@@ -27,5 +27,3 @@ ENTRYPOINT [ \
     "-jar", \
     "gateway.jar" \
 ]
-
-CMD ["--spring.profiles.active=prod"]

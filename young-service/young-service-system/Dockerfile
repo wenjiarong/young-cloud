@@ -6,14 +6,14 @@ RUN mkdir -p /young/system
 
 WORKDIR /young/system
 
-EXPOSE 8106
+EXPOSE 8200
 
-ADD ./target/young-service-system.jar ./system.jar
+ADD ./target/young-system.jar ./system.jar
 
 ENTRYPOINT [ \
     "java", \
     "-XX:MetaspaceSize=256m", \
-    "-XX:MaxMetaspaceSize=512m", \
+    "-XX:MaxMetaspaceSize=256m", \
     "-Xms512m", \
     "-Xmx512m", \
     "-Xmn256m", \
@@ -27,5 +27,3 @@ ENTRYPOINT [ \
     "-jar", \
     "system.jar" \
 ]
-
-CMD ["--spring.profiles.active=prod"]

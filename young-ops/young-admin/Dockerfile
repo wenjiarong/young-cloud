@@ -6,14 +6,14 @@ RUN mkdir -p /young/admin
 
 WORKDIR /young/admin
 
-EXPOSE 8106
+EXPOSE 8500
 
-ADD ./target/young-service-admin.jar ./admin.jar
+ADD ./target/young-admin.jar ./admin.jar
 
 ENTRYPOINT [ \
     "java", \
     "-XX:MetaspaceSize=256m", \
-    "-XX:MaxMetaspaceSize=512m", \
+    "-XX:MaxMetaspaceSize=256m", \
     "-Xms512m", \
     "-Xmx512m", \
     "-Xmn256m", \
@@ -27,5 +27,3 @@ ENTRYPOINT [ \
     "-jar", \
     "admin.jar" \
 ]
-
-CMD ["--spring.profiles.active=prod"]

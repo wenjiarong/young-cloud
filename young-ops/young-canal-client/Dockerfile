@@ -1,19 +1,19 @@
 FROM adoptopenjdk/openjdk8-openj9:alpine-slim
 
-MAINTAINER 631041490@qq.com
+MAINTAINER 15602400262@163.com
 
-RUN mkdir -p /young/canal
+RUN mkdir -p /young/canal-client
 
-WORKDIR /young/canal
+WORKDIR /young/canal-client
 
-EXPOSE 8106
+EXPOSE 8400
 
-ADD ./target/young-service-canal.jar ./canal.jar
+ADD ./target/young-canal-client.jar ./canal-client.jar
 
 ENTRYPOINT [ \
     "java", \
-    "-XX:MetaspaceSize=256m", \
-    "-XX:MaxMetaspaceSize=512m", \
+    "-XX:MetaspaceSize=128m", \
+    "-XX:MaxMetaspaceSize=256m", \
     "-Xms512m", \
     "-Xmx512m", \
     "-Xmn256m", \
@@ -25,7 +25,5 @@ ENTRYPOINT [ \
     "-Xshareclasses", \
     "-Xquickstart", \
     "-jar", \
-    "canal.jar" \
+    "canal-client.jar" \
 ]
-
-CMD ["--spring.profiles.active=prod"]

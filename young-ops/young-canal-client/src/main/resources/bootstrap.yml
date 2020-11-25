@@ -1,15 +1,36 @@
+server:
+  port: 8400
+
+canal:
+  client:
+    instances:
+      example:
+        acquireInterval: 1000
+        batchSize: 1000
+        clusterEnabled: false
+        host: 127.0.0.1
+        port: 11111
+        retryCount: 20
+        # 只监听某个表
+        filter: bladex.blade_user
+
 spring:
   application:
     name: young-canal
   cloud:
     nacos:
       discovery:
-        server-addr: ${nacos.url}:8848
+        server-addr: 127.0.0.1:8848
       config:
-        server-addr: ${nacos.url}:8848
-        # 指定配置分组名称
-        group: DEFAULT_GROUP
-        # 指定在nacos配置中心对应微服务配置的前缀
-        prefix: young-canal
-        # 指定微服务配置文件的类型
-        file-extension: yaml
+        server-addr: 127.0.0.1:8848
+        shared-dataids: young.yaml,young-dev.yaml
+        refreshable-dataids: young.yaml,young-dev.yaml
+
+logging:
+  level:
+    com:
+      alibaba:
+        cloud:
+          nacos:
+            client:
+              NacosPropertySourceBuilder: error

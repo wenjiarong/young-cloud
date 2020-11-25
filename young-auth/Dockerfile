@@ -31,5 +31,3 @@ ENTRYPOINT [ \
     "-jar", \
     "auth.jar" \
 ]
-
-CMD ["--spring.profiles.active=prod"]
