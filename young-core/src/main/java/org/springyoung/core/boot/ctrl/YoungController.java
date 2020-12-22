@@ -1,7 +1,7 @@
 package org.springyoung.core.boot.ctrl;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springyoung.core.response.R;
+import org.springyoung.core.tool.api.R;
 import org.springyoung.core.secure.YoungUser;
 import org.springyoung.core.secure.utils.AuthUtil;
 

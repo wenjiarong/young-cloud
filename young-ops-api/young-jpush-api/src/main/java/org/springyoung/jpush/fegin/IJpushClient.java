@@ -4,7 +4,7 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springyoung.core.constant.YoungServerConstant;
-import org.springyoung.core.response.R;
+import org.springyoung.core.tool.api.R;
 import org.springyoung.jpush.entity.SendMsg;
 
 /**

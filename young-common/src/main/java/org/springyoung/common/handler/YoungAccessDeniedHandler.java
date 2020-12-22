@@ -3,8 +3,8 @@ package org.springyoung.common.handler;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.web.access.AccessDeniedHandler;
-import org.springyoung.core.response.R;
-import org.springyoung.core.response.ResultCode;
+import org.springyoung.core.tool.api.R;
+import org.springyoung.core.tool.api.ResultCode;
 import org.springyoung.common.utils.YoungUtil;
 
 import javax.servlet.http.HttpServletRequest;

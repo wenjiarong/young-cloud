@@ -14,6 +14,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>young-jpush-api</module>
+        <module>young-file-manage-api</module>
     </modules>
 
     <dependencies>

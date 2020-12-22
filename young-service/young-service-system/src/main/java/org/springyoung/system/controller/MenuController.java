@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springyoung.core.boot.ctrl.YoungController;
-import org.springyoung.core.response.R;
+import org.springyoung.core.tool.api.R;
 import org.springyoung.core.secure.YoungUser;
 import org.springyoung.system.entity.Menu;
 import org.springyoung.system.entity.router.VueRouter;

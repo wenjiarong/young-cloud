@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springyoung.common.exception.YoungAuthException;
 import org.springyoung.common.exception.YoungException;
-import org.springyoung.core.response.R;
-import org.springyoung.core.response.ResultCode;
+import org.springyoung.core.tool.api.R;
+import org.springyoung.core.tool.api.ResultCode;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;

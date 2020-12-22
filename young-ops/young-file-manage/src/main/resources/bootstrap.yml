@@ -1,0 +1,32 @@
+server:
+  port: 8900
+
+spring:
+  application:
+    name: young-file-manage
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+      config:
+        server-addr: 127.0.0.1:8848
+        shared-dataids: young.yaml,young-dev.yaml
+        refreshable-dataids: young.yaml,young-dev.yaml
+
+logging:
+  level:
+    com:
+      alibaba:
+        cloud:
+          nacos:
+            client:
+              NacosPropertySourceBuilder: error
+
+file:
+  dir: D:/server-directory/
+  userCfg: D:/ftp/user.cfg
+  #dir: /usr/local/oceanlink/fileserver/
+  #userCfg: /usr/local/oceanlink/ftp/user.cfg
+  data:
+    serverSocket:
+      port: 2222

@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springyoung.common.service.RedisService;
 import org.springyoung.core.constant.CacheConstant;
-import org.springyoung.core.response.R;
+import org.springyoung.core.tool.api.R;
 import org.springyoung.core.secure.YoungUser;
 import org.springyoung.core.secure.utils.AuthUtil;
 import org.springyoung.core.tool.utils.ObjectUtil;

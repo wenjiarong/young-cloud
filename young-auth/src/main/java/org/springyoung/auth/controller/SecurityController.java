@@ -10,7 +10,7 @@ import org.springyoung.auth.service.ValidateCodeService;
 import org.springyoung.common.exception.ValidateCodeException;
 import org.springyoung.common.exception.YoungAuthException;
 import org.springyoung.core.constant.TokenConstant;
-import org.springyoung.core.response.R;
+import org.springyoung.core.tool.api.R;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

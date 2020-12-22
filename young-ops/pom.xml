@@ -16,7 +16,7 @@
         <module>young-canal-client</module>
         <module>young-admin</module>
         <module>young-jpush</module>
-        <module>young-tftp</module>
+        <module>young-file-manage</module>
     </modules>
 
     <dependencies>

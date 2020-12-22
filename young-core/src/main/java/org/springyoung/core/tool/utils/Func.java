@@ -7,6 +7,8 @@ import org.springframework.lang.Nullable;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.apache.commons.lang3.ObjectUtils.isEmpty;
+
 /**
  * 工具包集合，工具类快捷方式
  */
@@ -153,6 +155,100 @@ public class Func {
             return defaultValue;
         }
         return String.valueOf(str);
+    }
+
+    /**
+     * 转换为Long集合<br>
+     *
+     * @param str 结果被转换的值
+     * @return 结果
+     */
+    public static List<Long> toLongList(String str) {
+        return Arrays.asList(toLongArray(str));
+    }
+
+    /**
+     * 转换为Long集合<br>
+     *
+     * @param split 分隔符
+     * @param str   被转换的值
+     * @return 结果
+     */
+    public static List<Long> toLongList(String split, String str) {
+        return Arrays.asList(toLongArray(split, str));
+    }
+
+    /**
+     * 获取第一位Long数值
+     *
+     * @param str 被转换的值
+     * @return 结果
+     */
+    public static Long firstLong(String str) {
+        return firstLong(",", str);
+    }
+
+    /**
+     * 转换为Long数组<br>
+     *
+     * @param str 被转换的值
+     * @return 结果
+     */
+    public static Long[] toLongArray(String str) {
+        return toLongArray(",", str);
+    }
+
+    /**
+     * 获取第一位Long数值
+     *
+     * @param split 分隔符
+     * @param str   被转换的值
+     * @return 结果
+     */
+    public static Long firstLong(String split, String str) {
+        List<Long> longs = toLongList(split, str);
+        if (isEmpty(longs)) {
+            return null;
+        } else {
+            return longs.get(0);
+        }
+    }
+
+    /**
+     * 转换为Long数组<br>
+     *
+     * @param split 分隔符
+     * @param str   被转换的值
+     * @return 结果
+     */
+    public static Long[] toLongArray(String split, String str) {
+        if (StringUtils.isEmpty(str)) {
+            return new Long[]{};
+        }
+        String[] arr = str.split(split);
+        final Long[] longs = new Long[arr.length];
+        for (int i = 0; i < arr.length; i++) {
+            final Long v = toLong(arr[i], 0);
+            longs[i] = v;
+        }
+        return longs;
+    }
+
+    /**
+     * 字符串转 long，为空则返回默认值
+     *
+     * <pre>
+     *   $.toLong(null, 1L) = 1L
+     *   $.toLong("", 1L)   = 1L
+     *   $.toLong("1", 0L)  = 1L
+     * </pre>
+     *
+     * @param str          the string to convert, may be null
+     * @param defaultValue the default value
+     * @return the long represented by the string, or the default if conversion fails
+     */
+    public static long toLong(@Nullable final Object str, final long defaultValue) {
+        return NumberUtil.toLong(String.valueOf(str), defaultValue);
     }
 
 }

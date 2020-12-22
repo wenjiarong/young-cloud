@@ -8,7 +8,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springyoung.common.exception.YoungException;
 import org.springyoung.core.boot.ctrl.YoungController;
-import org.springyoung.core.response.R;
+import org.springyoung.core.tool.api.R;
 import org.springyoung.core.mp.support.Query;
 import org.springyoung.system.entity.User;
 import org.springyoung.system.service.IUserService;
