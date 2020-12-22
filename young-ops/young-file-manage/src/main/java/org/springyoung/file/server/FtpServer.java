@@ -17,10 +17,12 @@ public class FtpServer extends Thread {
     public static List<UserInfo> usersInfo = new ArrayList();
     private String key;
     private String userCfg;
+    private Integer ctrlPort;
 
-    public FtpServer(String userCfg, String key) {
+    public FtpServer(String userCfg, String key, Integer ctrlPort) {
         this.key = key;
         this.userCfg = userCfg;
+        this.ctrlPort = ctrlPort;
         loadUsersInfo(userCfg);
     }
 
@@ -29,7 +31,7 @@ public class FtpServer extends Thread {
         int i = 0;
         try {
             // 监听2221号端口,2221口用于控制,2220口用于传数据
-            ctrlSocket = new ServerSocket(2221);
+            ctrlSocket = new ServerSocket(ctrlPort);
             for (; ; ) {
                 Socket ctrl = ctrlSocket.accept();
                 PrintWriter writer = new PrintWriter(ctrl.getOutputStream(),

@@ -129,8 +129,8 @@ public class FtpController extends YoungController {
             resultStr = ctrlScanner.nextLine();
             resultCode = interpretCode(resultStr);
             if ("200".equals(resultCode)) {
-                serverSocket = new ServerSocket(properties.getPort());
-                ctrlWriter.println(preparePort(ctrlSocket.getLocalAddress(), properties.getPort()));
+                serverSocket = new ServerSocket(properties.getClientPort());
+                ctrlWriter.println(preparePort(ctrlSocket.getLocalAddress(), properties.getClientPort()));
             } else {
                 do_quit(ctrlSocket, ctrlWriter, serverSocket);
                 return R.fail(ErrorCode.THE_ATTACHED_SERVER_DOES_NOT_SUPPORT_ASCII_TRANSPORT);

@@ -14,14 +14,18 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  */
 @Data
 @SpringBootConfiguration
-@ConfigurationProperties(prefix = "file")
+@ConfigurationProperties(prefix = "file.server")
 public class MyProperties {
 
-	private String dir;
+    private String dir;
 
-	private String userCfg;
+    @Value("${file.server.user.config}")
+    private String userCfg;
 
-	@Value("${file.data.serverSocket.port}")
-	private Integer port;
+    @Value("${file.server.ftp.client.port}")
+    private Integer clientPort;
+
+    @Value("${file.server.ftp.ctrl.port}")
+    private Integer ctrlPort;
 
 }

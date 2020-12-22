@@ -23,10 +23,14 @@ logging:
               NacosPropertySourceBuilder: error
 
 file:
-  dir: D:/server-directory/
-  userCfg: D:/ftp/user.cfg
-  #dir: /usr/local/oceanlink/fileserver/
-  #userCfg: /usr/local/oceanlink/ftp/user.cfg
-  data:
-    serverSocket:
-      port: 2222
+  server:
+    dir: D:/server-directory/
+    #dir: /usr/local/oceanlink/fileserver/
+    user:
+      config: D:/ftp/user.cfg
+      #config: /usr/local/oceanlink/ftp/user.cfg
+    ftp:
+      client:
+        port: 2222
+      ctrl:
+        port: 2221

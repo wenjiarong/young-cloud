@@ -42,7 +42,7 @@ public class StartService implements ApplicationRunner {
         //server.setAllowOverwrite(false);
         tftpServer.start();
 
-        FtpServer ftpServer = new FtpServer(properties.getUserCfg(), FTP_SERVER_NAME);
+        FtpServer ftpServer = new FtpServer(properties.getUserCfg(), FTP_SERVER_NAME, properties.getCtrlPort());
         SERVER_MAP.put(ftpServer.getKey(), ftpServer);
         ftpServer.start();
     }
