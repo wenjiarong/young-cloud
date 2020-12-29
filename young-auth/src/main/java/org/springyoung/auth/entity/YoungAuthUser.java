@@ -20,9 +20,7 @@ public class YoungAuthUser extends User {
 
     private Long userId;
 
-    private String account;
-
-    private String userName;
+    private String loginName;
 
     private String image;
 
@@ -48,12 +46,12 @@ public class YoungAuthUser extends User {
 
     private String status;
 
-    public YoungAuthUser(String username, String password, Collection<? extends GrantedAuthority> authorities) {
-        super(username, password, authorities);
+    public YoungAuthUser(String userName, String passWord, Collection<? extends GrantedAuthority> authorities) {
+        super(userName, passWord, authorities);
     }
 
-    public YoungAuthUser(String username, String password, boolean enabled, boolean accountNonExpired, boolean credentialsNonExpired, boolean accountNonLocked, Collection<? extends GrantedAuthority> authorities) {
-        super(username, password, enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authorities);
+    public YoungAuthUser(String userName, String passWord, boolean enabled, boolean accountNonExpired, boolean credentialsNonExpired, boolean accountNonLocked, Collection<? extends GrantedAuthority> authorities) {
+        super(userName, passWord, enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authorities);
     }
 
 }

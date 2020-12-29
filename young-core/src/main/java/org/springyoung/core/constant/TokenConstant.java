@@ -7,7 +7,7 @@ public interface TokenConstant {
 
 	String HEADER = "authorization";
 	String BEARER = "bearer";
-	String ACCOUNT = "account";
+	String LOGIN_NAME = "login_name";
 	String USER_NAME = "user_name";
 	String USER_ID = "user_id";
 	String DEPT_ID = "dept_id";

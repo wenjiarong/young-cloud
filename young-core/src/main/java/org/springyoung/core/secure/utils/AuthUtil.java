@@ -23,7 +23,7 @@ public class AuthUtil {
     private static final String YOUNG_USER_REQUEST_ATTR = "_YOUNG_USER_REQUEST_ATTR_";
 
     private final static String HEADER = TokenConstant.HEADER;
-    private final static String ACCOUNT = TokenConstant.ACCOUNT;
+    private final static String LOGIN_NAME = TokenConstant.LOGIN_NAME;
     private final static String USER_NAME = TokenConstant.USER_NAME;
     private final static String USER_ID = TokenConstant.USER_ID;
     private final static String DEPT_ID = TokenConstant.DEPT_ID;
@@ -69,12 +69,12 @@ public class AuthUtil {
         Long deptId = Func.toLong(claims.get(AuthUtil.DEPT_ID));
         String roleIds = Func.toStrWithEmpty(claims.get(AuthUtil.ROLE_IDS), StringPool.MINUS_ONE);
         String roleNames = Func.toStrWithEmpty(claims.get(AuthUtil.ROLE_NAMES), StringPool.MINUS_ONE);
-        String account = Func.toStr(claims.get(AuthUtil.ACCOUNT));
+        String loginName = Func.toStr(claims.get(AuthUtil.LOGIN_NAME));
         String userName = Func.toStr(claims.get(AuthUtil.USER_NAME));
         YoungUser youngUser = new YoungUser();
         youngUser.setUserId(userId);
         youngUser.setTenantId(tenantId);
-        youngUser.setAccount(account);
+        youngUser.setAccount(loginName);
         youngUser.setDeptId(deptId);
         youngUser.setRoleIds(roleIds);
         youngUser.setRoleNames(roleNames);

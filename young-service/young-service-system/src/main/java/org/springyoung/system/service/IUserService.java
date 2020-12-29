@@ -43,9 +43,16 @@ public interface IUserService extends IService<User> {
     /**
      * 通过账号查找用户信息
      *
-     * @param account
+     * @param userName
      * @return
      */
-    User findByAccount(String account);
+    User findByUserName(String userName);
+
+    /**
+     * 更新用户登录时间
+     *
+     * @param userId
+     */
+    void updateLoginTime(Long userId);
 
 }

@@ -24,7 +24,7 @@ public class YoungJwtTokenEnhancer implements TokenEnhancer {
         //token参数增强
         Map<String, Object> info = new HashMap<>(16);
         info.put(TokenConstant.USER_ID, principal.getUserId());
-        info.put(TokenConstant.ACCOUNT, principal.getAccount());
+        info.put(TokenConstant.LOGIN_NAME, principal.getLoginName());
         info.put(TokenConstant.DEPT_ID, principal.getDeptId());
         info.put(TokenConstant.TENANT_ID, principal.getTenantId());
         info.put(TokenConstant.USER_NAME, principal.getUsername());

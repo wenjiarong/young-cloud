@@ -32,11 +32,11 @@ public class User extends TenantEntity {
     public static final String SEX_UNKNOW = "2";
 
     @ApiModelProperty(value = "账号")
-    private String account;
+    private String userName;
     @ApiModelProperty(value = "密码")
     private String password;
     @ApiModelProperty(value = "用户名称")
-    private String userName;
+    private String LoginName;
     @ApiModelProperty(value = "邮箱")
     private String email;
     @ApiModelProperty(value = "联系电话")

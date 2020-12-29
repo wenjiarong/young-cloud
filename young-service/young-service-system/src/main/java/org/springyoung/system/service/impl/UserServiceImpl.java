@@ -1,5 +1,6 @@
 package org.springyoung.system.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -73,8 +74,16 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     }
 
     @Override
-    public User findByAccount(String account) {
-        return baseMapper.findByAccount(account);
+    public User findByUserName(String userName) {
+        return baseMapper.findByUserName(userName);
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void updateLoginTime(Long userId) {
+        User user = new User();
+        user.setLastLoginTime(new Date());
+        this.baseMapper.update(user, new LambdaQueryWrapper<User>().eq(User::getId, userId));
     }
 
     private void setUserRoles(User user, String[] roles) {

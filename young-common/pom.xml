@@ -104,6 +104,12 @@
             <artifactId>knife4j-annotations</artifactId>
             <version>2.0.6</version>
         </dependency>
+        <!-- 根据 IP 地址来获取 位置 -->
+        <dependency>
+            <groupId>org.lionsoul</groupId>
+            <artifactId>ip2region</artifactId>
+            <version>1.7</version>
+        </dependency>
     </dependencies>
 
     <build>

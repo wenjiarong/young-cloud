@@ -11,7 +11,7 @@
  Target Server Version : 80011
  File Encoding         : 65001
 
- Date: 22/12/2020 09:37:24
+ Date: 29/12/2020 16:02:20
 */
 
 SET NAMES utf8mb4;
@@ -90,7 +90,7 @@ CREATE TABLE `young_dept`  (
   `is_deleted` smallint(2) NULL DEFAULT NULL COMMENT '软删除 0未删除 1删除',
   `create_dept` bigint(64) NULL DEFAULT NULL COMMENT '创建部门',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '部门表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 124 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '部门表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of young_dept
@@ -102,17 +102,17 @@ INSERT INTO `young_dept` VALUES (123, '000000', 0, '开发部', 1, '0', '2020-09
 -- ----------------------------
 DROP TABLE IF EXISTS `young_file_info`;
 CREATE TABLE `young_file_info`  (
-  `id` bigint(20) NOT NULL COMMENT '序列号',
+  `id` bigint(64) NOT NULL COMMENT '序列号',
   `tenant_id` varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '000000' COMMENT '租户编号',
-  `file_server_id` bigint(20) NOT NULL COMMENT '文件服务器编号',
+  `file_server_id` bigint(64) NOT NULL COMMENT '文件服务器编号',
   `file_path` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '文件路径',
   `file_name` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '文件名',
   `file_size` int(11) NOT NULL COMMENT '文件大小',
   `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '备注 1: file 2: dir',
-  `create_user` bigint(20) NOT NULL COMMENT '创建人',
-  `create_dept` bigint(20) NOT NULL COMMENT '创建部门',
+  `create_user` bigint(64) NOT NULL COMMENT '创建人',
+  `create_dept` bigint(64) NOT NULL COMMENT '创建部门',
   `create_time` datetime(0) NULL DEFAULT NULL COMMENT '服务器端创建时间',
-  `update_user` bigint(20) NULL DEFAULT NULL COMMENT '修改者',
+  `update_user` bigint(64) NULL DEFAULT NULL COMMENT '修改者',
   `update_time` datetime(0) NULL DEFAULT NULL COMMENT '服务器端修改时间',
   `status` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '状态',
   `is_deleted` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '1' COMMENT '是否已删除 0:未删除，1:已删除',
@@ -152,6 +152,28 @@ CREATE TABLE `young_file_server`  (
 -- ----------------------------
 
 -- ----------------------------
+-- Table structure for young_login_log
+-- ----------------------------
+DROP TABLE IF EXISTS `young_login_log`;
+CREATE TABLE `young_login_log`  (
+  `id` bigint(64) NOT NULL COMMENT '唯一标识',
+  `user_id` bigint(64) NULL DEFAULT NULL COMMENT '用户id',
+  `login_time` datetime(0) NULL DEFAULT NULL COMMENT '登录时间',
+  `location` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '登录地点',
+  `IP` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '登录IP',
+  `SYSTEM` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '操作系统',
+  `browser` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '登录浏览器',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of young_login_log
+-- ----------------------------
+INSERT INTO `young_login_log` VALUES (1342382588619108353, 10000, '2020-12-25 16:12:04', '', '127.0.0.1', 'Windows 10', 'Chrome 75');
+INSERT INTO `young_login_log` VALUES (1342388953697726465, 10000, '2020-12-25 16:37:22', '', '127.0.0.1', 'Windows 10', 'Chrome 75');
+INSERT INTO `young_login_log` VALUES (1342389953011625986, 10000, '2020-12-25 16:41:20', '', '127.0.0.1', 'Windows 10', 'Chrome 75');
+
+-- ----------------------------
 -- Table structure for young_menu
 -- ----------------------------
 DROP TABLE IF EXISTS `young_menu`;
@@ -174,7 +196,7 @@ CREATE TABLE `young_menu`  (
   `is_deleted` smallint(2) NULL DEFAULT NULL COMMENT '软删除 0未删除 1删除',
   `create_dept` bigint(64) NULL DEFAULT NULL COMMENT '创建部门',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '菜单表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '菜单表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of young_menu
@@ -202,7 +224,7 @@ CREATE TABLE `young_role`  (
   `is_deleted` smallint(2) NULL DEFAULT NULL COMMENT '软删除 0未删除 1删除',
   `create_dept` bigint(64) NULL DEFAULT NULL COMMENT '创建部门',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '角色表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '角色表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of young_role
@@ -221,8 +243,11 @@ CREATE TABLE `young_role_menu`  (
 -- ----------------------------
 -- Records of young_role_menu
 -- ----------------------------
-INSERT INTO `young_role_menu` VALUES (1, 4);
+INSERT INTO `young_role_menu` VALUES (1, 3);
 INSERT INTO `young_role_menu` VALUES (1, 1);
+INSERT INTO `young_role_menu` VALUES (1, 2);
+INSERT INTO `young_role_menu` VALUES (1, 4);
+INSERT INTO `young_role_menu` VALUES (1, 5);
 
 -- ----------------------------
 -- Table structure for young_trade_log
@@ -296,9 +321,9 @@ DROP TABLE IF EXISTS `young_user`;
 CREATE TABLE `young_user`  (
   `id` bigint(64) NOT NULL AUTO_INCREMENT COMMENT '用户ID',
   `tenant_id` varchar(12) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '租户',
-  `account` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '账号',
+  `user_name` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '账号',
   `password` varchar(128) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '密码',
-  `user_name` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '用户名称',
+  `login_name` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '用户名称',
   `email` varchar(128) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '邮箱',
   `mobile` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '联系电话',
   `last_login_time` datetime(0) NULL DEFAULT NULL COMMENT '最近访问时间',
@@ -314,12 +339,12 @@ CREATE TABLE `young_user`  (
   `is_deleted` smallint(2) NULL DEFAULT NULL COMMENT '软删除 0未删除 1删除',
   `create_dept` bigint(64) NULL DEFAULT NULL COMMENT '创建部门',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '用户表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1318470775754153987 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '用户表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of young_user
 -- ----------------------------
-INSERT INTO `young_user` VALUES (10000, '000000', 'wenjiarong', '$2a$10$gzhiUb1ldc1Rf3lka4k/WOoFKKGPepHSzJxzcPSN5/65SzkMdc.SK', '温家荣', '631041490@qq.com', '123456789', '2020-09-22 10:20:47', '0', 123, NULL, '1', '2020-09-22 10:21:24', '2020-09-22 10:21:06', '超级管理员', 10000, 10000, 0, NULL);
+INSERT INTO `young_user` VALUES (10000, '000000', 'wenjiarong', '$2a$10$gzhiUb1ldc1Rf3lka4k/WOoFKKGPepHSzJxzcPSN5/65SzkMdc.SK', '温家荣', '631041490@qq.com', '123456789', '2020-12-25 16:41:20', '0', 123, NULL, '1', '2020-09-22 10:21:24', '2020-09-22 10:21:06', '超级管理员', 10000, 10000, 0, NULL);
 INSERT INTO `young_user` VALUES (1318470775754153986, '111111', 'wenjia', '$2a$10$DnxSYKmlhiwNThTZdfCAFuBe4UdHjVzZW//iMNIZ0TKmvfvn7w9Gu', '温家', '631041490@qq.com', '9874562121', NULL, '2', NULL, 'default.jpg', '1', NULL, '2020-10-20 16:35:04', NULL, NULL, NULL, NULL, NULL);
 
 -- ----------------------------

@@ -10,10 +10,10 @@ public interface UserMapper extends BaseMapper<User> {
     /**
      * 通过账号查找用户信息
      *
-     * @param account
+     * @param userName
      * @return
      */
-    User findByAccount(String account);
+    User findByUserName(String userName);
 
     /**
      * 查找用户详细信息

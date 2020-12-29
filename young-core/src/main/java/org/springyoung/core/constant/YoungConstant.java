@@ -17,6 +17,11 @@ public interface YoungConstant {
     String JWT_KEY = "jwt_youngx";
 
     /**
+     * Java默认临时目录
+     */
+    String JAVA_TEMP_DIR = "java.io.tmpdir";
+
+    /**
      * gif类型
      */
     String GIF = "gif";
