@@ -12,17 +12,17 @@ import org.springyoung.canal.client.interfaces.CanalClient;
 import org.springyoung.core.tool.utils.SpringUtil;
 
 
-public class CanalClientConfiguration {
+public class CanalClientConfigure {
     /**
      * 记录日志
      */
-    private final static Logger logger = LoggerFactory.getLogger(CanalClientConfiguration.class);
+    private final static Logger logger = LoggerFactory.getLogger(CanalClientConfigure.class);
 
     /**
      * canal 配置
      */
     @Autowired
-    private CanalConfig canalConfig;
+    private CanalConfigure canalConfig;
     
     /**
      * 返回 bean 工具类
@@ -42,7 +42,7 @@ public class CanalClientConfiguration {
     private CanalClient canalClient() {
         logger.info("正在尝试连接 canal 客户端....");
         //连接 canal 客户端
-//        CanalClient canalClient = new SimpleCanalClient(canalConfig, MessageTransponders.defaultMessageTransponder());
+        //CanalClient canalClient = new SimpleCanalClient(canalConfig, MessageTransponders.defaultMessageTransponder());
         CanalClient canalClient = new SimpleCanalClient(canalConfig);
         logger.info("正在尝试开启 canal 客户端....");
         //开启 canal 客户端

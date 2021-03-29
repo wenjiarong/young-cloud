@@ -2,7 +2,7 @@ package org.springyoung.canal.client.interfaces;
 
 import com.alibaba.otter.canal.client.CanalConnector;
 import org.springyoung.canal.client.core.ListenerPoint;
-import org.springyoung.canal.config.CanalConfig;
+import org.springyoung.canal.config.CanalConfigure;
 
 import java.util.List;
 import java.util.Map;
@@ -20,5 +20,5 @@ public interface TransponderFactory {
 	 * @param listeners 实现接口的监听器
 	 * @param annoListeners    注解监听拦截
 	 */
-	MessageTransponder newTransponder(CanalConnector connector, Map.Entry<String, CanalConfig.Instance> config, List<CanalEventListener> listeners, List<ListenerPoint> annoListeners);
+	MessageTransponder newTransponder(CanalConnector connector, Map.Entry<String, CanalConfigure.Instance> config, List<CanalEventListener> listeners, List<ListenerPoint> annoListeners);
 }

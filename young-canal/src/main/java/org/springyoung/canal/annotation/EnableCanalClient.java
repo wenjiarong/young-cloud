@@ -1,8 +1,8 @@
 package org.springyoung.canal.annotation;
 
 import org.springframework.context.annotation.Import;
-import org.springyoung.canal.config.CanalClientConfiguration;
-import org.springyoung.canal.config.CanalConfig;
+import org.springyoung.canal.config.CanalClientConfigure;
+import org.springyoung.canal.config.CanalConfigure;
 
 import java.lang.annotation.*;
 
@@ -15,6 +15,6 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Inherited
-@Import({CanalConfig.class, CanalClientConfiguration.class})
+@Import({CanalConfigure.class, CanalClientConfigure.class})
 public @interface EnableCanalClient {
 }

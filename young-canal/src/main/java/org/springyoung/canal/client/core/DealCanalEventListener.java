@@ -15,12 +15,12 @@ import java.util.List;
 public class DealCanalEventListener implements CanalEventListener {
 	
 	/**
-	 * 頭結點
+	 * 头节点
 	 */
 	private AbstractDBOption header;
 	
 	/**
-	 * 默認構造方法，必須傳入鏈路
+	 * 默认构造方案，必须传入链路
 	 *
 	 */
 	public DealCanalEventListener(AbstractDBOption... dbOptions) {

@@ -12,7 +12,7 @@ canal:
         port: 11111
         retryCount: 20
         # 只监听某个表
-        filter: bladex.blade_user
+        filter: young_cloud.young_user
 
 spring:
   application:

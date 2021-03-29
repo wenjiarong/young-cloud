@@ -8,7 +8,7 @@ import org.springyoung.canal.client.exception.CanalClientException;
 import org.springyoung.canal.client.interfaces.CanalClient;
 import org.springyoung.canal.client.interfaces.TransponderFactory;
 import org.springyoung.canal.client.transfer.DefaultMessageTransponder;
-import org.springyoung.canal.config.CanalConfig;
+import org.springyoung.canal.config.CanalConfigure;
 
 import java.net.InetSocketAddress;
 import java.net.SocketAddress;
@@ -30,7 +30,7 @@ public abstract class AbstractCanalClient implements CanalClient {
     /**
      * canal 配置
      */
-    private CanalConfig canalConfig;
+    private CanalConfigure canalConfig;
 
     /**
      * 转换工厂类
@@ -40,7 +40,7 @@ public abstract class AbstractCanalClient implements CanalClient {
     /**
      * 构造方法，初始化 canal 的配置以及转换信息的工厂实例
      */
-    protected AbstractCanalClient(CanalConfig canalConfig) {
+    protected AbstractCanalClient(CanalConfigure canalConfig) {
         //参数校验
         Objects.requireNonNull(canalConfig, "canalConfig 不能为空!");
         Objects.requireNonNull(canalConfig, "transponderFactory 不能为空!");
@@ -55,9 +55,9 @@ public abstract class AbstractCanalClient implements CanalClient {
     @Override
     public void start() {
         //可能有多个客户端
-        Map<String, CanalConfig.Instance> instanceMap = getConfig();
+        Map<String, CanalConfigure.Instance> instanceMap = getConfig();
         //遍历开启进程
-        for (Map.Entry<String, CanalConfig.Instance> instanceEntry : instanceMap.entrySet()) {
+        for (Map.Entry<String, CanalConfigure.Instance> instanceEntry : instanceMap.entrySet()) {
             process(processInstanceEntry(instanceEntry), instanceEntry);
         }
 
@@ -66,19 +66,18 @@ public abstract class AbstractCanalClient implements CanalClient {
     /**
      * 初始化 canal 连接
      */
-    protected abstract void process(CanalConnector connector, Map.Entry<String, CanalConfig.Instance> config);
+    protected abstract void process(CanalConnector connector, Map.Entry<String, CanalConfigure.Instance> config);
 
     /**
      * 处理 canal 连接实例
      */
-    private CanalConnector processInstanceEntry(Map.Entry<String, CanalConfig.Instance> instanceEntry) {
+    private CanalConnector processInstanceEntry(Map.Entry<String, CanalConfigure.Instance> instanceEntry) {
         //获取配置
-        CanalConfig.Instance instance = instanceEntry.getValue();
+        CanalConfigure.Instance instance = instanceEntry.getValue();
         //声明连接
         CanalConnector connector;
         //是否是集群模式
         if (instance.isClusterEnabled()) {
-
             //zookeeper 连接集合
             List<SocketAddress> addresses = new ArrayList<>();
             for (String s : instance.getZookeeperAddress()) {
@@ -89,7 +88,6 @@ public abstract class AbstractCanalClient implements CanalClient {
                 //若符合设定规则，先加入集合
                 addresses.add(new InetSocketAddress(entry[0], Integer.parseInt(entry[1])));
             }
-
             //若集群的话，使用 newClusterConnector 方法初始化
             connector = CanalConnectors.newClusterConnector(addresses, instanceEntry.getKey(), instance.getUserName(), instance.getPassword());
         } else {
@@ -105,7 +103,6 @@ public abstract class AbstractCanalClient implements CanalClient {
             //canal 连接订阅，无过滤规则
             connector.subscribe();
         }
-
         //canal 连接反转
         connector.rollback();
         //返回 canal 连接
@@ -116,10 +113,10 @@ public abstract class AbstractCanalClient implements CanalClient {
     /**
      * 获取 canal 配置
      */
-    protected Map<String, CanalConfig.Instance> getConfig() {
+    protected Map<String, CanalConfigure.Instance> getConfig() {
         //canal 配置
-        CanalConfig config = canalConfig;
-        Map<String, CanalConfig.Instance> instanceMap;
+        CanalConfigure config = canalConfig;
+        Map<String, CanalConfigure.Instance> instanceMap;
         if (config != null && (instanceMap = config.getInstances()) != null && !instanceMap.isEmpty()) {
             //返回配置实例
             return config.getInstances();

@@ -12,7 +12,7 @@ import org.springyoung.canal.client.core.DealCanalEventListener;
  * 实现接口方式测试
  *
  */
-@Component
+/*@Component
 public class MyEventListenerimpl extends DealCanalEventListener {
 	
 	@Autowired
@@ -20,4 +20,4 @@ public class MyEventListenerimpl extends DealCanalEventListener {
 		super(insertOption, deleteOption, updateOption);
 	}
 	
-}
+}*/

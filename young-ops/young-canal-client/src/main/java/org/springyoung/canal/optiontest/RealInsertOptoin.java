@@ -27,7 +27,6 @@ public class RealInsertOptoin extends InsertOption {
         log.info("======================接口方式（新增数据操作）==========================");
         List<CanalEntry.RowData> rowDatasList = rowChange.getRowDatasList();
         for (CanalEntry.RowData rowData : rowDatasList) {
-
             String sql = "use " + schemaName + ";\n";
             StringBuffer colums = new StringBuffer();
             StringBuffer values = new StringBuffer();

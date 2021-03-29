@@ -17,7 +17,7 @@ import java.util.Set;
 @Order(Ordered.HIGHEST_PRECEDENCE)
 @ConfigurationProperties(prefix = "canal.client")
 @Primary
-public class CanalConfig {
+public class CanalConfigure {
 
     /**
      * 配置信息
@@ -59,12 +59,12 @@ public class CanalConfig {
         /**
          * canal 服务器地址，默认是本地的环回地址
          */
-        private String host = "127.1.1.1";
+        private String host;
 
         /**
-         * canal 服务设置的端口，默认 11111
+         * canal 服务设置的端口
          */
-        private int port = 11111;
+        private int port;
 
         /**
          * 集群 设置的用户名

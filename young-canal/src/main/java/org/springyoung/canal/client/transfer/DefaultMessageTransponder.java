@@ -8,7 +8,7 @@ import org.springyoung.canal.client.abstracts.AbstractBasicMessageTransponder;
 import org.springyoung.canal.client.core.CanalMsg;
 import org.springyoung.canal.client.core.ListenerPoint;
 import org.springyoung.canal.client.interfaces.CanalEventListener;
-import org.springyoung.canal.config.CanalConfig;
+import org.springyoung.canal.config.CanalConfigure;
 
 import java.lang.reflect.Method;
 import java.util.Arrays;
@@ -23,7 +23,7 @@ import java.util.function.Predicate;
 public class DefaultMessageTransponder extends AbstractBasicMessageTransponder {
 	
 	
-	public DefaultMessageTransponder(CanalConnector connector, Map.Entry<String, CanalConfig.Instance> config, List<CanalEventListener> listeners, List<ListenerPoint> annoListeners) {
+	public DefaultMessageTransponder(CanalConnector connector, Map.Entry<String, CanalConfigure.Instance> config, List<CanalEventListener> listeners, List<ListenerPoint> annoListeners) {
 		super(connector, config, listeners, annoListeners);
 	}
 	

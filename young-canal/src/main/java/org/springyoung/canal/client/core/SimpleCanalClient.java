@@ -7,7 +7,7 @@ import org.springframework.core.annotation.AnnotatedElementUtils;
 import org.springyoung.canal.annotation.ListenPoint;
 import org.springyoung.canal.client.abstracts.AbstractCanalClient;
 import org.springyoung.canal.client.interfaces.CanalEventListener;
-import org.springyoung.canal.config.CanalConfig;
+import org.springyoung.canal.config.CanalConfigure;
 import org.springyoung.core.tool.utils.SpringUtil;
 
 import java.lang.reflect.Method;
@@ -47,9 +47,9 @@ public class SimpleCanalClient extends AbstractCanalClient {
     /**
      * 构造方法，进行一些基本信息初始化
      */
-    public SimpleCanalClient(CanalConfig canalConfig) {
+    public SimpleCanalClient(CanalConfigure canalConfig) {
         super(canalConfig);
-        //这边上可能需要调整，紧跟德叔脚步走，默认核心线程数5个，最大线程数20个，线程两分钟分钟不执行就。。。
+        //默认核心线程数5个，最大线程数20个
         executor = new ThreadPoolExecutor(5, 20,
                 120L, TimeUnit.SECONDS,
                 new SynchronousQueue<>(), Executors.defaultThreadFactory());
@@ -58,7 +58,7 @@ public class SimpleCanalClient extends AbstractCanalClient {
     }
 
     @Override
-    protected void process(CanalConnector connector, Map.Entry<String, CanalConfig.Instance> config) {
+    protected void process(CanalConnector connector, Map.Entry<String, CanalConfigure.Instance> config) {
         executor.submit(factory.newTransponder(connector, config, listeners, annoListeners));
     }
 
@@ -81,13 +81,13 @@ public class SimpleCanalClient extends AbstractCanalClient {
         logger.info("{}: 监听器正在初始化....", Thread.currentThread().getName());
         //获取监听器
         List<CanalEventListener> list = SpringUtil.getBeansOfType(CanalEventListener.class);
-        //若没有任何监听的，我也不知道引入这个 jar 干什么，直接返回吧
+        //若没有任何监听，直接返回吧
         if (list != null) {
             //若存在目标监听，放入 listenerMap
             listeners.addAll(list);
         }
 
-        //若是你喜欢通过注解的方式去监听的话。。
+        //若是你喜欢通过注解的方式去监听
         Map<String, Object> listenerMap = SpringUtil.getBeansWithAnnotation(org.springyoung.canal.annotation.CanalEventListener.class);
         //也放入 map
         if (listenerMap != null) {
@@ -96,7 +96,7 @@ public class SimpleCanalClient extends AbstractCanalClient {
                 Method[] methods = target.getClass().getDeclaredMethods();
                 if (methods != null && methods.length > 0) {
                     for (Method method : methods) {
-                        //获取监听的节点,感谢 JKwangzhicheng 提出的 bug ，这边我查了一些资料，发现工具类用错了，AnnotatedElementUtils 支持子注解覆盖父注解的属性，而 AnnotationUtils 则不可以，大家今后可以通过不同的需求使用对应的工具类
+                        //获取监听的节点,AnnotatedElementUtils 支持子注解覆盖父注解的属性，而 AnnotationUtils 则不可以
                         ListenPoint l = AnnotatedElementUtils.findMergedAnnotation(method, ListenPoint.class);
                         if (l != null) {
                             annoListeners.add(new ListenerPoint(target, method, l));

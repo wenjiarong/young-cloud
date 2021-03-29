@@ -11,7 +11,7 @@ import org.springyoung.canal.client.core.CanalMsg;
 import org.springyoung.canal.client.core.ListenerPoint;
 import org.springyoung.canal.client.exception.CanalClientException;
 import org.springyoung.canal.client.interfaces.CanalEventListener;
-import org.springyoung.canal.config.CanalConfig;
+import org.springyoung.canal.config.CanalConfigure;
 
 import java.lang.reflect.Method;
 import java.util.Collections;
@@ -35,7 +35,7 @@ public abstract class AbstractBasicMessageTransponder extends AbstractMessageTra
 	 * @param listeners     实现接口层的 canal 监听器
 	 * @param annoListeners 通过注解方式的 canal 监听器
 	 */
-	public AbstractBasicMessageTransponder(CanalConnector connector, Map.Entry<String, CanalConfig.Instance> config, List<CanalEventListener> listeners, List<ListenerPoint> annoListeners) {
+	public AbstractBasicMessageTransponder(CanalConnector connector, Map.Entry<String, CanalConfigure.Instance> config, List<CanalEventListener> listeners, List<ListenerPoint> annoListeners) {
 		super(connector, config, listeners, annoListeners);
 	}
 	

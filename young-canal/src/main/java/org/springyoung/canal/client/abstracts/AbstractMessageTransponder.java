@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springyoung.canal.client.core.ListenerPoint;
 import org.springyoung.canal.client.interfaces.CanalEventListener;
 import org.springyoung.canal.client.interfaces.MessageTransponder;
-import org.springyoung.canal.config.CanalConfig;
+import org.springyoung.canal.config.CanalConfigure;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +25,7 @@ public abstract class AbstractMessageTransponder implements MessageTransponder {
 	/**
 	 * custom 连接配置
 	 */
-	protected final CanalConfig.Instance config;
+	protected final CanalConfigure.Instance config;
 	
 	/**
 	 * canal 服务指令
@@ -61,7 +61,7 @@ public abstract class AbstractMessageTransponder implements MessageTransponder {
 	 * @param listeners     实现接口层的 canal 监听器(表结构)
 	 * @param annoListeners 通过注解方式的 canal 监听器
 	 */
-	public AbstractMessageTransponder(CanalConnector connector, Map.Entry<String, CanalConfig.Instance> config, List<CanalEventListener> listeners, List<ListenerPoint> annoListeners) {
+	public AbstractMessageTransponder(CanalConnector connector, Map.Entry<String, CanalConfigure.Instance> config, List<CanalEventListener> listeners, List<ListenerPoint> annoListeners) {
 		//参数处理
 		Objects.requireNonNull(connector, "连接器不能为空!");
 		Objects.requireNonNull(config, "配置信息不能为空!");

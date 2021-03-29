@@ -2,8 +2,8 @@ server:
   port: 8800
 
 push:
-  appkey:
-  secret:
+  appkey: 727a9489e7dd3a65c791f746
+  secret: 471c954bfda9d8b20859a95a
 
 spring:
   application:

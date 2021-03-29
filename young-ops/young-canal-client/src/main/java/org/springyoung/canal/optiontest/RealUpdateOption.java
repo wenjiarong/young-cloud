@@ -25,7 +25,6 @@ public class RealUpdateOption extends UpdateOption {
     @Override
     public void doOption(String destination, String schemaName, String tableName, CanalEntry.RowChange rowChange) {
         log.info("======================接口方式（更新数据操作）==========================");
-
         List<CanalEntry.RowData> rowDatasList = rowChange.getRowDatasList();
         for (CanalEntry.RowData rowData : rowDatasList) {
             String sql = "use " + schemaName + ";\n";
@@ -39,10 +38,9 @@ public class RealUpdateOption extends UpdateOption {
                 }
             });
             sql += "UPDATE " + tableName + " SET " + updates.substring(0, updates.length() - 1) + " WHERE " + conditions;
-
             log.info(sql);
         }
         log.info("\n======================================================");
-
     }
+
 }
