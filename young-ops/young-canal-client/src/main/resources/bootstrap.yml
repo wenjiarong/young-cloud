@@ -11,7 +11,7 @@ canal:
         host: 127.0.0.1
         port: 11111
         retryCount: 20
-        # 只监听某个表
+        # 只允许监听的表
         filter: young_cloud.young_user
 
 spring:
