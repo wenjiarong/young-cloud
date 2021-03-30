@@ -50,7 +50,7 @@ public abstract class AbstractCanalClient implements CanalClient {
     }
 
     /**
-     * 别拦我，我想开启 canal 客户端
+     * 开启 canal 客户端
      */
     @Override
     public void start() {
