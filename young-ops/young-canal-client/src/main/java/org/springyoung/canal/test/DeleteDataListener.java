@@ -1,36 +1,34 @@
-package org.springyoung.canal.optiontest;
+package org.springyoung.canal.test;
 
 import com.alibaba.otter.canal.protocol.CanalEntry;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
-import org.springyoung.canal.client.abstracts.option.content.DeleteOption;
+import org.springyoung.canal.annotation.CanalEventListener;
+import org.springyoung.canal.annotation.content.DeleteListenPoint;
+import org.springyoung.canal.client.core.CanalMsg;
+import org.springyoung.canal.entity.UserCanal;
+import org.springyoung.canal.utils.RowDataMapUtil;
 
 import java.util.List;
 
 /**
- * 实现的删除处理机制
+ * @ClassName: DeleteDataListener
+ * @Author: 小温
+ * @Date: 2020/5/30 21:03
+ * @Version: 1.0
  */
-@Component
+@CanalEventListener
 @Slf4j
-public class RealDeleteOption extends DeleteOption {
+public class DeleteDataListener {
 
-    /**
-     * 删除操作操作
-     *
-     * @param destination 指令
-     * @param schemaName  实例名称
-     * @param tableName   表名称
-     * @param rowChange   数据
-     */
-    @Override
-    public void doOption(String destination, String schemaName, String tableName, CanalEntry.RowChange rowChange) {
-        log.info("======================接口方式（删除数据操作）==========================");
+    @DeleteListenPoint
+    public void onEventDeleteData(CanalEntry.RowChange rowChange, CanalMsg canalMsg) {
+        log.info("======================注解方式（删除数据操作）==========================");
         List<CanalEntry.RowData> rowDatasList = rowChange.getRowDatasList();
         for (CanalEntry.RowData rowData : rowDatasList) {
             if (!CollectionUtils.isEmpty(rowData.getBeforeColumnsList())) {
-                String sql = "use " + schemaName + ";\n";
-                sql += "DELETE FROM " + tableName + " WHERE ";
+                String sql = "use " + canalMsg.getSchemaName() + ";\n";
+                sql += "DELETE FROM " + canalMsg.getTableName() + " WHERE ";
                 StringBuffer idKey = new StringBuffer();
                 StringBuffer idValue = new StringBuffer();
                 for (CanalEntry.Column c : rowData.getBeforeColumnsList()) {
@@ -44,6 +42,8 @@ public class RealDeleteOption extends DeleteOption {
                 log.info(sql);
             }
             log.info("\n======================================================");
+            UserCanal user = RowDataMapUtil.delToMap(rowData, UserCanal.class);
+            log.info(user.toString());
         }
     }
 

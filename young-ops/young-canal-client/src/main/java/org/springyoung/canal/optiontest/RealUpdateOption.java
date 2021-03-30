@@ -8,7 +8,7 @@ import org.springyoung.canal.client.abstracts.option.content.UpdateOption;
 import java.util.List;
 
 /**
- * 需要自己实现的更新处理机制
+ * 实现的更新处理机制
  */
 @Component
 @Slf4j

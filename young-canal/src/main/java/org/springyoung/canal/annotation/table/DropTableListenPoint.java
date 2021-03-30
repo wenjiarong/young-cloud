@@ -7,7 +7,7 @@ import org.springyoung.canal.annotation.ListenPoint;
 import java.lang.annotation.*;
 
 /**
- * 刪除表操作監聽器
+ * 刪除表操作监听器
  *
  */
 

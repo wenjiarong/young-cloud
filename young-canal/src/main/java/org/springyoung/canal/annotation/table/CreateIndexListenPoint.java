@@ -7,7 +7,7 @@ import org.springyoung.canal.annotation.ListenPoint;
 import java.lang.annotation.*;
 
 /**
- * 創建索引操作
+ * 创建索引操作
  *
  */
 @Target({ElementType.METHOD})
